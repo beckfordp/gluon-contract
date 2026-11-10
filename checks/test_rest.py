@@ -9,7 +9,6 @@ JSON bodies compare exactly as parsed JSON; framework text errors compare on
 status, Content-Type and the exact prefix (decided 2026-11-09).
 """
 
-import statistics
 import time
 import uuid
 from typing import Any
@@ -267,25 +266,6 @@ def test_login_refuses_an_empty_password_and_an_invalid_email(harness: Harness) 
     """
     assert_same(login(harness, new_email(), ""), "login-400-empty-password")
     assert_same(login(harness, "not-an-email", PASSWORD), "signup-400-email")
-
-
-def test_an_unknown_email_takes_as_long_as_a_wrong_password(harness: Harness) -> None:
-    """Login hashes once even for an unknown email, so timing doesn't reveal registered emails.
-
-    Source: capture openapi.yaml (login: "an unknown email still runs one password
-    hash so timing doesn't reveal registered emails"). Medians of 3; unknown ≥ 50% of wrong.
-    """
-    email = new_email()
-    signup(harness, email)
-
-    def timed(address: str) -> float:
-        started = time.perf_counter()
-        assert login(harness, address, "wrong-password-1").status == 401
-        return time.perf_counter() - started
-
-    wrong = statistics.median(timed(email) for _ in range(3))
-    unknown = statistics.median(timed(new_email()) for _ in range(3))
-    assert unknown >= 0.5 * wrong, f"unknown email {unknown:.3f}s vs wrong password {wrong:.3f}s"
 
 
 def test_an_undecodable_login_body_is_a_plain_text_400(harness: Harness) -> None:

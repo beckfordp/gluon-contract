@@ -51,3 +51,4 @@ named here exists, and (with `--run`) passes against the Rust build.
 | Envelope `timestamp` resolution (microseconds, Java's clock) | Reproduced, but the contract is "ISO-8601 instant" |
 | The body and log line of a 500 when Postgres fails mid-request | Not captured: needs a laptop capture (RUST-5.0) before it can be a check |
 | Swagger UI's source maps and ES bundles (served by the webjar) | No page loads them; the Rust service serves the files the page needs |
+| Login with an unknown email still runs one password hash (against a dummy key), so it takes as long as a wrong password and timing doesn't reveal registered emails (capture `openapi.yaml`, login description) | Timing over HTTP is noise-bound: the check (median of 3, unknown ≥ 50% of wrong) flaked in cluster mode on the laptop, 2026-11-10, and was removed. Both implementations do it by construction (Scala `PasswordHasher`, Rust `hashing.rs` `dummy_key`); review those on any change to login |
