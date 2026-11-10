@@ -1,0 +1,3 @@
+Task 1.2 (portable-harness_20261110): scripts/lib/owner.sh.
+repo_owner (GNU stat -c, else BSD stat -f), owner_home (getent, else ~user, name-checked before eval), run_as_owner (return for the owner; root+runuser re-exec passing HOME/PATH/LANG/CONTRACT_* as whole words; else FAIL and exit 1). bash 3.2 compatible.
+Why: one portable owner check for the 7 verify scripts. Green: tests/unit/test_owner_sh.py 9 passed under /bin/bash 3.2.
