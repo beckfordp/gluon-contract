@@ -6,9 +6,6 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [x] **Track: RUST-5.0: the harness against the Scala service — fix the two expectations Scala doesn't meet**
-  *Link: [./tracks/scala-confirmation_20261110/](./tracks/scala-confirmation_20261110/)*
-
 
 ---
 
