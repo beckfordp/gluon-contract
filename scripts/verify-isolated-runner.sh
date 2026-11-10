@@ -229,7 +229,9 @@ else
   tail -8 <<< "$out" | sed 's/^/     /'
 fi
 expect "nothing left in its work root" "" "$(ls -A "$SCRATCH/failed")"
-left="$(pgrep -af -- "$SCRATCH/failed" || true)"
+# Not pgrep -a: it lists command lines on Linux but adds ancestors on macOS.
+# The text reaches awk through the environment, so awk's own line can't match.
+left="$(ps -A -o pid=,command= | TEXT="$SCRATCH/failed" awk 'index($0, ENVIRON["TEXT"])')"
 [ -z "$left" ] && ok "no process left" || bad "processes left: $(tr '\n' ';' <<< "$left")"
 
 echo "== 6. The checks/ entry point =="
