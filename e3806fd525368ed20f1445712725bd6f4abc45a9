@@ -1,0 +1,2 @@
+Task 2.2 (portable-harness_20261110): stand_in_target.started_with() keeps /proc/self/environ on Linux; with no /proc it reads sysctl KERN_PROCARGS2 via ctypes (argc, exec path, padding, args, env up to the first empty entry).
+Why: exact start-up env (no PEP 538 LC_CTYPE) on macOS. Green: test_started_with passes on macOS; remaining integration failures are all processes.py's /proc listing (Task 2.3).
