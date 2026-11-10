@@ -1,0 +1,2 @@
+Task 3.1 (portable-harness_20261110): sweep of scripts/, tests/, checks/, src/ for GNU/Linux-only use: sed -i, readlink -f/-e, date -d, timeout, xargs -r, grep -P, /proc, /sys, stat -c, getent, runuser, pgrep -a, ps -e/aux/-ef, ss, netstat, nproc, mktemp -p, sha256sum/md5sum, setsid, flock, find -printf, etc.
+Result: nothing further. Remaining hits are intentional (owner helper tests, comments, the Linux branch of started_with). Python shells out only to bash. No code change.
