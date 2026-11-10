@@ -13,7 +13,7 @@
 - [x] Task: failing test for `processes_mentioning()` parsing `ps -A -o pid=,command=` output (incl. its own pid excluded); implement `7da321f`
 - [x] Task: replace `pgrep -af` in `verify-isolated-runner.sh` with a portable form (`pgrep -f` for pids, `ps` for command lines) `8357026`
 - [x] Task: extend the verify script: section 2 runs the integration tests (0 failed) and `verify-isolated-runner.sh --skip-ci` (all ok) `9114ce2`
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Test doubles and process checks without /proc' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Test doubles and process checks without /proc' (Protocol in workflow.md)
 
 ## Phase 3: Sweep, CI on both OSes
 - [ ] Task: sweep `scripts/` and `tests/` for remaining GNU/Linux-only use (`sed -i`, `readlink -f`, `date -d`, `timeout`, `ps`/`pgrep` flags, `xargs -r`, `grep -P`, `/proc`, `/sys`); fix any, each with a test where testable
