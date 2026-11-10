@@ -23,7 +23,7 @@ The harness's tests and `scripts/verify-*.sh` were written in the sandbox (Ubunt
 ## Acceptance Criteria
 - On macOS (Homebrew uv + postgresql@16, no coreutils on the PATH): `scripts/ci.sh` green (0 failed) and `verify-isolated-runner.sh` passes all its checks.
 - Every `verify-*.sh` gets past its opening on macOS, then passes or fails only for reasons outside this track (e.g. a target not built, gluon-local not up).
-- GitHub Actions green on both ubuntu-latest and macos-latest.
+- The CI run is local, as in the sandbox: `scripts/verify-portable-harness.sh` (which runs `scripts/ci.sh`) green on the Mac. GitHub Actions is parked (see Out of Scope).
 - Still green in the sandbox (Ubuntu, including the root re-exec path).
 
 ## Out of Scope
@@ -31,3 +31,4 @@ The harness's tests and `scripts/verify-*.sh` were written in the sandbox (Ubunt
 - The cargo-audit findings in user-service-rs.
 - gshop's Node 26 vitest issue.
 - RUST-5.x laptop-pass work.
+- GitHub Actions green (parked 2026-11-10, never green since the import): Ubuntu has no `CONTRACT_PG_BIN`; 3 unit tests read gluon files (`../../infra`, `../../registry`) absent from a standalone checkout; macOS picks python.org Python (`__PYVENV_LAUNCHER__`, stand-in target never ready). The macOS matrix entry stays for when it's picked up.
