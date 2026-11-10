@@ -1,0 +1,2 @@
+Task 3.2 (portable-harness_20261110): .github/workflows/ci.yml matrix os [ubuntu-latest, macos-latest], fail-fast false; on macOS brew install postgresql@16 and export CONTRACT_PG_BIN. Ubuntu job unchanged.
+Why: keep macOS support from regressing. Checked: YAML parses; proven by the PR run (Task 3.4).
