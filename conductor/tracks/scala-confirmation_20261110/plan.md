@@ -7,8 +7,8 @@
 - [x] Task: docs.yaml Content-Type is `application/yaml` `6fa3fab`
   - [x] Red: confirm current check fails against Scala
   - [x] Green: expectation + docstring; PROVENANCE.md note; check passes against Scala
-- [ ] Task: `scripts/verify-scala-confirmation.sh`
-  - [ ] Script runs harness (probe ignored) against staged Scala, ok/FAIL per group, summary, non-zero on failure
-  - [ ] Failure path proven once on a broken copy
-- [ ] Task: `scripts/ci.sh` green (unit tests, lint, mypy)
+- [x] Task: `scripts/verify-scala-confirmation.sh` `97d32e1` — 119/119 green against Scala; failure path shown (charset expectation restored in a copy: exit 1, check named)
+  - [x] Script runs harness (probe ignored) against staged Scala, ok/FAIL per group, summary, non-zero on failure
+  - [x] Failure path proven once on a broken copy
+- [ ] Task: `scripts/ci.sh` green (unit tests, lint, mypy) — blocked on user-service-rs: `tests/integration/test_cluster_mode.py` runs the docs check against the Rust build, which still sends `; charset=UTF-8`
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
