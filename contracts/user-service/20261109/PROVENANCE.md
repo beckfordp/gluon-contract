@@ -25,3 +25,7 @@ node: v26.13.0
   (`docker compose down -v`), so every account, token and hash here is a
   throwaway from a database that no longer exists.
 - Captured at user-service commit `294dcf6`, clean working tree.
+- No GET headers for `/docs/docs.yaml`: `http/docs-yaml-headers.txt` is a
+  `curl -I` (HEAD → 405, kept for that check). The GET Content-Type,
+  `application/yaml` with no charset, was confirmed against the Scala service
+  in the RUST-5.0 run (2026-11-10, gluon-contract `scala-confirmation_20261110`).

@@ -4,9 +4,10 @@
 
 Reference: capture 20261109 (openapi.yaml, asyncapi.json, asyncapi-html/,
 http/docs*.txt, http/asyncapi*.txt), tapir SwaggerUI (1.11.x sources: the
-yaml endpoint's Content-Type, the redirect keeping the query), purekafka
-Docs.routes (/docs/asyncapi → 301), the swagger-ui 5.20.7 webjar the capture's
-page and initializer are byte-identical to.
+redirect keeping the query), purekafka Docs.routes (/docs/asyncapi → 301), the
+swagger-ui 5.20.7 webjar the capture's page and initializer are byte-identical
+to, the RUST-5.0 run against the Scala service (the yaml endpoint's
+Content-Type, which the capture lacks).
 """
 
 import json
@@ -112,15 +113,13 @@ def test_every_asset_the_page_loads_is_served(harness: Harness) -> None:
 
 
 def test_the_openapi_spec_is_the_scala_one(harness: Harness) -> None:
-    """GET /docs/docs.yaml: application/yaml; charset=UTF-8, parsed equal to the captured spec.
+    """GET /docs/docs.yaml: application/yaml (no charset), parsed equal to the captured spec.
 
-    Source: capture openapi.yaml; tapir SwaggerUI (yamlEndpoint: application/yaml, UTF-8).
+    Source: capture openapi.yaml; the Content-Type from the RUST-5.0 run against the Scala
+    service (2026-11-10), as the capture has no GET headers (PROVENANCE.md).
     """
     response = get(harness, "/docs/docs.yaml")
-    assert (response.status, response.header("Content-Type")) == (
-        200,
-        "application/yaml; charset=UTF-8",
-    )
+    assert (response.status, response.header("Content-Type")) == (200, "application/yaml")
     assert yaml.safe_load(response.text) == yaml.safe_load(capture_file("openapi.yaml").read_text())
 
 
