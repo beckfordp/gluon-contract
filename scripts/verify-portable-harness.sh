@@ -5,6 +5,8 @@
 #   1. The shared owner helper (scripts/lib/owner.sh): its tests pass, every
 #      verify script's opening runs on this OS, and none calls a GNU-only or
 #      Linux-only command for it directly
+#   2. The test doubles and process checks without /proc: the integration
+#      tests pass, and so does verify-isolated-runner.sh (--skip-ci)
 # Each result is printed as it is found; the exit status is 0 only if all pass.
 #
 #   scripts/verify-portable-harness.sh
@@ -57,6 +59,20 @@ if hits="$(grep -n -E 'stat -c|getent|/proc/' scripts/verify-*.sh | grep -v '^sc
   sed 's/^/     /' <<< "$hits"
 else
   ok "no verify script calls stat -c, getent or /proc directly"
+fi
+
+echo "== 2. Test doubles and process checks without /proc =="
+if out="$(uv run pytest -q -p no:cacheprovider --no-cov tests/integration 2>&1)"; then
+  ok "the integration tests pass: $(tail -1 <<< "$out")"
+else
+  bad "the integration tests fail:"
+  grep -E '^(FAILED|ERROR)|passed|failed' <<< "$out" | sed 's/^/     /' | tail -20
+fi
+if out="$(scripts/verify-isolated-runner.sh --skip-ci 2>&1)"; then
+  ok "verify-isolated-runner.sh --skip-ci: $(tail -1 <<< "$out")"
+else
+  bad "verify-isolated-runner.sh --skip-ci:"
+  grep -E '^FAIL' <<< "$out" | sed 's/^/     /'
 fi
 
 echo
