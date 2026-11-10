@@ -1,0 +1,4 @@
+Task: docs.yaml Content-Type is application/yaml (track scala-confirmation_20261110, RUST-5.0)
+Changes: checks/test_docs.py — test_the_openapi_spec_is_the_scala_one expects application/yaml (no charset); module and check docstrings source the RUST-5.0 run instead of a tapir source reading. contracts/user-service/20261109/PROVENANCE.md — note: no GET headers captured (docs-yaml-headers.txt is HEAD → 405), Content-Type confirmed in RUST-5.0.
+Why: RUST-5.0 run against Scala: GET /docs/docs.yaml answers application/yaml; the charset expectation was inferred, never captured.
+Verified: checks/test_docs.py 22/22 against staged Scala; ruff, mypy clean. Rust build fails this check until user-service-rs drops its charset (next track).
