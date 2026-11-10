@@ -1,0 +1,4 @@
+Task 2.1 (portable-harness_20261110): tests/integration/test_started_with.py.
+A process started with only {LANG=C, PLAIN, SPACED='a b', EMPTY=''} must get exactly that from stand_in_target.started_with() (Python adds LC_CTYPE to os.environ in the C locale, PEP 538).
+Spec FR2 + plan Phase 2 updated (user decision 2026-11-10): the sh wrapper can't be exact (sh adds PWD, SHLVL, _ - tested), so macOS reads the kernel's start-up copy (sysctl KERN_PROCARGS2) instead.
+Red: FileNotFoundError /proc/self/environ on macOS.
