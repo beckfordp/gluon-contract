@@ -27,16 +27,8 @@ for arg in "$@"; do
   esac
 done
 
-owner="$(stat -c %U "$REPO")"
-if [ "$(id -un)" != "$owner" ]; then
-  if [ "$(id -u)" = 0 ] && command -v runuser > /dev/null; then
-    echo "== re-running as $owner (the repo's owner) =="
-    exec runuser -u "$owner" -- env HOME="$(getent passwd "$owner" | cut -d: -f6)" PATH="$PATH" \
-      LANG=C.UTF-8 $(env | grep '^CONTRACT_' | tr '\n' ' ') bash "$SELF" "$GROUP" "$@"
-  fi
-  echo "FAIL run as $owner"
-  exit 1
-fi
+. "$(dirname "$SELF")/lib/owner.sh"
+run_as_owner "$PWD" "$SELF" "$GROUP" "$@"
 
 passed=0
 failed=0

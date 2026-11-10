@@ -9,7 +9,8 @@
 set -uo pipefail
 SELF="$(realpath "${BASH_SOURCE[0]}")"
 cd "$(dirname "$SELF")/.."
-home="${CONTRACT_CDC_HOME:-$(getent passwd "$(stat -c %U .)" | cut -d: -f6)/.local/cdc-kafka-3.8.0_debezium-3.0.0.Final}"
+. "$(dirname "$SELF")/lib/owner.sh"
+home="${CONTRACT_CDC_HOME:-$(owner_home "$(repo_owner .)")/.local/cdc-kafka-3.8.0_debezium-3.0.0.Final}"
 if [ -f "$home/COMPLETE" ]; then
   echo "ok   CDC jars in $home: $(cat "$home/COMPLETE")"
 else

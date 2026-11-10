@@ -25,16 +25,8 @@ SELF="$(realpath "${BASH_SOURCE[0]}")"
 cd "$(dirname "$SELF")/.."
 REPO="$PWD"
 
-owner="$(stat -c %U "$REPO")"
-if [ "$(id -un)" != "$owner" ]; then
-  if [ "$(id -u)" = 0 ] && command -v runuser > /dev/null; then
-    home="$(getent passwd "$owner" | cut -d: -f6)"
-    echo "== re-running as $owner (PostgreSQL won't run as root; repo files stay $owner's) =="
-    exec runuser -u "$owner" -- env HOME="$home" PATH="$PATH" LANG=C.UTF-8 bash "$SELF" "$@"
-  fi
-  echo "FAIL run as $owner, who owns $REPO"
-  exit 1
-fi
+. "$(dirname "$SELF")/lib/owner.sh"
+run_as_owner "$PWD" "$SELF" "$@"
 
 SKIP_CI=0
 [ "${1:-}" = "--skip-ci" ] && SKIP_CI=1

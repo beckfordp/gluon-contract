@@ -7,16 +7,8 @@
 set -uo pipefail
 SELF="$(realpath "${BASH_SOURCE[0]}")"
 cd "$(dirname "$SELF")/.."
-owner="$(stat -c %U .)"
-if [ "$(id -un)" != "$owner" ]; then
-  if [ "$(id -u)" = 0 ] && command -v runuser > /dev/null; then
-    echo "== re-running as $owner (the repo's owner) =="
-    exec runuser -u "$owner" -- env HOME="$(getent passwd "$owner" | cut -d: -f6)" PATH="$PATH" \
-      LANG=C.UTF-8 bash "$SELF" "$@"
-  fi
-  echo "FAIL run as $owner"
-  exit 1
-fi
+. "$(dirname "$SELF")/lib/owner.sh"
+run_as_owner "$PWD" "$SELF" "$@"
 passed=0
 failed=0
 ok() { echo "ok   $*"; passed=$((passed + 1)); }
