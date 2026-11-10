@@ -18,7 +18,9 @@ done
 failed=()
 for group in traces metrics logs config; do
   echo "######## checks/test_$group.py ########"
-  "$HERE/verify-check-group.sh" "checks/test_$group.py" "${skip[@]}" "${expect[@]}" || failed+=("$group")
+  # ${a[@]+"${a[@]}"}: bash 3.2 (macOS) calls an empty array unbound under set -u.
+  "$HERE/verify-check-group.sh" "checks/test_$group.py" ${skip[@]+"${skip[@]}"} \
+    ${expect[@]+"${expect[@]}"} || failed+=("$group")
   skip=(--skip-ci)
   echo
 done
