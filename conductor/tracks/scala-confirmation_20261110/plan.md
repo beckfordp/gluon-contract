@@ -12,3 +12,6 @@
   - [x] Failure path proven once on a broken copy
 - [x] Task: `scripts/ci.sh` green (unit tests, lint, mypy) — 161 passed, 92.7% coverage, once user-service-rs `4297774` dropped the charset (its `tests/integration/test_cluster_mode.py` runs the docs check against the Rust build); no code change
 - [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions 232307f
