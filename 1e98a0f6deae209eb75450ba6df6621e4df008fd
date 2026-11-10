@@ -1,0 +1,1 @@
+stop() raced: final SIGKILL sent, not delivered, so a group member could outlive stop() under load (macOS). Now polls killpg(group, 0) until empty, TargetError after 5s. Unit tests: tests/unit/test_target_stop.py (fake clock).
