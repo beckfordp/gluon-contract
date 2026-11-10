@@ -1,0 +1,2 @@
+Sweep follow-up (portable-harness_20261110, found running every verify script on macOS for Task 3.3): verify-telemetry-groups.sh expanded "${skip[@]}" "${expect[@]}" under set -u; bash 3.2 (macOS /bin/bash) calls an empty array unbound, so the script aborted at once without --expect-green. Now ${a[@]+"${a[@]}"}.
+Checked: no other unguarded expansion of a possibly-empty array in scripts/; verify-telemetry-groups.sh --skip-ci PASS (4 groups) on macOS.
