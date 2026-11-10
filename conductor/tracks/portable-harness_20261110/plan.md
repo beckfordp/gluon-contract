@@ -5,7 +5,7 @@
 - [x] Task: implement `scripts/lib/owner.sh`: `repo_owner <dir>`, `owner_home <user>`, `reexec_as_owner <dir> "$@"` (the `runuser` root path, unchanged in behaviour) `d4057ca`
 - [x] Task: switch the 7 scripts (check-group, cluster-mode, implicit-behaviours, isolated-runner, probe-group, probe-stubs, cdc-group) to the helper; `verify-cdc-group.sh:12` home lookup via `owner_home` `6722a73`
 - [x] Task: start `scripts/verify-portable-harness.sh`: section 1 checks each script's opening runs on this OS (no `stat`/`getent` errors) and that no script still calls `stat -c`/`getent` directly `95dbb36`
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Shared owner helper' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Shared owner helper' (Protocol in workflow.md)
 
 ## Phase 2: Test doubles and process checks without /proc
 - [ ] Task: failing test: `started_with()` reads the wrapper's dump; a launched stand-in reports exactly the env it was given, with no `LC_CTYPE` added (red on macOS today)
