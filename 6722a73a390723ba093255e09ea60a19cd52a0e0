@@ -1,0 +1,3 @@
+Task 1.3 (portable-harness_20261110): the 7 verify scripts (check-group, cluster-mode, implicit-behaviours, isolated-runner, probe-group, probe-stubs, cdc-group) source scripts/lib/owner.sh.
+6 replace their inline stat -c/getent/runuser block with run_as_owner "$PWD" "$SELF" ...; cdc-group finds the CDC jars via owner_home/repo_owner.
+Why: the inline block stopped every script at stat -c on macOS. Checked: bash -n clean; no stat -c/getent left in scripts/verify-*.sh; all 7 openings pass on macOS; cdc-group resolves ~/.local/cdc-kafka-... and finds COMPLETE.
