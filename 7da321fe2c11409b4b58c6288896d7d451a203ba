@@ -1,0 +1,2 @@
+Task 2.3 (portable-harness_20261110): tests/integration/processes.py lists processes with 'ps -A -o pid=,command=' (procps and BSD ps alike) instead of iterating /proc; tests/integration/test_processes.py pins it (a marked live process is found until killed; unmentioned text finds nothing).
+Why: the 'nothing left running' assertions crashed on macOS. Green: all tests/integration pass on macOS (45/46; the last, test_cluster_mode, needed the Rust service's AsyncAPI HTML rendered by services/user-service-rs/scripts/asyncapi-html.sh, then passed).
