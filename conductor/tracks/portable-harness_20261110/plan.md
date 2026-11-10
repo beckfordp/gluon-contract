@@ -21,3 +21,6 @@
 - [x] Task: extend the verify script: section 3 runs `scripts/ci.sh`, then every `verify-*.sh` past its opening, reporting each one's result `0ca3c29`
 - [x] Task: ~~push the branch, open a PR to main to trigger CI; confirm both jobs green~~ — GitHub CI parked (PR #1 red: see spec Out of Scope); the local run is the CI: `scripts/verify-portable-harness.sh` PASS, 23 checks
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Sweep, CI on both OSes' (Protocol in workflow.md)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions `6753b08`
