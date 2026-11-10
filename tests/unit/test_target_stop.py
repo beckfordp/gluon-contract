@@ -6,7 +6,7 @@ import os
 
 import pytest
 
-from gluon_contract.target import TargetError, group_alive, wait_for_group_exit
+from gluon_contract.target import TargetError, group_alive, only_zombies, wait_for_group_exit
 
 
 class FakeClock:
@@ -47,13 +47,47 @@ def test_an_empty_group_needs_no_wait() -> None:
 
 
 def test_a_member_outliving_the_deadline_is_a_target_error() -> None:
-    """stop() never returns with a member alive: past the deadline it says so."""
+    """stop() never returns with a member running: past the deadline it says so."""
     clock = FakeClock()
-    with pytest.raises(TargetError, match="process group 4242"):
+    with pytest.raises(TargetError, match=r"process group 4242 .*ps -A -o pid=,pgid=,command="):
         wait_for_group_exit(
-            4242, 1.0, alive=lambda _group: True, sleep=clock.sleep, clock=clock.monotonic
+            4242,
+            1.0,
+            alive=lambda _group: True,
+            stopped=lambda _group: False,
+            sleep=clock.sleep,
+            clock=clock.monotonic,
         )
     assert clock.now >= 1.0
+
+
+def test_members_left_only_as_zombies_pass_at_the_deadline() -> None:
+    """A zombie nobody reaps (a container's PID 1) has stopped: no error."""
+    clock = FakeClock()
+    wait_for_group_exit(
+        4242,
+        1.0,
+        alive=lambda _group: True,
+        stopped=lambda _group: True,
+        sleep=clock.sleep,
+        clock=clock.monotonic,
+    )
+    assert clock.now >= 1.0
+
+
+@pytest.mark.parametrize(
+    ("listing", "expected"),
+    [
+        ("", True),
+        ("    1 Ss\n 4242 Z\n 4242 Z+\n", True),
+        (" 4242 Z\n 4242 S\n", False),
+        (" 4242 R+\n", False),
+        (" 42421 S\n  424 R\n 4242 Z\n", True),
+    ],
+)
+def test_only_zombies_reads_the_states_of_the_groups_members(listing: str, expected: bool) -> None:
+    """`ps -A -o pgid=,stat=` lines: only the group's members count, and all must be Z."""
+    assert only_zombies(listing, 4242) is expected
 
 
 @pytest.mark.parametrize(

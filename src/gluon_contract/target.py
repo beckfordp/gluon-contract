@@ -41,9 +41,32 @@ def group_alive(group: int) -> bool:
         os.killpg(group, 0)
     except ProcessLookupError:
         return False
-    except PermissionError:
-        return True
+    except PermissionError:  # a member we may not signal is still a member
+        pass
     return True
+
+
+def only_zombies(listing: str, group: int) -> bool:
+    """Whether every member of `group` in a `ps -A -o pgid=,stat=` listing is a zombie.
+
+    A zombie still counts for killpg(group, 0) on Linux, but it has stopped: it
+    stays only until its new parent (PID 1) reaps it, which a container whose
+    PID 1 never reaps doesn't do.
+    """
+    states = [
+        stat
+        for pgid, _, stat in (line.strip().partition(" ") for line in listing.splitlines())
+        if pgid == str(group)
+    ]
+    return all(stat.strip().startswith("Z") for stat in states)
+
+
+def group_only_zombies(group: int) -> bool:
+    """Whether the members left in the process group, if any, have all stopped."""
+    listing = subprocess.run(
+        ["ps", "-A", "-o", "pgid=,stat="], capture_output=True, text=True, check=True
+    ).stdout
+    return only_zombies(listing, group)
 
 
 def wait_for_group_exit(
@@ -51,18 +74,26 @@ def wait_for_group_exit(
     timeout_s: float,
     *,
     alive: Callable[[int], bool] = group_alive,
+    stopped: Callable[[int], bool] = group_only_zombies,
     sleep: Callable[[float], None] = time.sleep,
     clock: Callable[[], float] = time.monotonic,
 ) -> None:
     """Waits until the process group is empty; SIGKILL is sent, not delivered.
 
+    Members left only as zombies at the deadline have stopped, so they pass.
+
     Raises:
-        TargetError: if a member is still alive after `timeout_s`.
+        TargetError: if a member is still running after `timeout_s`.
     """
     deadline = clock() + timeout_s
     while alive(group):
         if clock() >= deadline:
-            raise TargetError(f"process group {group} still has members after {timeout_s}s")
+            if stopped(group):
+                return
+            raise TargetError(
+                f"process group {group} still has members after {timeout_s}s (SIGKILL sent);"
+                f" find them with: ps -A -o pid=,pgid=,command= | awk '$2 == {group}'"
+            )
         sleep(POLL_INTERVAL_S)
 
 
