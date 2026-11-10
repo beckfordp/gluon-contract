@@ -1,0 +1,6 @@
+Phase 2 verification (portable-harness_20261110), macOS (Darwin 25.5, Homebrew uv + postgresql@16, no GNU coreutils on PATH):
+Automated: uv run ruff format --check && uv run ruff check && uv run mypy (54 files) && scripts/ci.sh -> 149 passed, coverage 92.70% (gate 80%). Was 16 failed before the track.
+Verification script: scripts/verify-portable-harness.sh -> PASS (11 checks): owner helper; 7 openings; no stat -c/getent//proc/; integration 46 passed; verify-isolated-runner.sh --skip-ci PASS (32 checks).
+Design change (user-approved): started_with() reads sysctl KERN_PROCARGS2 on macOS instead of an sh wrapper (sh adds PWD/SHLVL/_).
+Env prerequisite found: test_cluster_mode needs services/user-service-rs/scripts/asyncapi-html.sh run once (Rust AsyncAPI HTML in target/).
+Prompting off: verification by committed script.
