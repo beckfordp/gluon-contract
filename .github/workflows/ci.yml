@@ -10,9 +10,22 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # The laptop is macOS, the sandbox Ubuntu: the harness must run on both.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+
+      # The integration tests start throwaway PostgreSQL 16 servers. Homebrew's
+      # postgresql@16 is keg-only, so its binaries are named, not put on the PATH.
+      - name: PostgreSQL 16 (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install postgresql@16
+          echo "CONTRACT_PG_BIN=$(brew --prefix postgresql@16)/bin" >> "$GITHUB_ENV"
 
       # uv installs the Python pinned in .python-version and the dependencies
       # locked in uv.lock. Same uv as conductor/tech-stack.md.
