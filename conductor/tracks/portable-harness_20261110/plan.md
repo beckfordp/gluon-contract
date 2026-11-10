@@ -15,7 +15,7 @@
 - [x] Task: extend the verify script: section 2 runs the integration tests (0 failed) and `verify-isolated-runner.sh --skip-ci` (all ok) `9114ce2`
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Test doubles and process checks without /proc' (Protocol in workflow.md)
 
-## Phase 3: Sweep, CI on both OSes
+## Phase 3: Sweep, CI on both OSes [checkpoint: 638b043]
 - [x] Task: sweep `scripts/` and `tests/` for remaining GNU/Linux-only use (`sed -i`, `readlink -f`, `date -d`, `timeout`, `ps`/`pgrep` flags, `xargs -r`, `grep -P`, `/proc`, `/sys`); fix any, each with a test where testable — nothing further found
 - [x] Task: CI: add `macos-latest` to the matrix in `.github/workflows/ci.yml`; on macOS `brew install postgresql@16` and set `CONTRACT_PG_BIN` `fc27d85`
 - [x] Task: extend the verify script: section 3 runs `scripts/ci.sh`, then every `verify-*.sh` past its opening, reporting each one's result `0ca3c29`
