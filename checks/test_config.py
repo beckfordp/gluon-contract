@@ -28,6 +28,10 @@ from gluon_contract.target import TargetProcess
 
 type Db = psycopg.Connection[tuple[Any, ...]]
 
+# The JVM runtime instrumentations' scopes (capture metrics.txt): fixed names, not the
+# service's; the Rust build has none.
+JVM_RUNTIME_SCOPES = frozenset({"cats.effect.runtime", "io.opentelemetry.runtime-telemetry-java8"})
+
 
 @contextmanager
 def variant(harness: Harness, tmp_path: Path, **overrides: str) -> Iterator[TargetProcess]:
@@ -161,10 +165,12 @@ def test_the_event_source_stays_user_service(harness: Harness, tmp_path: Path, d
 
 
 def test_the_service_name_scopes_the_metrics(harness: Harness, tmp_path: Path) -> None:
-    """USER_SERVICE_NAME is the otel_scope_name of every service series.
+    """USER_SERVICE_NAME is the otel_scope_name of every service series (the JVM runtime
+    scopes aside).
 
     Source: purerest Metrics.oteljava (meterProvider.get(instrumentationName =
-    serviceName)); capture metrics.txt (otel_scope_name="user-service"). Implicit
+    serviceName)); capture metrics.txt (otel_scope_name="user-service", beside
+    "cats.effect.runtime" and "io.opentelemetry.runtime-telemetry-java8"). Implicit
     behaviour (RUST-1.9).
     """
     with variant(harness, tmp_path, USER_SERVICE_NAME="renamed-user-service") as process:
@@ -173,4 +179,4 @@ def test_the_service_name_scopes_the_metrics(harness: Harness, tmp_path: Path) -
         port = process.env["USER_SERVICE_METRICS_PORT"]
         scrape = request(f"http://127.0.0.1:{port}", "GET", "/metrics").text
     scopes = set(re.findall(r'otel_scope_name="([^"]*)"', scrape))
-    assert scopes == {"renamed-user-service"}, scopes
+    assert scopes - JVM_RUNTIME_SCOPES == {"renamed-user-service"}, scopes
