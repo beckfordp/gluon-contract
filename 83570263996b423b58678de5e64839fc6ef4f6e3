@@ -1,0 +1,2 @@
+Task 2.4 (portable-harness_20261110): verify-isolated-runner.sh section 5 lists leftover processes with 'ps -A -o pid=,command=' filtered by awk (text passed via ENVIRON so awk can't match itself) instead of 'pgrep -af' (-a = command lines on Linux, ancestors on macOS).
+Checked: bash -n; the filter finds a live process carrying the text (1) and none after it stops (0).
