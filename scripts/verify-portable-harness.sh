@@ -7,6 +7,10 @@
 #      Linux-only command for it directly
 #   2. The test doubles and process checks without /proc: the integration
 #      tests pass, and so does verify-isolated-runner.sh (--skip-ci)
+#   3. Everything else: scripts/ci.sh, then every other verify-*.sh. Needs
+#      cargo on the PATH, the CDC jars (gluon bin/sandbox-setup --only cdc),
+#      the Rust service's AsyncAPI HTML (its scripts/asyncapi-html.sh) and,
+#      for verify-cluster-mode.sh, PostgreSQL 16 binaries (CONTRACT_PG_BIN)
 # Each result is printed as it is found; the exit status is 0 only if all pass.
 #
 #   scripts/verify-portable-harness.sh
@@ -73,6 +77,42 @@ if out="$(scripts/verify-isolated-runner.sh --skip-ci 2>&1)"; then
 else
   bad "verify-isolated-runner.sh --skip-ci:"
   grep -E '^FAIL' <<< "$out" | sed 's/^/     /'
+fi
+
+echo "== 3. ci.sh and every verify script =="
+RUST="../../services/user-service-rs"
+missing=()
+command -v cargo > /dev/null || missing+=("cargo on the PATH")
+[ -f "${CONTRACT_CDC_HOME:-$(owner_home "$(repo_owner .)")/.local/cdc-kafka-3.8.0_debezium-3.0.0.Final}/COMPLETE" ] ||
+  missing+=("the CDC jars (gluon bin/sandbox-setup --only cdc)")
+[ -f "$RUST/target/asyncapi-docs/index.html" ] ||
+  missing+=("the Rust AsyncAPI HTML ($RUST/scripts/asyncapi-html.sh)")
+if [ "${#missing[@]}" != 0 ]; then
+  for m in "${missing[@]}"; do bad "prerequisite missing: $m"; done
+else
+  ok "prerequisites: cargo, the CDC jars, the Rust AsyncAPI HTML"
+  if out="$(scripts/ci.sh 2>&1)"; then
+    ok "scripts/ci.sh: $(grep -E 'passed' <<< "$out" | tail -1 | tr -d '=' | sed 's/^ *//')"
+  else
+    bad "scripts/ci.sh fails:"
+    grep -E '^(FAILED|ERROR)|passed|failed|Required' <<< "$out" | sed 's/^/     /' | tail -20
+  fi
+  # verify-check-group.sh is run by the per-group wrappers; this script and
+  # verify-isolated-runner.sh are covered above.
+  for script in scripts/verify-*.sh; do
+    case "$script" in
+      */verify-check-group.sh | */verify-portable-harness.sh | */verify-isolated-runner.sh) continue ;;
+      */verify-implicit-behaviours.sh | */verify-cluster-mode.sh) args=() ;;
+      *) args=(--skip-ci) ;;
+    esac
+    name="$(basename "$script" .sh)"
+    if out="$("$script" ${args[@]+"${args[@]}"} 2>&1)"; then
+      ok "$name: $(grep -E '^PASS' <<< "$out" | tail -1)"
+    else
+      bad "$name:"
+      grep -E '^FAIL' <<< "$out" | sed 's/^/     /' | tail -10
+    fi
+  done
 fi
 
 echo
