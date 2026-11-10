@@ -7,7 +7,7 @@
 - [x] Task: start `scripts/verify-portable-harness.sh`: section 1 checks each script's opening runs on this OS (no `stat`/`getent` errors) and that no script still calls `stat -c`/`getent` directly `95dbb36`
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Shared owner helper' (Protocol in workflow.md)
 
-## Phase 2: Test doubles and process checks without /proc
+## Phase 2: Test doubles and process checks without /proc [checkpoint: cb6d15b]
 - [x] Task: failing test: `started_with()` in a process started with a known environment (C locale) returns exactly it, with no `LC_CTYPE` added (red on macOS today) `c544854`
 - [x] Task: implement `started_with()`: `/proc/self/environ` on Linux, `sysctl` `KERN_PROCARGS2` (ctypes) where there is no `/proc` *(2026-11-10: replaces the `sh` wrapper, which adds PWD/SHLVL/_)* `e3806fd`
 - [x] Task: failing test for `processes_mentioning()` parsing `ps -A -o pid=,command=` output (incl. its own pid excluded); implement `7da321f`
