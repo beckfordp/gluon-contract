@@ -1,0 +1,1 @@
+Review fixes: stop() passes when only zombies remain at the deadline (Linux, non-reaping PID 1); TargetError says how to find the members; group_alive PermissionError branch tidied. Unit tests: 12 in test_target_stop.py. ci.sh 161 passed, 92.71%. Python.org-Python finding left parked (backlog); empty argv[0] edge left as is.
