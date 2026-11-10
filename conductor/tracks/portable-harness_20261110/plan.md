@@ -12,7 +12,7 @@
 - [x] Task: implement `started_with()`: `/proc/self/environ` on Linux, `sysctl` `KERN_PROCARGS2` (ctypes) where there is no `/proc` *(2026-11-10: replaces the `sh` wrapper, which adds PWD/SHLVL/_)* `e3806fd`
 - [x] Task: failing test for `processes_mentioning()` parsing `ps -A -o pid=,command=` output (incl. its own pid excluded); implement `7da321f`
 - [x] Task: replace `pgrep -af` in `verify-isolated-runner.sh` with a portable form (`pgrep -f` for pids, `ps` for command lines) `8357026`
-- [~] Task: extend the verify script: section 2 runs the integration tests (0 failed) and `verify-isolated-runner.sh --skip-ci` (all ok)
+- [x] Task: extend the verify script: section 2 runs the integration tests (0 failed) and `verify-isolated-runner.sh --skip-ci` (all ok) `9114ce2`
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Test doubles and process checks without /proc' (Protocol in workflow.md)
 
 ## Phase 3: Sweep, CI on both OSes
