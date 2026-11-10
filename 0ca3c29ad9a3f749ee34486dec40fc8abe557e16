@@ -1,0 +1,1 @@
+Section 3: prerequisites, ci.sh, every verify-*.sh. Full run on macOS: PASS 23 checks. Fixed along the way: bash 3.2 empty arrays (da71a89), stop() race (1e98a0f).
