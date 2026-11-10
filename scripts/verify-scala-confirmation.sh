@@ -50,7 +50,8 @@ echo "== 2. The staged Scala service =="
 if [ "$SKIP_STAGE" = 1 ]; then
   echo "skip --skip-stage given"
 else
-  [ -n "${GITHUB_TOKEN:-}" ] || GITHUB_TOKEN="$(gh auth token 2> /dev/null)" && export GITHUB_TOKEN
+  if [ -z "${GITHUB_TOKEN:-}" ]; then GITHUB_TOKEN="$(gh auth token 2> /dev/null)"; fi
+  export GITHUB_TOKEN
   if (cd "$SCALA_REPO" && sbt -batch stage < /dev/null) > "$SCRATCH/stage.log" 2>&1; then
     ok "sbt stage in $SCALA_REPO"
   else
