@@ -1,0 +1,4 @@
+Task: metrics scope check excludes JVM runtime scopes (track scala-confirmation_20261110, RUST-5.0)
+Changes: checks/test_config.py — JVM_RUNTIME_SCOPES constant; test_the_service_name_scopes_the_metrics asserts scopes minus runtime scopes == {renamed-user-service}; docstring sources the capture's runtime scopes.
+Why: RUST-5.0 run against Scala failed — Scala (and capture metrics.txt) also expose cats.effect.runtime and io.opentelemetry.runtime-telemetry-java8 scopes, fixed instrumentation names not set by USER_SERVICE_NAME.
+Verified: checks/test_config.py 10/10 against staged Scala; ruff, mypy clean.
