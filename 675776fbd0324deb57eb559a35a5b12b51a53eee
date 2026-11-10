@@ -1,0 +1,4 @@
+Phase 1 verification (track scala-confirmation_20261110, RUST-5.0)
+Automated: scripts/ci.sh — 161 passed, 92.71% coverage, ruff + mypy clean (green once user-service-rs 4297774 dropped the docs.yaml charset).
+Manual: scripts/verify-scala-confirmation.sh --skip-stage → PASS: CI ok; harness against the staged Scala service 119/119 across 9 groups (cdc 3, config 10, docs 22, logs 16, metrics 7, outbox 5, rest 42, schema 6, traces 8); both corrected checks green.
+User confirmed: yes (2026-11-10).
