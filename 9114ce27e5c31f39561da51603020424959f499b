@@ -1,0 +1,2 @@
+Task 2.5 (portable-harness_20261110): verify-portable-harness.sh section 2 runs tests/integration (0 failed) and verify-isolated-runner.sh --skip-ci (PASS).
+macOS: PASS, 11 checks; integration 46 passed; isolated runner 32 checks passed.
