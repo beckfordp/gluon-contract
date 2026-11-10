@@ -20,9 +20,11 @@ that first needs them, before any code depends on them.
   and CI never run contract checks. *(2026-11-09, RUST-1.2: deviation from
   RUST-1.1.)* `tests/integration/` starts local processes — throwaway
   Postgres, the OTLP stub, a stand-in target — so CI does too; still no
-  Docker and no cluster. GitHub's ubuntu runners ship PostgreSQL 16
-  (`CONTRACT_PG_BIN=/usr/lib/postgresql/16/bin`). A full run takes about
-  80 s.
+  Docker and no cluster. *(2026-11-10, portable-harness)* Runs on macOS and
+  Ubuntu; on macOS Homebrew `postgresql@16`
+  (`CONTRACT_PG_BIN=$(brew --prefix postgresql@16)/bin`). The CI run is local
+  (`scripts/verify-portable-harness.sh`, as in the sandbox); GitHub Actions is
+  parked (backlog). A full ci.sh run takes about 95 s.
 - pytest's own **pytester** (`-p pytester` in `addopts`) proves the `checks/`
   wiring with throwaway suites
 - **pytest-cov 7.1** — coverage on `src/gluon_contract`, gate 80%
