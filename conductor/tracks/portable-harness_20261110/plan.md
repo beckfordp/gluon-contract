@@ -20,4 +20,4 @@
 - [x] Task: CI: add `macos-latest` to the matrix in `.github/workflows/ci.yml`; on macOS `brew install postgresql@16` and set `CONTRACT_PG_BIN` `fc27d85`
 - [x] Task: extend the verify script: section 3 runs `scripts/ci.sh`, then every `verify-*.sh` past its opening, reporting each one's result `0ca3c29`
 - [x] Task: ~~push the branch, open a PR to main to trigger CI; confirm both jobs green~~ — GitHub CI parked (PR #1 red: see spec Out of Scope); the local run is the CI: `scripts/verify-portable-harness.sh` PASS, 23 checks
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Sweep, CI on both OSes' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Sweep, CI on both OSes' (Protocol in workflow.md)
