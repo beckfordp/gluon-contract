@@ -1,0 +1,7 @@
+HTTP/1.1 400 Bad Request
+Date: Mon, 09 Nov 2026 18:43:19 GMT
+Connection: keep-alive
+Content-Type: application/json
+Content-Length: 50
+
+{"error":"Password must be at least 8 characters"}

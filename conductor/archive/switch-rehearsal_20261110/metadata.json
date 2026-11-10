@@ -1,0 +1,8 @@
+{
+  "track_id": "switch-rehearsal_20261110",
+  "type": "feature",
+  "status": "completed",
+  "created_at": "2026-11-10T00:15:00Z",
+  "updated_at": "2026-11-10T00:25:00Z",
+  "description": "RUST-5.2 (rehearsal): the implementation switch's Debezium sequence"
+}

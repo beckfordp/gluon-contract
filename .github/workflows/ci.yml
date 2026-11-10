@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # uv installs the Python pinned in .python-version and the dependencies
+      # locked in uv.lock. Same uv as conductor/tech-stack.md.
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.10"
+          enable-cache: true
+
+      # The same script the sandbox runs, so the two can't drift.
+      - name: CI checks
+        run: scripts/ci.sh

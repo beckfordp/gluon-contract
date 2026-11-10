@@ -1,0 +1,281 @@
+openapi: 3.1.0
+info:
+  title: User Service
+  version: '1.0'
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - auth
+      summary: Sign up
+      description: Creates an account and returns its first access token (201). The
+        email is trimmed and lower-cased; an invalid email or a password under 8 characters
+        → 400, an already-registered email → 409. Writes the account, token and `UserRegistered`
+        outbox row in one transaction (event published asynchronously). Not idempotent
+        — a retry with the same email → 409.
+      operationId: postAuthSignup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+            example:
+              email: user@example.com
+              password: correct-horse-battery-staple
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignupResponse'
+              example:
+                userId: 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+                token: example-access-token-not-valid
+        '400':
+          description: Email is invalid.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/ErrorResponse'
+                - $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Enter a valid email address
+        '409':
+          description: Email is already registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: An account with this email already exists
+  /auth/login:
+    post:
+      tags:
+      - auth
+      summary: Log in
+      description: Checks email + password and returns a fresh access token and refresh
+        token (200). An invalid email or empty password → 400. An unknown email and
+        a wrong password both → 401 with the same body; an unknown email still runs
+        one password hash so timing doesn't reveal registered emails. Tokens are opaque;
+        only their SHA-256 hashes are stored.
+      operationId: postAuthLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: user@example.com
+              password: correct-horse-battery-staple
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              example:
+                userId: 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+                token: example-access-token-not-valid
+                refreshToken: example-refresh-token-not-valid
+        '400':
+          description: Email is invalid.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/ErrorResponse'
+                - $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Enter a valid email address
+        '401':
+          description: Unknown email or wrong password.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Email or password is incorrect
+  /users/{id}:
+    get:
+      tags:
+      - users
+      summary: Get a user
+      description: Returns the public identity (id, email, createdAt) for one account.
+        An unknown id returns 404; a malformed id returns 400. Unauthenticated local/demo
+        read.
+      operationId: getUsersId
+      parameters:
+      - name: id
+        in: path
+        description: User id (UUID). A malformed id returns 400.
+        required: true
+        schema:
+          type: string
+        example: 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              example:
+                userId: 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+                email: user@example.com
+                createdAt: '2026-10-28T12:00:00Z'
+        '404':
+          description: No account has this id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: User not found
+  /health:
+    get:
+      tags:
+      - health
+      summary: Liveness check
+      description: 200 while the process is up. Checks no dependencies.
+      operationId: getHealth
+      responses:
+        '200':
+          description: ''
+  /health/ready:
+    get:
+      tags:
+      - health
+      summary: Readiness check
+      description: 200 when Postgres answers a ping, 503 when it doesn't. Checks no
+        other dependency.
+      operationId: getHealthReady
+      responses:
+        '200':
+          description: ''
+        '503':
+          description: Postgres didn't answer a ping.
+components:
+  schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      description: Error body.
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          description: Human-readable reason.
+          examples:
+          - Enter a valid email address
+          type: string
+    LoginRequest:
+      title: LoginRequest
+      description: Credentials for an existing account.
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          description: Email address; trimmed and lower-cased before lookup.
+          examples:
+          - user@example.com
+          type: string
+        password:
+          description: Plaintext password; must be non-empty. Never stored or logged.
+          examples:
+          - correct-horse-battery-staple
+          type: string
+    LoginResponse:
+      title: LoginResponse
+      description: A successful login and a fresh token pair.
+      type: object
+      required:
+      - userId
+      - token
+      - refreshToken
+      properties:
+        userId:
+          description: User's id (UUID).
+          examples:
+          - 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+          type: string
+        token:
+          description: Opaque access token (1-hour TTL). Shown once; never log it.
+          examples:
+          - example-access-token-not-valid
+          type: string
+        refreshToken:
+          description: Opaque refresh token (30-day TTL). Only its hash is stored;
+            never log it.
+          examples:
+          - example-refresh-token-not-valid
+          type: string
+    SignupRequest:
+      title: SignupRequest
+      description: Credentials for a new account.
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          description: Email address; trimmed and lower-cased before storage.
+          examples:
+          - user@example.com
+          type: string
+        password:
+          description: Plaintext password, at least 8 characters. Never stored or
+            logged.
+          examples:
+          - correct-horse-battery-staple
+          type: string
+    SignupResponse:
+      title: SignupResponse
+      description: A new account and its first access token.
+      type: object
+      required:
+      - userId
+      - token
+      properties:
+        userId:
+          description: New user's id (UUID).
+          examples:
+          - 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+          type: string
+        token:
+          description: Opaque access token (1-hour TTL). Shown once; store it client-side,
+            never log it.
+          examples:
+          - example-access-token-not-valid
+          type: string
+    UserResponse:
+      title: UserResponse
+      description: Public identity for one account.
+      type: object
+      required:
+      - userId
+      - email
+      - createdAt
+      properties:
+        userId:
+          description: User id (UUID).
+          examples:
+          - 5b6c7d8e-9f0a-4b1c-8d2e-3f4a5b6c7d8e
+          type: string
+        email:
+          description: Normalized email address stored at signup.
+          examples:
+          - user@example.com
+          type: string
+        createdAt:
+          description: When the account was created (ISO-8601 instant).
+          examples:
+          - '2026-10-28T12:00:00Z'
+          type: string
+          format: date-time

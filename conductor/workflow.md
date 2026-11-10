@@ -1,0 +1,246 @@
+# Project Workflow
+
+## Guiding Principles
+
+1. **The Plan is the Source of Truth:** All work must be tracked in `plan.md`
+2. **The Tech Stack is Deliberate:** Changes to the tech stack must be documented in `tech-stack.md` *before* implementation
+3. **Test-Driven Development:** Write unit tests before implementing functionality
+4. **High Code Coverage:** Aim for >80% code coverage for all modules
+5. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
+6. **Confirm Before Modifying:** Any tool call that modifies files, git state, or external systems (Edit, Write, `git commit`, `git notes add`, etc.) must be presented for user confirmation before execution. Shell commands that only *read* system state (e.g. `git status`, `git log`, `ls`, `cat`, `uv run pytest`, `uv run mypy`, `grep`) do not require confirmation and may be executed directly.
+
+## Task Workflow
+
+All tasks follow a strict lifecycle:
+
+### Standard Task Workflow
+
+1. **Select Task:** Choose the next available task from `plan.md` in sequential order
+
+2. **Mark In Progress:** Before beginning work, edit `plan.md` and change the task from `[ ]` to `[~]`
+
+2a. **Plan Mode Review:** Enter plan mode and produce a detailed implementation plan for the task — covering file paths, approach, tests to write, and any risks. Present to user for review and editing. Only proceed to step 3 once user explicitly approves. Do not write any code before approval.
+
+3. **Write Failing Tests (Red Phase):**
+   - Create a new test file for the feature or bug fix.
+   - Write one or more unit tests that clearly define the expected behavior and acceptance criteria for the task.
+   - **CRITICAL:** Run the tests and confirm that they fail as expected. This is the "Red" phase of TDD. Do not proceed until you have failing tests.
+
+4. **Implement to Pass Tests (Green Phase):**
+   - Write the minimum amount of application code necessary to make the failing tests pass.
+   - Run the test suite again and confirm that all tests now pass. This is the "Green" phase.
+
+5. **Refactor (Optional but Recommended):**
+   - With the safety of passing tests, refactor the implementation code and the test code to improve clarity, remove duplication, and enhance performance without changing the external behavior.
+   - Rerun tests to ensure they still pass after refactoring.
+
+6. **Verify Coverage:** Run coverage reports using the project's chosen tools, e.g.:
+   ```bash
+   uv run pytest --cov
+   ```
+   Target: >80% coverage for new code.
+
+7. **Document Deviations:** If implementation differs from tech stack:
+   - **STOP** implementation
+   - Update `tech-stack.md` with new design
+   - Add dated note explaining the change
+   - Resume implementation
+
+8. **Commit Code Changes:**
+   - Stage all code changes related to the task.
+   - Propose a clear, concise commit message e.g, `feat(gluon-contract): Add the isolated-mode runner`.
+   - Present the diff and commit message for user confirmation before committing.
+
+9. **Attach Task Summary with Git Notes:**
+   - **Step 9.1: Get Commit Hash:** Obtain the hash of the *just-completed commit* (`git log -1 --format="%H"`).
+   - **Step 9.2: Draft Note Content:** Create a detailed summary for the completed task. This should include the task name, a summary of changes, a list of all created/modified files, and the core "why" for the change.
+   - **Step 9.3: Attach Note:** Use the `git notes` command to attach the summary to the commit.
+     ```bash
+     # The note content from the previous step is passed via the -m flag.
+     git notes add -m "<note content>" <commit_hash>
+     ```
+
+10. **Get and Record Task Commit SHA:**
+    - **Step 10.1: Update Plan:** Read `plan.md`, find the line for the completed task, update its status from `[~]` to `[x]`, and append the first 7 characters of the *just-completed commit's* commit hash.
+    - **Step 10.2: Write Plan:** Write the updated content back to `plan.md`.
+
+11. **Commit Plan Update:**
+    - **Action:** Stage the modified `plan.md` file.
+    - **Action:** Commit this change with a descriptive message (e.g., `conductor(plan): Mark task 'Add POST /orders endpoint' as complete`).
+
+### Phase Completion Verification and Checkpointing Protocol
+
+**Trigger:** This protocol is executed immediately after a task is completed that also concludes a phase in `plan.md`.
+
+1.  **Announce Protocol Start:** Inform the user that the phase is complete and the verification and checkpointing protocol has begun.
+
+2.  **Ensure Test Coverage for Phase Changes:**
+    -   **Step 2.1: Determine Phase Scope:** To identify the files changed in this phase, you must first find the starting point. Read `plan.md` to find the Git commit SHA of the *previous* phase's checkpoint. If no previous checkpoint exists, the scope is all changes since the first commit.
+    -   **Step 2.2: List Changed Files:** Execute `git diff --name-only <previous_checkpoint_sha> HEAD` to get a precise list of all files modified during this phase.
+    -   **Step 2.3: Verify and Create Tests:** For each file in the list:
+        -   **CRITICAL:** First, check its extension. Exclude non-code files (e.g., `.json`, `.md`, `.yaml`).
+        -   For each remaining code file, verify a corresponding test file exists.
+        -   If a test file is missing, you **must** create one. Before writing the test, **first, analyze other test files in the repository to determine the correct naming convention and testing style.** The new tests **must** validate the functionality described in this phase's tasks (`plan.md`).
+
+3.  **Execute Automated Tests with Proactive Debugging:**
+    -   Before execution, you **must** announce the exact shell command you will use to run the tests.
+    -   **Example Announcement:** "I will now run the automated test suite to verify the phase. **Command:** `uv run pytest`"
+    -   Execute the announced command.
+    -   If tests fail, you **must** inform the user and begin debugging. You may attempt to propose a fix a **maximum of two times**. If the tests still fail after your second proposed fix, you **must stop**, report the persistent failure, and ask the user for guidance.
+
+4.  **Propose a Detailed, Actionable Manual Verification Plan:**
+    -   **In this repo the plan is a script** *(2026-11-09, at the user's request)*: `scripts/verify-<track>.sh`, written with the track and extended each phase, in the style of gluon's other `verify-*.sh` scripts. It checks the user-facing goals from outside where it can (curl, psql, ps), prints each result as it finds it (`ok` / `FAIL`, section by section), carries on after a failure, and ends with a summary and a non-zero exit if anything failed. Its failure path is proven once by breaking an expectation in a copy. The user runs it instead of following manual steps; from the sandbox's root desktop terminal it re-runs itself as the repo's owner.
+    -   **CRITICAL:** To generate the plan, first analyze `product.md`, `product-guidelines.md`, and `plan.md` to determine the user-facing goals of the completed phase.
+    -   You **must** generate a step-by-step plan that walks the user through the verification process, including any necessary commands and specific, expected outcomes. For a backend change, e.g.:
+        ```
+        The automated tests have passed. For manual verification, please follow these steps:
+
+        **Manual Verification Steps:**
+        1.  **Build the reference image:** `(cd ../../services/user-service && sbt Docker/publishLocal)`
+        2.  **Run the REST checks against it:** `uv run pytest checks/test_rest.py --target scala`
+        3.  **Confirm that you see:** every check passing, and the run leaving no containers behind (`docker ps -a`).
+        ```
+
+5.  **Await Explicit User Feedback:**
+    -   After presenting the detailed plan, ask the user for confirmation: "**Does this meet your expectations? Please confirm with yes or provide feedback on what needs to be changed.**"
+    -   **PAUSE** and await the user's response. Do not proceed without an explicit yes or confirmation.
+
+6.  **Create Checkpoint Commit:**
+    -   Stage all changes. If no changes occurred in this step, proceed with an empty commit.
+    -   Perform the commit with a clear and concise message (e.g., `conductor(checkpoint): Checkpoint end of Phase X`).
+
+7.  **Attach Auditable Verification Report using Git Notes:**
+    -   **Step 7.1: Draft Note Content:** Create a detailed verification report including the automated test command, the manual verification steps, and the user's confirmation.
+    -   **Step 7.2: Attach Note:** Use the `git notes` command and the full commit hash from the previous step to attach the full report to the checkpoint commit.
+
+8.  **Get and Record Phase Checkpoint SHA:**
+    -   **Step 8.1: Get Commit Hash:** Obtain the hash of the *just-created checkpoint commit* (`git log -1 --format="%H"`).
+    -   **Step 8.2: Update Plan:** Read `plan.md`, find the heading for the completed phase, and append the first 7 characters of the commit hash in the format `[checkpoint: <sha>]`.
+    -   **Step 8.3: Write Plan:** Write the updated content back to `plan.md`.
+
+9. **Commit Plan Update:**
+    - **Action:** Stage the modified `plan.md` file.
+    - **Action:** Commit this change with a descriptive message following the format `conductor(plan): Mark phase '<PHASE NAME>' as complete`.
+
+10.  **Announce Completion:** Inform the user that the phase is complete and the checkpoint has been created, with the detailed verification report attached as a git note.
+
+### Quality Gates
+
+Before marking any task complete, verify:
+
+- [ ] All tests pass
+- [ ] Code coverage meets requirements (>80%)
+- [ ] Code follows project's code style guidelines (as defined in `code_styleguides/`)
+- [ ] All public modules, classes and functions have docstrings (Google style)
+- [ ] Type safety is enforced (`mypy --strict` clean; wire data narrowed to typed values at the boundary)
+- [ ] No linting or static analysis errors (`ruff format --check`, `ruff check`)
+- [ ] Documentation updated if needed
+- [ ] No security vulnerabilities introduced
+
+## Development Commands
+
+### Setup
+```bash
+uv sync            # installs the pinned Python and the locked dependencies
+```
+
+### Daily Development
+```bash
+uv run pytest          # unit tests (no Docker, no cluster)
+uv run ruff format     # format code
+uv run ruff check      # lint
+uv run mypy            # type check
+```
+
+### Before Committing
+```bash
+uv run ruff format --check && uv run ruff check && uv run mypy && uv run pytest
+```
+
+## Testing Requirements
+
+### Unit Testing
+- Every module must have corresponding tests.
+- Mock external dependencies (e.g. database access) at their boundary.
+- Test both success and failure cases. Unit tests never touch Docker, the network or the clock.
+
+### Integration Testing
+- The contract checks (`checks/`) are the integration tests: run them against the Scala reference image in isolated mode before judging any other implementation.
+- Verify each new check fails for the right reason (break the expectation once) before trusting a pass.
+
+## Code Review Process
+
+### Self-Review Checklist
+Before requesting review:
+
+1. **Functionality**
+   - Feature works as specified
+   - Edge cases handled
+   - Error responses are typed and mapped to correct HTTP status codes
+
+2. **Code Quality**
+   - Follows style guide
+   - DRY principle applied
+   - Clear variable/function names
+   - Appropriate comments (only where the "why" isn't obvious)
+
+3. **Testing**
+   - Unit tests comprehensive
+   - Integration tests pass
+   - Coverage adequate (>80%)
+
+4. **Security**
+   - No hardcoded secrets
+   - Input validation present
+   - SQL built only with parameters (psycopg), never string formatting
+
+5. **Performance**
+   - Database queries optimized
+   - Every wait has a deadline; runs clean up their containers
+
+## Commit Guidelines
+
+### Message Format
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation only
+- `style`: Formatting, missing semicolons, etc.
+- `refactor`: Code change that neither fixes a bug nor adds a feature
+- `test`: Adding missing tests
+- `chore`: Maintenance tasks
+
+### Examples
+```bash
+git commit -m "feat(gluon-contract): Add the REST check group"
+git commit -m "fix(gluon-contract): Poll for the outbox row instead of reading once"
+git commit -m "test(gluon-contract): Cover snapshot comparison of reordered keys"
+```
+
+## Definition of Done
+
+A task is complete when:
+
+1. All code implemented to specification
+2. Unit tests written and passing
+3. Code coverage meets project requirements
+4. Documentation complete (if applicable)
+5. Code passes ruff (format and lint) and `mypy --strict`
+6. Implementation notes added to `plan.md`
+7. Changes committed with proper message (after user confirmation)
+8. Git note with task summary attached to the commit
+
+## Continuous Improvement
+
+- Review workflow periodically
+- Update based on pain points
+- Document lessons learned
+- Keep things simple and maintainable

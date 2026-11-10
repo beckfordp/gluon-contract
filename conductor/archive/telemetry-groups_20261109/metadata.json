@@ -1,0 +1,8 @@
+{
+  "track_id": "telemetry-groups_20261109",
+  "type": "feature",
+  "status": "completed",
+  "created_at": "2026-11-09T22:20:00Z",
+  "updated_at": "2026-11-09T23:30:00Z",
+  "description": "RUST-1.7: Traces, metrics, logs and config groups"
+}

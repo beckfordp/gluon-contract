@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Mon, 09 Nov 2026 18:43:20 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: PATCH, PUT, GET, POST, DELETE
+Access-Control-Allow-Headers: Content-Type
+Vary: Access-Control-Request-Method, Access-Control-Request-Headers
+Content-Length: 0
+

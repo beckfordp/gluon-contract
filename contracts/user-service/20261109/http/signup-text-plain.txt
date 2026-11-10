@@ -1,0 +1,7 @@
+HTTP/1.1 201 Created
+Date: Mon, 09 Nov 2026 18:43:20 GMT
+Connection: keep-alive
+Content-Type: application/json
+Content-Length: 103
+
+{"userId":"aede44f8-1881-4fec-b665-d5638d990256","token":"EXAMPLE-access-token-text-plain-not-real-00"}

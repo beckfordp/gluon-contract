@@ -1,0 +1,46 @@
+                                                   Table "public.user_account"
+    Column     |           Type           | Collation | Nullable | Default | Storage  | Compression | Stats target | Description 
+---------------+--------------------------+-----------+----------+---------+----------+-------------+--------------+-------------
+ id            | uuid                     |           | not null |         | plain    |             |              | 
+ email         | text                     |           | not null |         | extended |             |              | 
+ password_hash | text                     |           | not null |         | extended |             |              | 
+ created_at    | timestamp with time zone |           | not null | now()   | plain    |             |              | 
+Indexes:
+    "user_account_pkey" PRIMARY KEY, btree (id)
+    "user_account_email_key" UNIQUE CONSTRAINT, btree (email)
+Referenced by:
+    TABLE "auth_tokens" CONSTRAINT "auth_tokens_user_id_fkey" FOREIGN KEY (user_id) REFERENCES user_account(id) ON DELETE CASCADE
+Access method: heap
+
+                                                  Table "public.auth_tokens"
+   Column   |           Type           | Collation | Nullable | Default | Storage  | Compression | Stats target | Description 
+------------+--------------------------+-----------+----------+---------+----------+-------------+--------------+-------------
+ id         | uuid                     |           | not null |         | plain    |             |              | 
+ user_id    | uuid                     |           | not null |         | plain    |             |              | 
+ token_hash | text                     |           | not null |         | extended |             |              | 
+ kind       | text                     |           | not null |         | extended |             |              | 
+ expires_at | timestamp with time zone |           | not null |         | plain    |             |              | 
+ created_at | timestamp with time zone |           | not null | now()   | plain    |             |              | 
+Indexes:
+    "auth_tokens_pkey" PRIMARY KEY, btree (id)
+    "auth_tokens_token_hash_key" UNIQUE CONSTRAINT, btree (token_hash)
+    "auth_tokens_user_id_idx" btree (user_id)
+Check constraints:
+    "auth_tokens_kind_check" CHECK (kind = ANY (ARRAY['access'::text, 'refresh'::text]))
+Foreign-key constraints:
+    "auth_tokens_user_id_fkey" FOREIGN KEY (user_id) REFERENCES user_account(id) ON DELETE CASCADE
+Access method: heap
+
+                                                   Table "public.outbox_events"
+     Column     |           Type           | Collation | Nullable | Default | Storage  | Compression | Stats target | Description 
+----------------+--------------------------+-----------+----------+---------+----------+-------------+--------------+-------------
+ id             | uuid                     |           | not null |         | plain    |             |              | 
+ aggregate_id   | text                     |           | not null |         | extended |             |              | 
+ payload        | jsonb                    |           | not null |         | extended |             |              | 
+ trace_parent   | text                     |           |          |         | extended |             |              | 
+ correlation_id | text                     |           | not null |         | extended |             |              | 
+ created_at     | timestamp with time zone |           | not null | now()   | plain    |             |              | 
+Indexes:
+    "outbox_events_pkey" PRIMARY KEY, btree (id)
+Access method: heap
+
