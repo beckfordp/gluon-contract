@@ -8,8 +8,8 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Shared owner helper' (Protocol in workflow.md)
 
 ## Phase 2: Test doubles and process checks without /proc
-- [ ] Task: failing test: `started_with()` reads the wrapper's dump; a launched stand-in reports exactly the env it was given, with no `LC_CTYPE` added (red on macOS today)
-- [ ] Task: implement `tests/integration/stand_in_target.sh` (`env -0 > "$STAND_IN_ENV_FILE"; exec python …`), point the integration fixtures at it, and make `started_with()` read the file
+- [~] Task: failing test: `started_with()` in a process started with a known environment (C locale) returns exactly it, with no `LC_CTYPE` added (red on macOS today)
+- [ ] Task: implement `started_with()`: `/proc/self/environ` on Linux, `sysctl` `KERN_PROCARGS2` (ctypes) where there is no `/proc` *(2026-11-10: replaces the `sh` wrapper, which adds PWD/SHLVL/_)*
 - [ ] Task: failing test for `processes_mentioning()` parsing `ps -A -o pid=,command=` output (incl. its own pid excluded); implement
 - [ ] Task: replace `pgrep -af` in `verify-isolated-runner.sh` with a portable form (`pgrep -f` for pids, `ps` for command lines)
 - [ ] Task: extend the verify script: section 2 runs the integration tests (0 failed) and `verify-isolated-runner.sh --skip-ci` (all ok)

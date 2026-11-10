@@ -9,7 +9,7 @@ The harness's tests and `scripts/verify-*.sh` were written in the sandbox (Ubunt
    - owner's home: `getent passwd`, else the shell's `~owner`
    - root re-exec via `runuser` kept (Linux sandbox only, still guarded by `command -v runuser`)
    - `verify-cdc-group.sh:12` (`getent` called unconditionally) uses it too
-2. **Exact env capture without /proc:** the stand-in target is launched through a small `sh` wrapper that writes `env -0` to a file, then `exec`s Python; `stand_in_target.started_with()` reads that file. This keeps the existing guarantee: no `LC_CTYPE` added by Python (PEP 538).
+2. **Exact env capture without /proc:** `stand_in_target.started_with()` keeps `/proc/self/environ` on Linux and, where there is no `/proc` (macOS), reads the same start-up copy from the kernel (`sysctl` `KERN_PROCARGS2`, via ctypes). This keeps the existing guarantee: no `LC_CTYPE` added by Python (PEP 538). *(2026-11-10: replaces the planned `sh` wrapper, which can't be exact: the shell itself adds `PWD`, `SHLVL` and `_`.)*
 3. **Process listing without /proc:** `tests/integration/processes.py` uses `ps -A -o pid=,command=` (works with both procps and BSD ps).
 4. **`pgrep -af`** in `verify-isolated-runner.sh` replaced with a form that means the same on both (`-a` means "show the command line" on Linux but "include ancestors" on macOS).
 5. **CI:** add `macos-latest` beside `ubuntu-latest` in `.github/workflows/ci.yml`; the macOS job installs `postgresql@16` from Homebrew and sets `CONTRACT_PG_BIN`.
