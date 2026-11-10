@@ -1,0 +1,5 @@
+Phase 1 verification (portable-harness_20261110), macOS (Darwin 25.5, bash 3.2, Homebrew uv 0.13.7 + postgresql@16, no GNU coreutils on PATH):
+Automated: uv run ruff format --check && uv run ruff check && uv run mypy && uv run pytest tests/unit -> clean; 103 passed.
+Verification script: scripts/verify-portable-harness.sh -> PASS (9 checks): owner helper tests pass; all 7 verify-script openings run; no stat -c/getent//proc/ in verify scripts. Failure path proven with a broken copy (FAIL 1 of 9).
+Prompting off (.claude/prompt-off): verification by committed script, no interactive walkthrough.
+Known, out of phase: 16 tests/integration failures from /proc (Phase 2 scope); test_cluster_mode needs the Rust AsyncAPI HTML built.
