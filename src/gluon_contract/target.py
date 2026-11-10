@@ -23,6 +23,8 @@ from typing import Self
 POLL_INTERVAL_S = 0.1
 """How often readiness is polled; the deadline, not this, bounds the wait."""
 LOG_TAIL_LINES = 20
+GROUP_EXIT_S = 5.0
+"""How long stop() waits, after the final SIGKILL, for the group's members to die."""
 
 
 class TargetError(Exception):
@@ -31,6 +33,37 @@ class TargetError(Exception):
 
 class LogTimeoutError(AssertionError):
     """An expected log line didn't appear in time: a contract failure, not a harness error."""
+
+
+def group_alive(group: int) -> bool:
+    """Whether any member of the process group is left: signal 0 asks without signalling."""
+    try:
+        os.killpg(group, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
+def wait_for_group_exit(
+    group: int,
+    timeout_s: float,
+    *,
+    alive: Callable[[int], bool] = group_alive,
+    sleep: Callable[[float], None] = time.sleep,
+    clock: Callable[[], float] = time.monotonic,
+) -> None:
+    """Waits until the process group is empty; SIGKILL is sent, not delivered.
+
+    Raises:
+        TargetError: if a member is still alive after `timeout_s`.
+    """
+    deadline = clock() + timeout_s
+    while alive(group):
+        if clock() >= deadline:
+            raise TargetError(f"process group {group} still has members after {timeout_s}s")
+        sleep(POLL_INTERVAL_S)
 
 
 class TargetProcess:
@@ -151,6 +184,7 @@ class TargetProcess:
                 self._process.wait()
         # Children that outlived the leader (or ignored SIGTERM) go too.
         self._signal_group(group, signal.SIGKILL)
+        wait_for_group_exit(group, GROUP_EXIT_S)
 
     def log_lines(self) -> list[str]:
         """Everything the process has written so far, line by line."""
