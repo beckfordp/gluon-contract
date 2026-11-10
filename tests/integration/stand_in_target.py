@@ -20,6 +20,7 @@ Flags for the runner's failure paths:
 """
 
 import argparse
+import ctypes
 import json
 import os
 import signal
@@ -43,10 +44,41 @@ def started_with() -> dict[str, str]:
     """The environment exactly as the process was started with it.
 
     Not os.environ: Python adds LC_CTYPE itself when no locale is set (PEP 538).
+    The kernel's copy, made at exec, is read instead: /proc/self/environ on
+    Linux, sysctl KERN_PROCARGS2 where there is no /proc (macOS).
     """
-    raw = Path("/proc/self/environ").read_bytes()
-    pairs = (entry.split(b"=", 1) for entry in raw.split(b"\0") if entry)
+    proc = Path("/proc/self/environ")
+    entries = proc.read_bytes().split(b"\0") if proc.exists() else _procargs_environ()
+    pairs = (entry.split(b"=", 1) for entry in entries if entry)
     return {key.decode(): value.decode() for key, value in pairs}
+
+
+def _procargs_environ() -> list[bytes]:
+    """This process's start-up environment entries, from sysctl KERN_PROCARGS2 (macOS).
+
+    The buffer holds argc (a C int), the exec path, NUL padding, the argc
+    arguments, then the environment, ended by an empty entry (Apple's own
+    entries follow it).
+    """
+    ctl_kern, kern_argmax, kern_procargs2 = 1, 8, 49
+    libc = ctypes.CDLL(None, use_errno=True)
+
+    def sysctl(mib: tuple[int, ...], size: int) -> bytes:
+        names = (ctypes.c_int * len(mib))(*mib)
+        buffer = ctypes.create_string_buffer(size)
+        length = ctypes.c_size_t(size)
+        if libc.sysctl(names, len(mib), buffer, ctypes.byref(length), None, 0) != 0:
+            raise OSError(ctypes.get_errno(), f"sysctl {mib}")
+        return buffer.raw[: length.value]
+
+    argmax = int.from_bytes(
+        sysctl((ctl_kern, kern_argmax), ctypes.sizeof(ctypes.c_int)), sys.byteorder
+    )
+    raw = sysctl((ctl_kern, kern_procargs2, os.getpid()), argmax)
+    argc = int.from_bytes(raw[: ctypes.sizeof(ctypes.c_int)], sys.byteorder)
+    _exec_path, _, rest = raw[ctypes.sizeof(ctypes.c_int) :].partition(b"\0")
+    entries = rest.lstrip(b"\0").split(b"\0")[argc:]
+    return entries[: entries.index(b"")] if b"" in entries else entries
 
 
 def postgres_accepts() -> bool:
