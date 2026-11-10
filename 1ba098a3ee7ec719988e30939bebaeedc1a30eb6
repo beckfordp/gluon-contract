@@ -1,0 +1,3 @@
+Task 1.1 (portable-harness_20261110): failing tests for scripts/lib/owner.sh.
+Added tests/unit/test_owner_sh.py (9 tests): repo_owner via GNU stat -c / BSD stat -f fallback; owner_home via getent / ~user fallback, rejecting unsafe names; run_as_owner carrying on for the owner and stopping anyone else.
+Why: 7 verify scripts copy a Linux-only owner check (stat -c, getent) that stops them on macOS; the shared helper replaces it. Red: all 9 fail (helper not yet written).
