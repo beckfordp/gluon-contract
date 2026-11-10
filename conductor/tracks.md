@@ -6,13 +6,8 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-
-
-
-
-
-
-
+- [ ] **Track: Portable harness — tests and verify scripts run on macOS and Linux (Ubuntu)**
+  *Link: [./tracks/portable-harness_20261110/](./tracks/portable-harness_20261110/)*
 
 ---
 

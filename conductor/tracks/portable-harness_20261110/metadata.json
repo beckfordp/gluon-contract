@@ -1,0 +1,8 @@
+{
+  "track_id": "portable-harness_20261110",
+  "type": "chore",
+  "status": "new",
+  "created_at": "2026-11-10T10:49:05Z",
+  "updated_at": "2026-11-10T10:49:05Z",
+  "description": "Portable harness tests and verify scripts: make tests/contract's integration tests and scripts/verify-*.sh run on both macOS and Linux (Ubuntu)"
+}
