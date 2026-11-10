@@ -17,7 +17,7 @@
 
 ## Phase 3: Sweep, CI on both OSes
 - [x] Task: sweep `scripts/` and `tests/` for remaining GNU/Linux-only use (`sed -i`, `readlink -f`, `date -d`, `timeout`, `ps`/`pgrep` flags, `xargs -r`, `grep -P`, `/proc`, `/sys`); fix any, each with a test where testable — nothing further found
-- [~] Task: CI: add `macos-latest` to the matrix in `.github/workflows/ci.yml`; on macOS `brew install postgresql@16` and set `CONTRACT_PG_BIN`
-- [ ] Task: extend the verify script: section 3 runs `scripts/ci.sh`, then every `verify-*.sh` past its opening, reporting each one's result
+- [x] Task: CI: add `macos-latest` to the matrix in `.github/workflows/ci.yml`; on macOS `brew install postgresql@16` and set `CONTRACT_PG_BIN` `fc27d85`
+- [~] Task: extend the verify script: section 3 runs `scripts/ci.sh`, then every `verify-*.sh` past its opening, reporting each one's result
 - [ ] Task: push the branch, open a PR to main to trigger CI; confirm both jobs green
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Sweep, CI on both OSes' (Protocol in workflow.md)
