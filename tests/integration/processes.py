@@ -2,19 +2,21 @@
 
 """Process inspection for integration tests."""
 
-from pathlib import Path
+import subprocess
 
 
 def processes_mentioning(text: str) -> list[int]:
-    """PIDs whose command line contains `text` (to prove nothing was left running)."""
+    """PIDs whose command line contains `text` (to prove nothing was left running).
+
+    From `ps -A -o pid=,command=`, which procps (Linux) and BSD ps (macOS) both
+    answer the same way: one process per line, its pid then its command line.
+    """
+    listing = subprocess.run(
+        ["ps", "-A", "-o", "pid=,command="], capture_output=True, text=True, check=True
+    ).stdout
     pids = []
-    for proc in Path("/proc").iterdir():
-        if not proc.name.isdigit():
-            continue
-        try:
-            cmdline = (proc / "cmdline").read_bytes().replace(b"\0", b" ").decode(errors="replace")
-        except OSError:
-            continue
-        if text in cmdline:
-            pids.append(int(proc.name))
+    for line in listing.splitlines():
+        pid, _, command = line.strip().partition(" ")
+        if text in command:
+            pids.append(int(pid))
     return pids
