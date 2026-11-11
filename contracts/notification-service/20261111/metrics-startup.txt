@@ -1,0 +1,547 @@
+# HELP cats_effect_runtime_cpu_starvation_clock_drift_current_milliseconds The current CPU drift in milliseconds.
+# TYPE cats_effect_runtime_cpu_starvation_clock_drift_current_milliseconds gauge
+cats_effect_runtime_cpu_starvation_clock_drift_current_milliseconds{otel_scope_name="cats.effect.runtime"} 0.0
+# HELP cats_effect_runtime_cpu_starvation_clock_drift_max_milliseconds The max CPU drift in milliseconds.
+# TYPE cats_effect_runtime_cpu_starvation_clock_drift_max_milliseconds gauge
+cats_effect_runtime_cpu_starvation_clock_drift_max_milliseconds{otel_scope_name="cats.effect.runtime"} 0.0
+# HELP cats_effect_runtime_cpu_starvation_count_total The number of CPU starvation events.
+# TYPE cats_effect_runtime_cpu_starvation_count_total counter
+cats_effect_runtime_cpu_starvation_count_total{otel_scope_name="cats.effect.runtime"} 0.0
+# HELP cats_effect_runtime_wstp_compute_fiber_enqueued_count The total number of fibers enqueued on all local queues.
+# TYPE cats_effect_runtime_wstp_compute_fiber_enqueued_count gauge
+cats_effect_runtime_wstp_compute_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 0.0
+# HELP cats_effect_runtime_wstp_compute_fiber_suspended_count The number of fibers which are currently asynchronously suspended.
+# TYPE cats_effect_runtime_wstp_compute_fiber_suspended_count gauge
+cats_effect_runtime_wstp_compute_fiber_suspended_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 173.0
+# HELP cats_effect_runtime_wstp_compute_thread_active_count The number of active worker thread instances currently executing fibers on the compute thread pool.
+# TYPE cats_effect_runtime_wstp_compute_thread_active_count gauge
+cats_effect_runtime_wstp_compute_thread_active_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 1.0
+# HELP cats_effect_runtime_wstp_compute_thread_blocked_count The number of worker thread instances that can run blocking actions on the compute thread pool.
+# TYPE cats_effect_runtime_wstp_compute_thread_blocked_count gauge
+cats_effect_runtime_wstp_compute_thread_blocked_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 1.0
+# HELP cats_effect_runtime_wstp_compute_thread_count The number of worker thread instances backing the work-stealing thread pool (WSTP).
+# TYPE cats_effect_runtime_wstp_compute_thread_count gauge
+cats_effect_runtime_wstp_compute_thread_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 10.0
+# HELP cats_effect_runtime_wstp_compute_thread_searching_count The number of worker thread instances currently searching for fibers to steal from other worker threads.
+# TYPE cats_effect_runtime_wstp_compute_thread_searching_count gauge
+cats_effect_runtime_wstp_compute_thread_searching_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 0.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_count_total The total number of fibers enqueued during the lifetime of the local queue.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 65.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 179.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 97.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 256.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 80.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 104.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 221.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 92.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 195.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 99.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count The current number of enqueued fibers.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count gauge
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total The total number of fibers spilt over to the external queue.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total The total number of successful steal attempts by other worker threads.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 15.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 21.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 23.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 11.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 12.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 20.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 14.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 15.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 13.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 8.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total The total number of stolen fibers by other worker threads.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 15.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 21.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 25.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 14.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 13.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 20.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 17.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 15.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 13.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 9.0
+# HELP cats_effect_runtime_wstp_worker_poller_operation_count_total The total number of the operations per category and outcome.
+# TYPE cats_effect_runtime_wstp_worker_poller_operation_count_total counter
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="8"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_poller_operation_outstanding_count The current number of outstanding operations per category.
+# TYPE cats_effect_runtime_wstp_worker_poller_operation_outstanding_count gauge
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="8"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_thread_event_count_total The total number of events that happened to this WorkerThread.
+# TYPE cats_effect_runtime_wstp_worker_thread_event_count_total counter
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="0"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="1"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="3"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="0"} 39.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="1"} 31.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="2"} 66.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="3"} 27.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="4"} 36.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="5"} 49.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="6"} 35.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="7"} 40.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="8"} 41.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="9"} 42.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="0"} 41.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="1"} 35.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="2"} 244.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="3"} 32.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="4"} 38.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="5"} 52.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="6"} 39.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="7"} 42.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="8"} 45.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="9"} 45.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="3"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total The total amount of time in nanoseconds that this WorkerThread has been idle.
+# TYPE cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total counter
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 3.529252877E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 3.498053371E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 3.56945542E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 2.919913874E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 3.452941627E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 3.594478209E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 3.537108583E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 3.480932876E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 3.428500792E9
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 3.522555789E9
+# HELP cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds Returns the time in nanoseconds till the next due to fire.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds gauge
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 5.99665925E10
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 4.9362208E7
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 3.033404375E9
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 4.873775E7
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_timerheap_outstanding_count The current number of the outstanding timers, that remain to be executed.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_outstanding_count gauge
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 1.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 3.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_timerheap_packed_count_total The total number of times the heap packed itself to remove canceled timers.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_packed_count_total counter
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 4.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 3.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 5.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 4.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 3.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 3.0
+# HELP cats_effect_runtime_wstp_worker_timerheap_timer_count_total The total number of the timers per state.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_timer_count_total counter
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="5"} 1.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="0"} 11.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="1"} 15.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="2"} 63.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="3"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="4"} 11.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="5"} 41.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="6"} 11.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="7"} 13.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="8"} 12.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="9"} 7.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="0"} 8.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="1"} 11.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="2"} 39.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="3"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="4"} 11.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="5"} 26.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="6"} 8.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="7"} 9.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="8"} 12.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="9"} 7.0
+# TYPE db_client_connection_count gauge
+db_client_connection_count{db_client_connection_pool_name="notification",db_client_connection_state="used",otel_scope_name="notification-service"} 0.0
+# TYPE db_client_connection_pending_requests gauge
+db_client_connection_pending_requests{db_client_connection_pool_name="notification",otel_scope_name="notification-service"} 0.0
+# TYPE db_client_connection_wait_time_seconds histogram
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.005"} 0
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.01"} 0
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.025"} 0
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.05"} 0
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.075"} 0
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.1"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.15"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.2"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.25"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.3"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.4"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.5"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.6"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.75"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="1.0"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="1.25"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="1.5"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="2.0"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="2.5"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="3.0"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="4.0"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="5.0"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="7.5"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="10.0"} 1
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="+Inf"} 1
+db_client_connection_wait_time_seconds_count{db_client_connection_pool_name="notification",otel_scope_name="notification-service"} 1
+db_client_connection_wait_time_seconds_sum{db_client_connection_pool_name="notification",otel_scope_name="notification-service"} 0.090000666
+# TYPE http_server_request_duration_seconds histogram
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.025"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.05"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.075"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.1"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.15"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service"} 0.15701175
+# HELP jvm_class_count Number of classes currently loaded.
+# TYPE jvm_class_count gauge
+jvm_class_count{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 16968.0
+# HELP jvm_class_loaded_total Number of classes loaded since JVM start.
+# TYPE jvm_class_loaded_total counter
+jvm_class_loaded_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 16968.0
+# HELP jvm_class_unloaded_total Number of classes unloaded since JVM start.
+# TYPE jvm_class_unloaded_total counter
+jvm_class_unloaded_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.0
+# HELP jvm_cpu_count Number of processors available to the Java virtual machine.
+# TYPE jvm_cpu_count gauge
+jvm_cpu_count{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 10.0
+# HELP jvm_cpu_recent_utilization Recent CPU utilization for the process as reported by the JVM.
+# TYPE jvm_cpu_recent_utilization gauge
+jvm_cpu_recent_utilization{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.0
+# HELP jvm_cpu_time_seconds_total CPU time used by the process as reported by the JVM.
+# TYPE jvm_cpu_time_seconds_total counter
+jvm_cpu_time_seconds_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 7.309343
+# HELP jvm_gc_duration_seconds Duration of JVM garbage collection actions.
+# TYPE jvm_gc_duration_seconds histogram
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.01"} 2
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.1"} 2
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="1.0"} 2
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="10.0"} 2
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="+Inf"} 2
+jvm_gc_duration_seconds_count{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2
+jvm_gc_duration_seconds_sum{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.003
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.01"} 8
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.1"} 8
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="1.0"} 8
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="10.0"} 8
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="+Inf"} 8
+jvm_gc_duration_seconds_count{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8
+jvm_gc_duration_seconds_sum{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.039
+# HELP jvm_memory_committed_bytes Measure of memory committed.
+# TYPE jvm_memory_committed_bytes gauge
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2555904.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2555904.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8716288.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.2976128E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.71966464E8
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.2582912E8
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8388608.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="Metaspace",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 9.9483648E7
+# HELP jvm_memory_limit_bytes Measure of max obtainable memory.
+# TYPE jvm_memory_limit_bytes gauge
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5849088.0
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.22912768E8
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.22912768E8
+jvm_memory_limit_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.073741824E9
+jvm_memory_limit_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8.589934592E9
+# HELP jvm_memory_used_after_last_gc_bytes Measure of memory used, as measured after the most recent garbage collection event on this pool.
+# TYPE jvm_memory_used_after_last_gc_bytes gauge
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.0
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.5718392E7
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5247552.0
+# HELP jvm_memory_used_bytes Measure of memory used.
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1799360.0
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2337472.0
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8666176.0
+jvm_memory_used_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.2655816E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.6777216E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2.1969496E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5247552.0
+jvm_memory_used_bytes{jvm_memory_pool_name="Metaspace",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 9.8785352E7
+# HELP jvm_thread_count Number of executing platform threads.
+# TYPE jvm_thread_count gauge
+jvm_thread_count{jvm_thread_daemon="false",jvm_thread_state="waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="runnable",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 17.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="timed_waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 7.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 11.0
+# TYPE target_info gauge
+target_info{service_name="unknown_service:java",telemetry_sdk_language="java",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="1.66.0"} 1

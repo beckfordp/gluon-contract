@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Date: Wed, 11 Nov 2026 11:21:50 GMT
+Connection: keep-alive
+Content-Type: application/json
+Content-Length: 612
+
+[{"id":"f4d69436-721a-40aa-833b-edb631026c35","sourceEventId":"e0000000-0000-4000-8000-000000000050","eventType":"OrderConfirmed","reason":null,"recipientType":"customer","recipientKey":"33333333-3333-4333-8333-333333333333","recipientEmail":null,"customerId":"33333333-3333-4333-8333-333333333333","orderId":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa","subject":"Your order is confirmed","body":"Good news - order aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa is confirmed.","status":"failed","createdAt":"2026-11-11T11:21:33.857235Z","sentAt":null,"failedAt":"2026-11-11T11:21:36.144438Z","error":"Circuit breaker is open"}]

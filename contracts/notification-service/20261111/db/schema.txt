@@ -1,0 +1,29 @@
+                                                     Table "public.sent_email"
+     Column      |           Type           | Collation | Nullable | Default | Storage  | Compression | Stats target | Description 
+-----------------+--------------------------+-----------+----------+---------+----------+-------------+--------------+-------------
+ id              | uuid                     |           | not null |         | plain    |             |              | 
+ source_event_id | text                     |           | not null |         | extended |             |              | 
+ event_type      | text                     |           | not null |         | extended |             |              | 
+ reason          | text                     |           |          |         | extended |             |              | 
+ recipient_type  | text                     |           | not null |         | extended |             |              | 
+ recipient_key   | text                     |           | not null |         | extended |             |              | 
+ customer_id     | text                     |           |          |         | extended |             |              | 
+ order_id        | text                     |           |          |         | extended |             |              | 
+ subject         | text                     |           | not null |         | extended |             |              | 
+ body            | text                     |           | not null |         | extended |             |              | 
+ status          | text                     |           | not null |         | extended |             |              | 
+ created_at      | timestamp with time zone |           | not null | now()   | plain    |             |              | 
+ sent_at         | timestamp with time zone |           |          |         | plain    |             |              | 
+ failed_at       | timestamp with time zone |           |          |         | plain    |             |              | 
+ error           | text                     |           |          |         | extended |             |              | 
+ recipient_email | text                     |           |          |         | extended |             |              | 
+Indexes:
+    "sent_email_pkey" PRIMARY KEY, btree (id)
+    "sent_email_customer_id_created_at_idx" btree (customer_id, created_at DESC)
+    "sent_email_order_id_created_at_idx" btree (order_id, created_at DESC)
+    "sent_email_source_event_id_key" UNIQUE CONSTRAINT, btree (source_event_id)
+Check constraints:
+    "sent_email_recipient_type_check" CHECK (recipient_type = ANY (ARRAY['customer'::text, 'email'::text, 'order'::text]))
+    "sent_email_status_check" CHECK (status = ANY (ARRAY['pending'::text, 'sent'::text, 'failed'::text, 'unresolved'::text]))
+Access method: heap
+

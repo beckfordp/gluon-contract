@@ -1,0 +1,1 @@
+CreateTime:1794396075691	NO_HEADERS	aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa	{"eventId":"e0000000-0000-4000-8000-000000000042","eventType":"DispatchConfirmed","timestamp":"2026-11-10T12:00:00Z","source":"capture","correlationId":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa","payload":{"orderId":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa","trackingNo":"TRK-1"}}

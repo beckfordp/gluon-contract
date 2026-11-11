@@ -1,0 +1,145 @@
+openapi: 3.1.0
+info:
+  title: Notification Service
+  version: '1.0'
+paths:
+  /health:
+    get:
+      tags:
+      - health
+      summary: Liveness check
+      description: 200 while the process is up. Checks no dependencies.
+      operationId: getHealth
+      responses:
+        '200':
+          description: ''
+  /health/ready:
+    get:
+      tags:
+      - health
+      summary: Readiness check
+      description: 200 when the sent-email audit store (Postgres) is reachable, 503
+        otherwise. Kafka consumers are supervised with restart-with-backoff, so they
+        do not gate readiness.
+      operationId: getHealthReady
+      responses:
+        '200':
+          description: ''
+        '503':
+          description: Postgres is unreachable.
+  /emails:
+    get:
+      tags:
+      - emails
+      summary: List sent emails
+      description: The email audit history, newest first. Both filters are optional
+        and combined with AND.
+      operationId: getEmails
+      parameters:
+      - name: customerId
+        in: query
+        description: Only emails attributed to this customer id.
+        required: false
+        schema:
+          type: string
+      - name: orderId
+        in: query
+        description: Only emails for this order id.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SentEmailResponse'
+              example:
+              - id: 5c8d2e1f-3a4b-4c6d-9e7f-0a1b2c3d4e5f
+                sourceEventId: 9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d
+                eventType: OrderConfirmed
+                recipientType: customer
+                recipientKey: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+                recipientEmail: ada@example.com
+                customerId: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+                orderId: 3f2b8c1e-5d4a-4e7b-9c6f-1a2b3c4d5e6f
+                subject: Your order is confirmed
+                body: Good news - order 3f2b8c1e-5d4a-4e7b-9c6f-1a2b3c4d5e6f is confirmed.
+                status: sent
+                createdAt: '2026-11-02T10:15:30Z'
+                sentAt: '2026-11-02T10:15:31Z'
+components:
+  schemas:
+    SentEmailResponse:
+      title: SentEmailResponse
+      description: One recorded email send attempt.
+      type: object
+      required:
+      - id
+      - sourceEventId
+      - eventType
+      - recipientType
+      - recipientKey
+      - subject
+      - body
+      - status
+      - createdAt
+      properties:
+        id:
+          description: Audit row id (UUID).
+          type: string
+        sourceEventId:
+          description: Envelope eventId that triggered the email; the idempotency
+            key.
+          type: string
+        eventType:
+          description: Event type, e.g. OrderConfirmed or PaymentCaptured.
+          type: string
+        reason:
+          description: Cancellation or failure reason carried by the event, if any.
+          type: string
+        recipientType:
+          description: 'Recipient discriminator: customer, email or order.'
+          type: string
+        recipientKey:
+          description: 'Event identity: customerId, email address or orderId. Provenance,
+            not necessarily the destination.'
+          type: string
+        recipientEmail:
+          description: Resolved destination email address, when known (ADM-3). Null
+            for unresolved or legacy rows.
+          type: string
+        customerId:
+          description: Customer the email is attributed to, when known.
+          type: string
+        orderId:
+          description: Order the email concerns, when the event carries one.
+          type: string
+        subject:
+          description: Email subject.
+          type: string
+        body:
+          description: Email body.
+          type: string
+        status:
+          description: 'Send state: pending, sent, failed (retryable) or unresolved
+            (no address found - terminal).'
+          type: string
+        createdAt:
+          description: When the send was attempted.
+          type: string
+          format: date-time
+        sentAt:
+          description: When the send succeeded, if it did.
+          type: string
+          format: date-time
+        failedAt:
+          description: When the send failed, if it did.
+          type: string
+          format: date-time
+        error:
+          description: Failure detail, if the send failed.
+          type: string

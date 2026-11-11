@@ -1,0 +1,6 @@
+HTTP/1.1 301 Moved Permanently
+Date: Wed, 11 Nov 2026 11:21:32 GMT
+Connection: keep-alive
+Content-Length: 0
+Location: /docs/asyncapi/
+

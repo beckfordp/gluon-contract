@@ -1,0 +1,2 @@
+{"installed_rank":1,"version":"1","description":"create sent email","type":"SQL","script":"V1__create_sent_email.sql","checksum":1225795898,"installed_by":"notification","installed_on":"2026-11-11T11:18:27.712934","execution_time":14,"success":true}
+{"installed_rank":2,"version":"2","description":"add recipient email","type":"SQL","script":"V2__add_recipient_email.sql","checksum":1277943058,"installed_by":"notification","installed_on":"2026-11-11T11:18:27.743566","execution_time":5,"success":true}

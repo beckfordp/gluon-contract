@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Date: Wed, 11 Nov 2026 11:21:32 GMT
+Connection: keep-alive
+Content-Type: application/json
+Content-Length: 552
+
+[{"id":"9c93049a-f9af-4a14-bf6d-438951a0a7db","sourceEventId":"e0000000-0000-4000-8000-000000000020","eventType":"OrderConfirmed","reason":null,"recipientType":"customer","recipientKey":"not-a-uuid","recipientEmail":"guest@example.com","customerId":"not-a-uuid","orderId":"bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb","subject":"Your order is confirmed","body":"Good news - order bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb is confirmed.","status":"sent","createdAt":"2026-11-11T11:21:02.237808Z","sentAt":"2026-11-11T11:21:02.254755Z","failedAt":null,"error":null}]

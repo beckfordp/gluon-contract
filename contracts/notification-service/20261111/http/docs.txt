@@ -1,0 +1,6 @@
+HTTP/1.1 308 Permanent Redirect
+Date: Wed, 11 Nov 2026 11:21:32 GMT
+Connection: keep-alive
+Location: ./docs/
+Content-Length: 0
+

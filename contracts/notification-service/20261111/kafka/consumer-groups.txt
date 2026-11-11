@@ -1,0 +1,17 @@
+
+Consumer group 'console-consumer-15947' has no active members.
+
+Consumer group 'console-consumer-57650' has no active members.
+
+Consumer group 'console-consumer-73354' has no active members.
+
+Consumer group 'console-consumer-74247' has no active members.
+
+GROUP                                  TOPIC             PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                                            HOST            CLIENT-ID
+notification-service-fulfilment-events fulfilment-events 0          4               4               0               consumer-notification-service-fulfilment-events-3-e0aae6b2-7118-4ba2-b74a-9a4221ea0e34 /192.0.2.1  consumer-notification-service-fulfilment-events-3
+GROUP                             TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                                       HOST            CLIENT-ID
+notification-service-order-events order-events    0          14              14              0               consumer-notification-service-order-events-1-dd0ea731-c78a-4b33-8fdf-c8aec5b245d4 /192.0.2.1  consumer-notification-service-order-events-1
+GROUP                               TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                                         HOST            CLIENT-ID
+notification-service-payment-events payment-events  0          5               5               0               consumer-notification-service-payment-events-4-b516c7f6-3119-4835-8b11-b1eb60b98770 /192.0.2.1  consumer-notification-service-payment-events-4
+GROUP                            TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                                      HOST            CLIENT-ID
+notification-service-user-events user-events     0          6               6               0               consumer-notification-service-user-events-2-76e4e867-9229-4c38-a3c9-b9bc3468aadc /192.0.2.1  consumer-notification-service-user-events-2

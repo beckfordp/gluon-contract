@@ -1,0 +1,1170 @@
+# HELP cats_effect_runtime_cpu_starvation_clock_drift_current_milliseconds The current CPU drift in milliseconds.
+# TYPE cats_effect_runtime_cpu_starvation_clock_drift_current_milliseconds gauge
+cats_effect_runtime_cpu_starvation_clock_drift_current_milliseconds{otel_scope_name="cats.effect.runtime"} 0.0
+# HELP cats_effect_runtime_cpu_starvation_clock_drift_max_milliseconds The max CPU drift in milliseconds.
+# TYPE cats_effect_runtime_cpu_starvation_clock_drift_max_milliseconds gauge
+cats_effect_runtime_cpu_starvation_clock_drift_max_milliseconds{otel_scope_name="cats.effect.runtime"} 5.0
+# HELP cats_effect_runtime_cpu_starvation_count_total The number of CPU starvation events.
+# TYPE cats_effect_runtime_cpu_starvation_count_total counter
+cats_effect_runtime_cpu_starvation_count_total{otel_scope_name="cats.effect.runtime"} 0.0
+# HELP cats_effect_runtime_wstp_compute_fiber_enqueued_count The total number of fibers enqueued on all local queues.
+# TYPE cats_effect_runtime_wstp_compute_fiber_enqueued_count gauge
+cats_effect_runtime_wstp_compute_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 0.0
+# HELP cats_effect_runtime_wstp_compute_fiber_suspended_count The number of fibers which are currently asynchronously suspended.
+# TYPE cats_effect_runtime_wstp_compute_fiber_suspended_count gauge
+cats_effect_runtime_wstp_compute_fiber_suspended_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 262.0
+# HELP cats_effect_runtime_wstp_compute_thread_active_count The number of active worker thread instances currently executing fibers on the compute thread pool.
+# TYPE cats_effect_runtime_wstp_compute_thread_active_count gauge
+cats_effect_runtime_wstp_compute_thread_active_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 2.0
+# HELP cats_effect_runtime_wstp_compute_thread_blocked_count The number of worker thread instances that can run blocking actions on the compute thread pool.
+# TYPE cats_effect_runtime_wstp_compute_thread_blocked_count gauge
+cats_effect_runtime_wstp_compute_thread_blocked_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 1.0
+# HELP cats_effect_runtime_wstp_compute_thread_count The number of worker thread instances backing the work-stealing thread pool (WSTP).
+# TYPE cats_effect_runtime_wstp_compute_thread_count gauge
+cats_effect_runtime_wstp_compute_thread_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 10.0
+# HELP cats_effect_runtime_wstp_compute_thread_searching_count The number of worker thread instances currently searching for fibers to steal from other worker threads.
+# TYPE cats_effect_runtime_wstp_compute_thread_searching_count gauge
+cats_effect_runtime_wstp_compute_thread_searching_count{otel_scope_name="cats.effect.runtime",pool_id="0"} 0.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_count_total The total number of fibers enqueued during the lifetime of the local queue.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 3193.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 3431.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 4224.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 3183.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 3206.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 3046.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 3246.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 3381.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 5232.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 3767.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count The current number of enqueued fibers.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count gauge
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_enqueued_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total The total number of fibers spilt over to the external queue.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_spillover_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total The total number of successful steal attempts by other worker threads.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 364.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 389.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 448.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 364.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 420.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 383.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 445.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 443.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 1009.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_steal_attempt_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 395.0
+# HELP cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total The total number of stolen fibers by other worker threads.
+# TYPE cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total counter
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 365.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 391.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 451.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 371.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 423.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 385.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 448.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 445.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 1011.0
+cats_effect_runtime_wstp_worker_localqueue_fiber_stolen_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 399.0
+# HELP cats_effect_runtime_wstp_worker_poller_operation_count_total The total number of the operations per category and outcome.
+# TYPE cats_effect_runtime_wstp_worker_poller_operation_count_total counter
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="0"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="1"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="2"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="3"} 5.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="4"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="5"} 5.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="6"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="7"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="8"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="submitted",pool_id="0",worker_index="9"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 5.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 5.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="accept",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="5"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="submitted",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="connect",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="0"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="1"} 9.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="2"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="3"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="4"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="5"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="6"} 4.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="7"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="8"} 399.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="submitted",pool_id="0",worker_index="9"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 9.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 4.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 398.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="read",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="canceled",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="errored",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="submitted",pool_id="0",worker_index="9"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_count_total{otel_scope_name="cats.effect.runtime",poller_operation="write",poller_operation_status="succeeded",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_poller_operation_outstanding_count The current number of outstanding operations per category.
+# TYPE cats_effect_runtime_wstp_worker_poller_operation_outstanding_count gauge
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="0"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="1"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="2"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="3"} 5.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="4"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="5"} 5.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="6"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="7"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="8"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="accept",pool_id="0",worker_index="9"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="5"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="connect",pool_id="0",worker_index="9"} 1.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="0"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="1"} 9.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="2"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="3"} 6.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="4"} 7.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="5"} 3.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="6"} 4.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="7"} 8.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="8"} 399.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="read",pool_id="0",worker_index="9"} 2.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="3"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_poller_operation_outstanding_count{otel_scope_name="cats.effect.runtime",poller_operation="write",pool_id="0",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_thread_event_count_total The total number of events that happened to this WorkerThread.
+# TYPE cats_effect_runtime_wstp_worker_thread_event_count_total counter
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="0"} 5.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="1"} 6.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="3"} 7.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="4"} 5.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="5"} 3.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="6"} 5.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="7"} 3.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="8"} 3.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="blocked",worker_index="9"} 2.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="0"} 5035.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="1"} 5003.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="2"} 5448.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="3"} 4978.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="4"} 5027.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="5"} 4896.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="6"} 4953.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="7"} 5083.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="8"} 5721.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="parked",worker_index="9"} 5344.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="0"} 10710.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="1"} 11728.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="2"} 27648.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="3"} 10820.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="4"} 10424.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="5"} 10367.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="6"} 8628.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="7"} 11051.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="8"} 27344.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="polled",worker_index="9"} 24304.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="2"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="3"} 1.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="4"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="6"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="8"} 0.0
+cats_effect_runtime_wstp_worker_thread_event_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",thread_event="respawn",worker_index="9"} 0.0
+# HELP cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total The total amount of time in nanoseconds that this WorkerThread has been idle.
+# TYPE cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total counter
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 2.03729021939E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 2.0360951376E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 2.03667609299E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 2.03074430038E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 2.03623974333E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 2.03617044371E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 2.03710877596E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 2.03637470562E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 2.03402624199E11
+cats_effect_runtime_wstp_worker_thread_idle_duration_nanoseconds_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 2.03625924553E11
+# HELP cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds Returns the time in nanoseconds till the next due to fire.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds gauge
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 1.4595458E7
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 3.81192458E8
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 1.8281E7
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 1.1817417E7
+cats_effect_runtime_wstp_worker_timerheap_next_due_nanoseconds{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 2.696948083E9
+# HELP cats_effect_runtime_wstp_worker_timerheap_outstanding_count The current number of the outstanding timers, that remain to be executed.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_outstanding_count gauge
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 3.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 2.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 1.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 0.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 1.0
+cats_effect_runtime_wstp_worker_timerheap_outstanding_count{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 2.0
+# HELP cats_effect_runtime_wstp_worker_timerheap_packed_count_total The total number of times the heap packed itself to remove canceled timers.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_packed_count_total counter
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="0"} 85.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="1"} 98.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="2"} 105.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="3"} 89.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="4"} 77.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="5"} 85.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="6"} 94.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="7"} 92.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="8"} 93.0
+cats_effect_runtime_wstp_worker_timerheap_packed_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",worker_index="9"} 71.0
+# HELP cats_effect_runtime_wstp_worker_timerheap_timer_count_total The total number of the timers per state.
+# TYPE cats_effect_runtime_wstp_worker_timerheap_timer_count_total counter
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="0"} 27.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="1"} 28.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="2"} 30.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="3"} 28.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="4"} 32.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="5"} 28.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="6"} 29.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="7"} 31.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="8"} 25.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="canceled",worker_index="9"} 29.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="0"} 2310.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="1"} 2496.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="2"} 3686.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="3"} 2292.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="4"} 2219.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="5"} 2232.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="6"} 2162.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="7"} 2439.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="8"} 3426.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="executed",worker_index="9"} 3222.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="0"} 1562.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="1"} 1673.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="2"} 1938.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="3"} 1539.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="4"} 1539.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="5"} 1499.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="6"} 1510.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="7"} 1633.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="8"} 1806.0
+cats_effect_runtime_wstp_worker_timerheap_timer_count_total{otel_scope_name="cats.effect.runtime",pool_id="0",timer_state="scheduled",worker_index="9"} 1698.0
+# TYPE db_client_connection_count gauge
+db_client_connection_count{db_client_connection_pool_name="notification",db_client_connection_state="used",otel_scope_name="notification-service"} 0.0
+# TYPE db_client_connection_pending_requests gauge
+db_client_connection_pending_requests{db_client_connection_pool_name="notification",otel_scope_name="notification-service"} 0.0
+# TYPE db_client_connection_wait_time_seconds histogram
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.005"} 77
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.01"} 77
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.025"} 77
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.05"} 77
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.075"} 77
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.1"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.15"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.2"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.25"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.3"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.4"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.5"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.6"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="0.75"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="1.0"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="1.25"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="1.5"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="2.0"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="2.5"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="3.0"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="4.0"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="5.0"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="7.5"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="10.0"} 78
+db_client_connection_wait_time_seconds_bucket{db_client_connection_pool_name="notification",otel_scope_name="notification-service",le="+Inf"} 78
+db_client_connection_wait_time_seconds_count{db_client_connection_pool_name="notification",otel_scope_name="notification-service"} 78
+db_client_connection_wait_time_seconds_sum{db_client_connection_pool_name="notification",otel_scope_name="notification-service"} 0.09629891699999998
+# TYPE http_server_request_duration_seconds histogram
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="DELETE",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service"} 0.001100708
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.025"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/",otel_scope_name="notification-service"} 0.02993475
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi.json",otel_scope_name="notification-service"} 0.005191917
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.025"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.05"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/",otel_scope_name="notification-service"} 0.057879709
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/asyncapi/index.html",otel_scope_name="notification-service"} 0.004489625
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.01"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.025"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.05"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.075"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.1"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.15"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.2"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.25"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.3"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.4"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.6"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.75"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="1.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="1.25"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="1.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="2.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="2.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="3.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="4.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="5.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="7.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="10.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="+Inf"} 2
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service"} 2
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/docs.yaml",otel_scope_name="notification-service"} 0.006297583000000001
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/index.html",otel_scope_name="notification-service"} 0.002584958
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/docs/swagger-initializer.js",otel_scope_name="notification-service"} 0.001012708
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.005"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.01"} 8
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.025"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.05"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.075"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.1"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.15"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.2"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.25"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.3"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.4"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.5"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.6"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="0.75"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="1.0"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="1.25"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="1.5"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="2.0"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="2.5"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="3.0"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="4.0"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="5.0"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="7.5"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="10.0"} 12
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service",le="+Inf"} 12
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service"} 12
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/emails",otel_scope_name="notification-service"} 0.11513978999999999
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/emails/",otel_scope_name="notification-service"} 0.008674167
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/health",otel_scope_name="notification-service"} 0.00182
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.2"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.25"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.3"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.4"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.6"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="0.75"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="1.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="1.25"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="1.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="2.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="2.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="3.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="4.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="5.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="7.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="10.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service",le="+Inf"} 2
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service"} 2
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/health/ready",otel_scope_name="notification-service"} 0.160943333
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="301",http_route="/docs/asyncapi",otel_scope_name="notification-service"} 0.004443167
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="308",http_route="/docs",otel_scope_name="notification-service"} 0.006449667
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="400",http_route="/emails",otel_scope_name="notification-service"} 0.003451083
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="HEAD",http_response_status_code="405",http_route="/docs/docs.yaml",otel_scope_name="notification-service"} 0.007617375
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="HEAD",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service"} 0.00100075
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="HEAD",http_response_status_code="405",http_route="/health",otel_scope_name="notification-service"} 0.001082083
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="405",http_route="/emails",otel_scope_name="notification-service"} 0.0010585
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.005"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.01"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.15"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.2"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.3"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.4"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.6"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="1.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="1.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="2.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="3.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="4.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_route="/no-such-path",otel_scope_name="notification-service"} 6.2675E-4
+# HELP jvm_class_count Number of classes currently loaded.
+# TYPE jvm_class_count gauge
+jvm_class_count{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 19257.0
+# HELP jvm_class_loaded_total Number of classes loaded since JVM start.
+# TYPE jvm_class_loaded_total counter
+jvm_class_loaded_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 19284.0
+# HELP jvm_class_unloaded_total Number of classes unloaded since JVM start.
+# TYPE jvm_class_unloaded_total counter
+jvm_class_unloaded_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 27.0
+# HELP jvm_cpu_count Number of processors available to the Java virtual machine.
+# TYPE jvm_cpu_count gauge
+jvm_cpu_count{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 10.0
+# HELP jvm_cpu_recent_utilization Recent CPU utilization for the process as reported by the JVM.
+# TYPE jvm_cpu_recent_utilization gauge
+jvm_cpu_recent_utilization{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.009930381959054385
+# HELP jvm_cpu_time_seconds_total CPU time used by the process as reported by the JVM.
+# TYPE jvm_cpu_time_seconds_total counter
+jvm_cpu_time_seconds_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 18.121793
+# HELP jvm_gc_duration_seconds Duration of JVM garbage collection actions.
+# TYPE jvm_gc_duration_seconds histogram
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.01"} 3
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.1"} 4
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="1.0"} 4
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="10.0"} 4
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="+Inf"} 4
+jvm_gc_duration_seconds_count{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 4
+jvm_gc_duration_seconds_sum{jvm_gc_action="end of concurrent GC pause",jvm_gc_name="G1 Concurrent GC",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.020999999999999998
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.01"} 10
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="0.1"} 11
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="1.0"} 11
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="10.0"} 11
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",le="+Inf"} 11
+jvm_gc_duration_seconds_count{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 11
+jvm_gc_duration_seconds_sum{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.075
+# HELP jvm_memory_committed_bytes Measure of memory committed.
+# TYPE jvm_memory_committed_bytes gauge
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2555904.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 4390912.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.5335424E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.4811136E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5.8720256E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 4.6137344E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8388608.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="Metaspace",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.14688E8
+# HELP jvm_memory_limit_bytes Measure of max obtainable memory.
+# TYPE jvm_memory_limit_bytes gauge
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5849088.0
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.22912768E8
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.22912768E8
+jvm_memory_limit_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.073741824E9
+jvm_memory_limit_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 8.589934592E9
+# HELP jvm_memory_used_after_last_gc_bytes Measure of memory used, as measured after the most recent garbage collection event on this pool.
+# TYPE jvm_memory_used_after_last_gc_bytes gauge
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 0.0
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2.6620832E7
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5973440.0
+# HELP jvm_memory_used_bytes Measure of memory used.
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1901440.0
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 4337984.0
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.5308864E7
+jvm_memory_used_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.4497888E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 4.6137344E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 2.6620832E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 5973440.0
+jvm_memory_used_bytes{jvm_memory_pool_name="Metaspace",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.138968E8
+# HELP jvm_thread_count Number of executing platform threads.
+# TYPE jvm_thread_count gauge
+jvm_thread_count{jvm_thread_daemon="false",jvm_thread_state="waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="runnable",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 24.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="timed_waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 13.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8"} 1.0
+# TYPE notifications_emails_total counter
+notifications_emails_total{event_type="DispatchConfirmed",otel_scope_name="notification-service",outcome="sent"} 1.0
+notifications_emails_total{event_type="DispatchFailed",otel_scope_name="notification-service",outcome="sent"} 1.0
+notifications_emails_total{event_type="DispatchFailed",otel_scope_name="notification-service",outcome="unresolved"} 1.0
+notifications_emails_total{event_type="OrderCancelled",otel_scope_name="notification-service",outcome="sent"} 6.0
+notifications_emails_total{event_type="OrderConfirmed",otel_scope_name="notification-service",outcome="error"} 4.0
+notifications_emails_total{event_type="OrderConfirmed",otel_scope_name="notification-service",outcome="sent"} 3.0
+notifications_emails_total{event_type="OrderConfirmed",otel_scope_name="notification-service",outcome="unresolved"} 1.0
+notifications_emails_total{event_type="OrderPaymentFailed",otel_scope_name="notification-service",outcome="sent"} 1.0
+notifications_emails_total{event_type="PaymentCaptured",otel_scope_name="notification-service",outcome="sent"} 2.0
+notifications_emails_total{event_type="PaymentCaptured",otel_scope_name="notification-service",outcome="unresolved"} 1.0
+notifications_emails_total{event_type="PaymentFailed",otel_scope_name="notification-service",outcome="sent"} 1.0
+notifications_emails_total{event_type="UserRegistered",otel_scope_name="notification-service",outcome="duplicate"} 1.0
+notifications_emails_total{event_type="UserRegistered",otel_scope_name="notification-service",outcome="sent"} 1.0
+# TYPE purekafka_circuit_breaker_state gauge
+purekafka_circuit_breaker_state{otel_scope_name="notification-service",state="CLOSED"} 1.0
+purekafka_circuit_breaker_state{otel_scope_name="notification-service",state="HALF_OPEN"} 0.0
+purekafka_circuit_breaker_state{otel_scope_name="notification-service",state="OPEN"} 0.0
+# HELP purekafka_consumer_event_age_seconds Age of a Kafka record when consumed (now - timestamp).
+# TYPE purekafka_consumer_event_age_seconds histogram
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="0.01"} 0
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="0.025"} 2
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="0.05"} 3
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="0.1"} 3
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="0.25"} 3
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="0.5"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="1.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="2.5"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="5.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="10.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="30.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="60.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="120.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="300.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="600.0"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service",le="+Inf"} 4
+purekafka_consumer_event_age_seconds_count{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service"} 4
+purekafka_consumer_event_age_seconds_sum{messaging_consumer_group_name="notification-service-fulfilment-events",messaging_destination_name="fulfilment-events",otel_scope_name="notification-service"} 0.429
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="0.01"} 0
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="0.025"} 11
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="0.05"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="0.1"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="0.25"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="0.5"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="1.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="2.5"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="5.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="10.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="30.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="60.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="120.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="300.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="600.0"} 14
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service",le="+Inf"} 14
+purekafka_consumer_event_age_seconds_count{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service"} 14
+purekafka_consumer_event_age_seconds_sum{messaging_consumer_group_name="notification-service-order-events",messaging_destination_name="order-events",otel_scope_name="notification-service"} 0.32000000000000006
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="0.01"} 0
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="0.025"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="0.05"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="0.1"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="0.25"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="0.5"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="1.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="2.5"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="5.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="10.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="30.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="60.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="120.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="300.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="600.0"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service",le="+Inf"} 5
+purekafka_consumer_event_age_seconds_count{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service"} 5
+purekafka_consumer_event_age_seconds_sum{messaging_consumer_group_name="notification-service-payment-events",messaging_destination_name="payment-events",otel_scope_name="notification-service"} 0.11800000000000001
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="0.01"} 0
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="0.025"} 3
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="0.05"} 3
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="0.1"} 3
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="0.25"} 4
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="0.5"} 5
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="1.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="2.5"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="5.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="10.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="30.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="60.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="120.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="300.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="600.0"} 6
+purekafka_consumer_event_age_seconds_bucket{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service",le="+Inf"} 6
+purekafka_consumer_event_age_seconds_count{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service"} 6
+purekafka_consumer_event_age_seconds_sum{messaging_consumer_group_name="notification-service-user-events",messaging_destination_name="user-events",otel_scope_name="notification-service"} 1.3810000000000002
+# TYPE purekafka_dlq_published_total counter
+purekafka_dlq_published_total{otel_scope_name="notification-service"} 5.0
+# TYPE purekafka_retry_attempts_total counter
+purekafka_retry_attempts_total{otel_scope_name="notification-service",outcome="exhausted"} 5.0
+purekafka_retry_attempts_total{otel_scope_name="notification-service",outcome="retried"} 15.0
+purekafka_retry_attempts_total{otel_scope_name="notification-service",outcome="succeeded"} 25.0
+# TYPE purerest_circuit_breaker_calls_rejected_total counter
+purerest_circuit_breaker_calls_rejected_total{otel_scope_name="notification-service"} 3.0
+# TYPE purerest_circuit_breaker_state gauge
+purerest_circuit_breaker_state{otel_scope_name="notification-service",state="CLOSED"} 0.0
+purerest_circuit_breaker_state{otel_scope_name="notification-service",state="HALF_OPEN"} 0.0
+purerest_circuit_breaker_state{otel_scope_name="notification-service",state="OPEN"} 1.0
+# TYPE purerest_circuit_breaker_state_transitions_total counter
+purerest_circuit_breaker_state_transitions_total{from_state="CLOSED",otel_scope_name="notification-service",to_state="OPEN"} 1.0
+# TYPE purerest_retry_attempts_total counter
+purerest_retry_attempts_total{otel_scope_name="notification-service",outcome="exhausted"} 4.0
+purerest_retry_attempts_total{otel_scope_name="notification-service",outcome="retried"} 4.0
+purerest_retry_attempts_total{otel_scope_name="notification-service",outcome="succeeded"} 27.0
+# TYPE target_info gauge
+target_info{service_name="unknown_service:java",telemetry_sdk_language="java",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="1.66.0"} 1
