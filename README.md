@@ -37,6 +37,7 @@ uv sync                                   # Python + locked dependencies
 uv run pytest                             # the harness's own unit + integration tests
 scripts/ci.sh                             # what CI runs: format, lint, types, tests
 scripts/verify-isolated-runner.sh         # RUST-1.2, verified end to end (~100 s; --skip-ci)
+scripts/verify-ns-capture.sh [dir]        # RPN-1: a notification-service capture checked on its own
 ```
 
 Each track has a `scripts/verify-<track>.sh` that checks what the track set
@@ -71,7 +72,8 @@ session, even after a failure.
 
 - `src/gluon_contract/` — the harness: config, env-var contract, throwaway
   Postgres, OTLP decoding and stub, target process, harness, `contracts/`
-  rules, pytest wiring
+  rules, pytest wiring; notification-service's capture check and scenario
+  table (`ns_capture`, `ns_scenarios`; RPN-1)
 - `tests/unit/`, `tests/integration/` — the harness's own tests (CI runs
   both; the integration tests start local processes, including a stand-in
   target)

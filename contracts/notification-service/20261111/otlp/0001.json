@@ -1,0 +1,73 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "notification-service"
+            }
+          },
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "java"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.66.0"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "notification-service"
+          },
+          "spans": [
+            {
+              "traceId": "7fc86a54cf12923e35dafd1593881fc1",
+              "spanId": "40af45ff012bef14",
+              "name": "GET /health/ready",
+              "kind": 2,
+              "startTimeUnixNano": "1794395910033681000",
+              "endTimeUnixNano": "1794395910178073000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/health/ready"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

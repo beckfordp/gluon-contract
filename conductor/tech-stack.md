@@ -46,7 +46,9 @@ added here that the sandbox doesn't already have is added to
 ## Layout
 - `src/gluon_contract/` — the harness's own code (typed: `py.typed`):
   `config`, `env_contract`, `ports`, `postgres`, `otlp` + `otlp_stub`,
-  `target`, `harness`, `contracts`, `pytest_plugin`
+  `target`, `harness`, `contracts`, `pytest_plugin`; *(2026-11-11, RPN-1)*
+  `ns_scenarios` (what notification-service's capture drove) and
+  `ns_capture` (that capture checked on its own; `python -m` entry point)
 - `tests/unit/` (pure) and `tests/integration/` (local processes, including
   `stand_in_target.py`, a test double for the build under test) — run in CI
 - `checks/` — the contract checks, one module per group (RUST-1.3 onwards);

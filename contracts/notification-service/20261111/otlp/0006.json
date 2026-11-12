@@ -1,0 +1,288 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "notification-service"
+            }
+          },
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "java"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.66.0"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "notification-service"
+          },
+          "spans": [
+            {
+              "traceId": "f7242fc470281fed4309373c938db1a5",
+              "spanId": "d63aade33f97bead",
+              "name": "order-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396063360643000",
+              "endTimeUnixNano": "1794396063360937000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "order-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+              "spanId": "b11142cf121202ab",
+              "parentSpanId": "d118d0a797561eca",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396065659289000",
+              "endTimeUnixNano": "1794396065662486000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/orders/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 257
+            },
+            {
+              "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+              "spanId": "3b67022187e04e72",
+              "parentSpanId": "d118d0a797561eca",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396065662846000",
+              "endTimeUnixNano": "1794396065665582000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/users/11111111-1111-4111-8111-111111111111"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 257
+            },
+            {
+              "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+              "spanId": "d118d0a797561eca",
+              "parentSpanId": "00f067aa0ba902b7",
+              "name": "payment-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396065645892000",
+              "endTimeUnixNano": "1794396065680080000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "payment-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 769
+            },
+            {
+              "traceId": "2ce8cf0f7bb792cb8ed8ec175e6d0b11",
+              "spanId": "008e42a5d82891e5",
+              "name": "order-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396064494780000",
+              "endTimeUnixNano": "1794396066026802000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "order-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "45e69df799654a896f0bce1a22c30941",
+              "spanId": "ac817786bc42a19f",
+              "parentSpanId": "4905a3c070af9d91",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396066859355000",
+              "endTimeUnixNano": "1794396066863058000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/orders/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "45e69df799654a896f0bce1a22c30941",
+              "spanId": "b92bc9a666e82c48",
+              "parentSpanId": "4905a3c070af9d91",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396066863415000",
+              "endTimeUnixNano": "1794396066865916000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/users/11111111-1111-4111-8111-111111111111"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "45e69df799654a896f0bce1a22c30941",
+              "spanId": "4905a3c070af9d91",
+              "name": "payment-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396066848059000",
+              "endTimeUnixNano": "1794396066877483000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "payment-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

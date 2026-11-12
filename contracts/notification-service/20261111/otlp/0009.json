@@ -1,0 +1,968 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "notification-service"
+            }
+          },
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "java"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.66.0"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "notification-service"
+          },
+          "spans": [
+            {
+              "traceId": "5f3379baa851b66c3f4b9f83147cf7f9",
+              "spanId": "bd3e26ebeb26f00c",
+              "name": "GET /docs/docs.yaml",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092144661000",
+              "endTimeUnixNano": "1794396092149644000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/docs.yaml"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "c566e8fc29f645a97723dbbc38e0d633",
+              "spanId": "c0e1f7d7f1676582",
+              "name": "GET /docs/docs.yaml",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092169112000",
+              "endTimeUnixNano": "1794396092170019000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/docs.yaml"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "d03dc6db3d81404542fe4d212e87cbe3",
+              "spanId": "ca04a796e8bee155",
+              "name": "HEAD /docs/docs.yaml",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092188323000",
+              "endTimeUnixNano": "1794396092195766000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "HEAD"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/docs.yaml"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "405"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "8b0031d8e1a094c7bd264a9ef7f2f33f",
+              "spanId": "70afca64efcc2c4f",
+              "name": "GET /docs",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092213623000",
+              "endTimeUnixNano": "1794396092219897000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "308"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "f67fa953255b199ae3a1fa9d26051116",
+              "spanId": "1d78a0edfb9db489",
+              "name": "GET /docs/",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092237672000",
+              "endTimeUnixNano": "1794396092267417000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "5d97518e507b3d8b276ea1bf3f3a3994",
+              "spanId": "094a8a462315a82e",
+              "name": "GET /docs/index.html",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092285853000",
+              "endTimeUnixNano": "1794396092288233000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/index.html"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "99dd4975c7629e1b18a19b9410282db1",
+              "spanId": "c5abe317ea5ac45c",
+              "name": "GET /docs/swagger-initializer.js",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092305324000",
+              "endTimeUnixNano": "1794396092306171000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/swagger-initializer.js"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "56c9c8053974d6b76d8b3948b2100d3c",
+              "spanId": "37a51d23196426ca",
+              "name": "GET /docs/asyncapi.json",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092322865000",
+              "endTimeUnixNano": "1794396092327849000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/asyncapi.json"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "9077eacdb1c09084a656223a1ec5583f",
+              "spanId": "42135dfa1972ade9",
+              "name": "GET /docs/asyncapi/",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092344604000",
+              "endTimeUnixNano": "1794396092402283000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/asyncapi/"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "cb37a8a443c504aa3017e3ac19765cde",
+              "spanId": "7c74cd2b4b3dadf4",
+              "name": "GET /docs/asyncapi/index.html",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092426424000",
+              "endTimeUnixNano": "1794396092430734000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/asyncapi/index.html"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "482b868c405d70953ffa23dc41a0fbd5",
+              "spanId": "2435a8901056db2b",
+              "name": "GET /docs/asyncapi",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092455545000",
+              "endTimeUnixNano": "1794396092459785000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/docs/asyncapi"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "301"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "82890b8fb9110f279ce07c3450f34e35",
+              "spanId": "323ac66953daf38f",
+              "name": "GET /health",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092482353000",
+              "endTimeUnixNano": "1794396092483968000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/health"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "97147251dc9dff3a7fed1e1686ebff2a",
+              "spanId": "78053c576e510358",
+              "name": "GET /health/ready",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092505586000",
+              "endTimeUnixNano": "1794396092509339000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/health/ready"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "28d20c11f581ad82738cb73e7628bba8",
+              "spanId": "ddcfafb5c455b5ad",
+              "name": "HEAD /health",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092529587000",
+              "endTimeUnixNano": "1794396092530420000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "HEAD"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/health"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "405"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "d59490e6c9e8737ae1413444049b237a",
+              "spanId": "5cf606433e7d78d1",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092546524000",
+              "endTimeUnixNano": "1794396092566980000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "cf50b9c1b3a7669ecd1b795a695747a1",
+              "spanId": "17489c8acb6c31fb",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092583902000",
+              "endTimeUnixNano": "1794396092604866000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "8042228ab496a870c5c5a2e6131ae78d",
+              "spanId": "27b68c72d84c2a3c",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092621938000",
+              "endTimeUnixNano": "1794396092629112000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "389150b519b47359cb8b8fde4c3280a7",
+              "spanId": "5d1190b574d26157",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092645771000",
+              "endTimeUnixNano": "1794396092652373000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "0485b39ed5b941f3899831ad1c9fc242",
+              "spanId": "dff507db626b601a",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092669229000",
+              "endTimeUnixNano": "1794396092675487000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "bf061315a4e4157b2bec92fa9d778203",
+              "spanId": "05635dc3da4ce759",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092693008000",
+              "endTimeUnixNano": "1794396092697518000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "a76392346df248361e667b1ba43f945d",
+              "spanId": "4b7216e27957cbcf",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092714594000",
+              "endTimeUnixNano": "1794396092719015000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "24a7a0bf25b96f660e851bf140f7cb4f",
+              "spanId": "e79fc0e186588de8",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092735092000",
+              "endTimeUnixNano": "1794396092745581000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "fe1fefac23ba0948cae44524621d1b19",
+              "spanId": "c8d83f65da1d4528",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092764293000",
+              "endTimeUnixNano": "1794396092767561000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "400"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "e31d88a112682c98c3ed148f2477413d",
+              "spanId": "97e311e8a7a6a6e8",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092786358000",
+              "endTimeUnixNano": "1794396092794075000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "faaa4e07a86e37f4a7f58d948bd94af1",
+              "spanId": "3b8356f8f777a7c2",
+              "name": "GET /emails/",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092811546000",
+              "endTimeUnixNano": "1794396092820030000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails/"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "8aa837c7cd195aef6a072263e16660a5",
+              "spanId": "187b6d9bd163ffb7",
+              "name": "HEAD /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092837712000",
+              "endTimeUnixNano": "1794396092838544000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "HEAD"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "405"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "994908f750a47e56baed400248db0621",
+              "spanId": "c1a06b2a18f86d88",
+              "name": "POST /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092857703000",
+              "endTimeUnixNano": "1794396092858568000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "405"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "bb5868476999f2b7159d1c49aa71fb76",
+              "spanId": "f8efeb60df43837c",
+              "name": "DELETE /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092882588000",
+              "endTimeUnixNano": "1794396092883490000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "DELETE"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "405"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "0af7651916cd43dd8448eb211c80319c",
+              "spanId": "5f832f9dbc8b3c05",
+              "parentSpanId": "b7ad6b7169203331",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092900538000",
+              "endTimeUnixNano": "1794396092906473000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 769
+            },
+            {
+              "traceId": "b3816a9f3bb6e6d0ed927c1f36db6100",
+              "spanId": "59406a1ebea1e24e",
+              "name": "GET /no-such-path",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092923930000",
+              "endTimeUnixNano": "1794396092924361000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/no-such-path"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "ad95e9cf1163a3c95ef2073a9309f941",
+              "spanId": "09f371f0d3c5aed4",
+              "name": "GET /emails",
+              "kind": 2,
+              "startTimeUnixNano": "1794396092985336000",
+              "endTimeUnixNano": "1794396092993043000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/emails"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

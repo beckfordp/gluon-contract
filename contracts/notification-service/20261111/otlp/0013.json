@@ -1,0 +1,105 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "notification-service"
+            }
+          },
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "java"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.66.0"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "notification-service"
+          },
+          "spans": [
+            {
+              "traceId": "a2fe689dd4a8aebc22b808f719ce7f34",
+              "spanId": "f2fa0b91fdcc10af",
+              "name": "GET /health/ready",
+              "kind": 2,
+              "startTimeUnixNano": "1794396170541749000",
+              "endTimeUnixNano": "1794396170544835000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/health/ready"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "06b4c6280cd34a533ef490b9bd5b6e95",
+              "spanId": "015228a4fc1fe365",
+              "name": "GET /health/ready",
+              "kind": 2,
+              "startTimeUnixNano": "1794396170906241000",
+              "endTimeUnixNano": "1794396170911270000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/health/ready"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "503"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "flags": 259
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

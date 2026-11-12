@@ -1,0 +1,299 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "notification-service"
+            }
+          },
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "java"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.66.0"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "notification-service"
+          },
+          "spans": [
+            {
+              "traceId": "1730b09fe5835ea2599609eb58298da8",
+              "spanId": "d42a781a0b6558f7",
+              "name": "user-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396046932397000",
+              "endTimeUnixNano": "1794396048492258000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "user-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "7d4efd9421183f3f17ddb112dbede274",
+              "spanId": "f81f68665603fa8b",
+              "name": "user-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396048508127000",
+              "endTimeUnixNano": "1794396049928732000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "user-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "6df38d90f0b0cc8723a1b4ba11410caa",
+              "spanId": "949ca1d47f067e2c",
+              "name": "user-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396049981172000",
+              "endTimeUnixNano": "1794396049981643000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "user-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+              "spanId": "1d70a322ba07f113",
+              "parentSpanId": "018919de1fa38b11",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396050512281000",
+              "endTimeUnixNano": "1794396050645116000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/users/11111111-1111-4111-8111-111111111111"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 257
+            },
+            {
+              "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+              "spanId": "018919de1fa38b11",
+              "parentSpanId": "00f067aa0ba902b7",
+              "name": "order-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396050494133000",
+              "endTimeUnixNano": "1794396050658468000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "order-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 769
+            },
+            {
+              "traceId": "ac24c4285748dd446ffdbbeff7daac8a",
+              "spanId": "73167323a8e0928c",
+              "parentSpanId": "7636bfeb85a03205",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396051687278000",
+              "endTimeUnixNano": "1794396051691139000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/users/11111111-1111-4111-8111-111111111111"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "ac24c4285748dd446ffdbbeff7daac8a",
+              "spanId": "7636bfeb85a03205",
+              "name": "order-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396051678964000",
+              "endTimeUnixNano": "1794396051705268000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "order-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "0943f85a34f20fe54242276dff0953d0",
+              "spanId": "c2f82c5c119d22ac",
+              "parentSpanId": "be4d40d94583168c",
+              "name": "GET 127.0.0.1",
+              "kind": 3,
+              "startTimeUnixNano": "1794396052838841000",
+              "endTimeUnixNano": "1794396052844318000",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/users/11111111-1111-4111-8111-111111111111"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            },
+            {
+              "traceId": "0943f85a34f20fe54242276dff0953d0",
+              "spanId": "be4d40d94583168c",
+              "name": "order-events process",
+              "kind": 5,
+              "startTimeUnixNano": "1794396052828951000",
+              "endTimeUnixNano": "1794396052857904000",
+              "attributes": [
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "order-events"
+                  }
+                },
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 259
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
