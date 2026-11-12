@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from gluon_contract.cdc import cdc_home
 from gluon_contract.config import ConfigError, HarnessConfig, find_pg_bin, load_config
 
 PG_TOOLS = ("initdb", "pg_ctl", "createdb")
@@ -18,6 +19,12 @@ def make_pg_bin(directory: Path, tools: tuple[str, ...] = PG_TOOLS) -> Path:
         path = directory / tool
         path.write_text("#!/bin/sh\n", encoding="utf-8")
         path.chmod(0o755)
+    return directory
+
+
+def make_cdc_home(directory: Path) -> Path:
+    """A CDC home with the broker's jar directory (its contents aren't looked at)."""
+    (directory / "kafka").mkdir(parents=True)
     return directory
 
 
@@ -51,12 +58,14 @@ def test_every_setting_can_be_overridden(tmp_path: Path) -> None:
     pg_bin = make_pg_bin(tmp_path / "pg")
     work = tmp_path / "work"
     work.mkdir()
+    cdc = make_cdc_home(tmp_path / "cdc")
     config = load_config(
         {
             "CONTRACT_TARGET_CMD": "java -jar 'user service.jar' --flag",
             "CONTRACT_TARGET_CWD": str(work),
             "CONTRACT_TARGET_NAME": "scala",
-            "CONTRACT_SERVICE": "order-service",
+            "CONTRACT_SERVICE": "notification-service",
+            "CONTRACT_CDC_HOME": str(cdc),
             "CONTRACT_PG_BIN": str(pg_bin),
             "CONTRACT_READINESS_PATH": "/health",
             "CONTRACT_READINESS_DEADLINE": "12.5",
@@ -68,10 +77,74 @@ def test_every_setting_can_be_overridden(tmp_path: Path) -> None:
     assert config.target_argv == ("java", "-jar", "user service.jar", "--flag")
     assert config.target_cwd == work
     assert config.target_name == "scala"
-    assert config.service == "order-service"
+    assert config.service == "notification-service"
+    assert config.kafka_home == cdc
     assert config.readiness_path == "/health"
     assert config.readiness_deadline_s == 12.5
     assert config.keep_artifacts is True
+
+
+def test_a_service_without_a_profile_is_a_problem_naming_the_known_ones(tmp_path: Path) -> None:
+    """A well-formed name the harness can't start is reported with the other problems."""
+    with pytest.raises(ConfigError) as raised:
+        load_config({"CONTRACT_SERVICE": "order-service"}, cwd=tmp_path, which=no_executables)
+    problems = raised.value.problems
+    assert any(
+        "CONTRACT_SERVICE" in p and "'order-service'" in p and "notification-service" in p
+        for p in problems
+    ), problems
+    assert any("CONTRACT_TARGET_CMD" in p for p in problems)
+
+
+def test_user_service_needs_no_kafka_jars(tmp_path: Path) -> None:
+    """No broker for user-service: a missing CDC home is no problem, and none is kept."""
+    pg_bin = make_pg_bin(tmp_path / "pg")
+    config = load_config(
+        {
+            "CONTRACT_TARGET_CMD": "svc",
+            "CONTRACT_PG_BIN": str(pg_bin),
+            "CONTRACT_CDC_HOME": str(tmp_path / "nowhere"),
+        },
+        cwd=tmp_path,
+        which=no_executables,
+    )
+    assert config.kafka_home is None
+
+
+def test_a_service_that_needs_a_broker_needs_the_kafka_jars(tmp_path: Path) -> None:
+    """notification-service reads Kafka; without the broker's jars it can't be started."""
+    pg_bin = make_pg_bin(tmp_path / "pg")
+    with pytest.raises(ConfigError) as raised:
+        load_config(
+            {
+                "CONTRACT_TARGET_CMD": "svc",
+                "CONTRACT_SERVICE": "notification-service",
+                "CONTRACT_PG_BIN": str(pg_bin),
+                "CONTRACT_CDC_HOME": str(tmp_path / "nowhere"),
+            },
+            cwd=tmp_path,
+            which=no_executables,
+        )
+    (problem,) = raised.value.problems
+    assert "notification-service needs a Kafka broker" in problem
+    assert str(tmp_path / "nowhere" / "kafka") in problem
+    assert "bin/sandbox-setup --only cdc" in problem
+
+
+def test_the_kafka_jars_default_to_where_sandbox_setup_puts_them(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Without CONTRACT_CDC_HOME, the CDC group's default home (cdc.cdc_home) is used."""
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    pg_bin = make_pg_bin(tmp_path / "pg")
+    raw = {
+        "CONTRACT_TARGET_CMD": "svc",
+        "CONTRACT_SERVICE": "notification-service",
+        "CONTRACT_PG_BIN": str(pg_bin),
+    }
+    default = make_cdc_home(cdc_home(raw))
+    assert default.is_relative_to(tmp_path / "home" / ".local")
+    assert load_config(raw, cwd=tmp_path, which=no_executables).kafka_home == default
 
 
 @pytest.mark.parametrize(

@@ -15,12 +15,16 @@ from pathlib import Path
 from typing import Any
 
 import psycopg
+import pytest
 
 from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
 from gluon_contract.formats import PBKDF2_STORED, pbkdf2_matches, sha256_hex
 from gluon_contract.harness import Harness
 from gluon_contract.http import json_body, request
 from gluon_contract.schema import create_reference, diff_snapshots, migration_files, snapshot
+
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
 
 PASSWORD = "correct-horse-battery-1"
 """The password CAPTURE.md signs up with; it produced the capture's hashes."""

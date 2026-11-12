@@ -10,13 +10,17 @@ stops them. The CDC group also asks for `cdc`, which adds the sandbox CDC stack
 (Kafka, Connect, Debezium: `cdc.py`, RUST-1.8) on the harness's Postgres. The
 probe group (RUST-6.x) needs no service: `kafka` (a broker of its own) and
 `lookup_stub` (user-service's `GET /users/{id}`, scriptable).
+
+A run judges one service (`--service`, default user-service; RPN-3). A check
+module marked `pytest.mark.service("<name>")` belongs to that service and is
+deselected in a run for any other; an unmarked check is service-neutral.
 """
 
 import os
 import shlex
 import urllib.request
 import uuid
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterator, Mapping
 from contextlib import ExitStack
 from pathlib import Path
 from typing import Any, Protocol
@@ -26,15 +30,17 @@ import pytest
 
 from gluon_contract.cdc import CdcStack, KafkaBroker, Record, cdc_home
 from gluon_contract.cluster import ClusterHarness, ConsoleTopicReader, cluster_settings
-from gluon_contract.config import ConfigError, HarnessConfig, load_config
+from gluon_contract.config import DEFAULT_SERVICE, ConfigError, HarnessConfig, load_config
 from gluon_contract.harness import Harness
 from gluon_contract.http_stub import HttpStub
 from gluon_contract.otlp_stub import OtlpStub
 from gluon_contract.ports import free_port
 from gluon_contract.probe import probe_env
+from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError, profile
 from gluon_contract.target import TargetProcess
 
 OPTIONS = {
+    "service": "CONTRACT_SERVICE",
     "target_cmd": "CONTRACT_TARGET_CMD",
     "target_cwd": "CONTRACT_TARGET_CWD",
     "target_name": "CONTRACT_TARGET_NAME",
@@ -43,11 +49,25 @@ OPTIONS = {
     "base_url": "CONTRACT_BASE_URL",
 }
 CLUSTER_SKIP = "needs isolated mode (cluster mode runs only the checks marked cluster)"
+SERVICE_MARKER = (
+    "service(name, ...): the service(s) whose contract a check is; it runs only in a run "
+    "for one of them (--service). Unmarked checks run for any service (RPN-3)"
+)
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    """Registers the `service` marker (checks/ runs with --strict-markers too)."""
+    config.addinivalue_line("markers", SERVICE_MARKER)
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
     """The harness's command-line options; each overrides its CONTRACT_* variable."""
     group = parser.getgroup("gluon-contract", "gluon contract harness")
+    group.addoption(
+        "--service",
+        help=f"the service whose contract the run judges (CONTRACT_SERVICE; default "
+        f"{DEFAULT_SERVICE}; known: {', '.join(KNOWN_SERVICES)})",
+    )
     group.addoption(
         "--target-cmd", help="command that starts the build under test (CONTRACT_TARGET_CMD)"
     )
@@ -92,8 +112,7 @@ def pytest_report_header(config: pytest.Config) -> str | None:
     if not command:
         return None
     name = raw.get("CONTRACT_TARGET_NAME") or command.split()[0]
-    service = raw.get("CONTRACT_SERVICE", "user-service")
-    return f"gluon-contract: target {name} ({command}) as {service}"
+    return f"gluon-contract: target {name} ({command}) as {run_service(raw)}"
 
 
 @pytest.fixture(scope="session")
@@ -105,13 +124,62 @@ def harness_config(pytestconfig: pytest.Config) -> HarnessConfig:
         pytest.exit(str(error), returncode=pytest.ExitCode.USAGE_ERROR)
 
 
+def run_service(raw: Mapping[str, str]) -> str:
+    """The service a run judges: CONTRACT_SERVICE (or --service), else the default."""
+    return raw.get("CONTRACT_SERVICE") or DEFAULT_SERVICE
+
+
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
-    """In cluster mode, skips every check not marked `cluster` (or marked `isolated`)."""
-    if cluster_settings(raw_settings(config)) is None:
+    """Keeps the checks of the run's service (and the neutral ones), deselecting the rest;
+    in cluster mode, then skips every check not marked `cluster` (or marked `isolated`).
+
+    An unknown service, or a `service` marker naming one, stops the run as a usage error
+    before any check starts anything.
+    """
+    raw = raw_settings(config)
+    service = _known_service_or_exit(raw)
+    misnamed = [
+        f"{item.nodeid}: {marker.args!r}"
+        for item in items
+        for marker in item.iter_markers("service")
+        if not marker.args or not set(marker.args) <= set(KNOWN_SERVICES)
+    ]
+    if misnamed:
+        pytest.exit(
+            "service markers must name known services "
+            f"({', '.join(KNOWN_SERVICES)}):\n" + "\n".join(f"- {line}" for line in misnamed),
+            returncode=pytest.ExitCode.USAGE_ERROR,
+        )
+    selected: list[pytest.Item] = []
+    deselected: list[pytest.Item] = []
+    for item in items:
+        marker = item.get_closest_marker("service")
+        (selected if marker is None or service in marker.args else deselected).append(item)
+    if deselected:
+        config.hook.pytest_deselected(items=deselected)
+        items[:] = selected
+    if cluster_settings(raw) is None:
         return
     for item in items:
         if item.get_closest_marker("cluster") is None or item.get_closest_marker("isolated"):
             item.add_marker(pytest.mark.skip(reason=CLUSTER_SKIP))
+
+
+def _known_service_or_exit(raw: Mapping[str, str]) -> str:
+    """The run's service if the harness has a profile for it; else ends the run as a usage
+    error, listing every configuration problem in isolated mode (as the harness would)."""
+    service = run_service(raw)
+    try:
+        profile(service)
+    except UnknownServiceError as error:
+        message = f"Invalid harness configuration:\n- CONTRACT_SERVICE: {error}"
+        if cluster_settings(raw) is None:
+            try:
+                load_config(raw, cwd=Path.cwd())
+            except ConfigError as problems:
+                message = str(problems)
+        pytest.exit(message, returncode=pytest.ExitCode.USAGE_ERROR)
+    return service
 
 
 @pytest.fixture(scope="session")

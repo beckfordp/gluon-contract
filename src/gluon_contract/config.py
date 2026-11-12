@@ -1,11 +1,12 @@
 # SPDX-License-Identifier: MIT
 
-"""How a harness run is configured (RUST-1.2 spec FR1).
+"""How a harness run is configured (RUST-1.2 spec FR1; RPN-3 FR1).
 
 Settings come from `CONTRACT_*` variables; pytest options map onto the same
 keys (see `checks/conftest.py`). `load_config` is pure apart from looking at
-the filesystem for the Postgres binaries and the working directory, and reports
-every problem at once in a single `ConfigError`.
+the filesystem for the Postgres binaries, the working directory and, for a
+service that reads Kafka, the broker's jars; it reports every problem at once
+in a single `ConfigError`.
 """
 
 import re
@@ -15,6 +16,9 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
+from gluon_contract.cdc import cdc_home
+from gluon_contract.services import UnknownServiceError, profile
+
 PG_TOOLS = ("initdb", "pg_ctl", "createdb")
 """The PostgreSQL binaries the throwaway cluster needs."""
 
@@ -22,6 +26,7 @@ SERVICE_NAME = re.compile(r"^[a-z][a-z0-9]*-service$")
 """Gluon service names: `<domain>-service`, lower case."""
 
 DEFAULT_SERVICE = "user-service"
+"""The service a run judges unless CONTRACT_SERVICE says otherwise: the first port's."""
 DEFAULT_READINESS_PATH = "/health/ready"
 DEFAULT_READINESS_DEADLINE_S = 60.0
 
@@ -51,6 +56,8 @@ class HarnessConfig:
     readiness_path: str
     readiness_deadline_s: float
     keep_artifacts: bool
+    kafka_home: Path | None = None
+    """The CDC stack's jars, for the broker of a service that reads Kafka; else None."""
 
 
 def load_config(
@@ -74,10 +81,13 @@ def load_config(
     argv = _target_argv(raw.get("CONTRACT_TARGET_CMD", ""), problems)
     target_cwd = _target_cwd(raw.get("CONTRACT_TARGET_CWD"), cwd, problems)
     service = raw.get("CONTRACT_SERVICE") or DEFAULT_SERVICE
+    kafka_home = None
     if not SERVICE_NAME.match(service):
         problems.append(
             f"CONTRACT_SERVICE must look like '<domain>-service' in lower case, got {service!r}"
         )
+    else:
+        kafka_home = _kafka_home(raw, service, problems)
     pg_bin = _pg_bin(raw.get("CONTRACT_PG_BIN"), which, problems)
     readiness_path = raw.get("CONTRACT_READINESS_PATH") or DEFAULT_READINESS_PATH
     if not readiness_path.startswith("/"):
@@ -101,6 +111,7 @@ def load_config(
         readiness_path=readiness_path,
         readiness_deadline_s=deadline,
         keep_artifacts=keep,
+        kafka_home=kafka_home,
     )
 
 
@@ -121,6 +132,25 @@ def find_pg_bin(
     if directory is None:
         raise ConfigError(problems)
     return directory
+
+
+def _kafka_home(raw: Mapping[str, str], service: str, problems: list[str]) -> Path | None:
+    """The broker's jars if `service` reads Kafka (None if it doesn't, or has no profile)."""
+    try:
+        needs = profile(service)
+    except UnknownServiceError as error:
+        problems.append(f"CONTRACT_SERVICE: {error}")
+        return None
+    if not needs.kafka:
+        return None
+    home = cdc_home(raw)
+    if not (home / "kafka").is_dir():
+        problems.append(
+            f"{service} needs a Kafka broker: no Kafka jars in {home / 'kafka'} (run gluon "
+            "bin/sandbox-setup --only cdc, or set CONTRACT_CDC_HOME)"
+        )
+        return None
+    return home
 
 
 def _target_argv(command: str, problems: list[str]) -> tuple[str, ...] | None:

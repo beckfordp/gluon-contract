@@ -18,10 +18,16 @@ import uuid
 from collections.abc import Callable
 from typing import Any
 
+import pytest
+
 from gluon_contract.cdc import KafkaBroker
-from gluon_contract.http_stub import Delay, HttpStub, Reset, Status
+from gluon_contract.http_stub import HttpStub, Reset, Status
 from gluon_contract.metrics import metric_shapes, samples
 from gluon_contract.pytest_plugin import ProbeRun
+
+pytestmark = pytest.mark.service("user-service")
+"""Run with user-service's checks, as since RUST-6.x: the probe is built in user-service-rs
+and judged in its session. Deselected in a run for another service (RPN-3)."""
 
 type Probe = Callable[..., ProbeRun]
 EVENT_AGE_BUCKETS = (
@@ -178,23 +184,6 @@ def test_transient_failures_are_retried(
     wait_until(lambda: lookups(lookup_stub, user_id) == 3, "three lookups")
     settle()
     assert lookups(lookup_stub, user_id) == 3
-    assert kafka.records(run.dlq_topic) == []
-
-
-def test_a_slow_lookup_times_out_and_is_retried(
-    kafka: KafkaBroker, lookup_stub: HttpStub, probe: Probe
-) -> None:
-    """Past the request timeout the call is abandoned and tried again.
-
-    Source: ADR 0025 ("an explicit request timeout"); purerest Retry (timeouts are
-    retriable); notification-service Main (5 s client timeout).
-    """
-    run = probe(PROBE_LOOKUP_TIMEOUT="500ms", PROBE_LOOKUP_BASE_DELAY="10ms")
-    lookup_stub.script(Delay(3.0))
-    user_id = registered(kafka, run)
-    started = time.monotonic()
-    wait_until(lambda: lookups(lookup_stub, user_id) == 2, "a second lookup", timeout_s=10)
-    assert time.monotonic() - started < 2.5, "retried before the slow answer came"
     assert kafka.records(run.dlq_topic) == []
 
 

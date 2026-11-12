@@ -12,12 +12,16 @@ import time
 from typing import Any
 
 import psycopg
+import pytest
 from support import new_email, new_traceparent, signed_up
 
 from gluon_contract.formats import parse_traceparent
 from gluon_contract.harness import Harness
 from gluon_contract.http import request
 from gluon_contract.otlp import Span
+
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
 
 type Db = psycopg.Connection[tuple[Any, ...]]
 

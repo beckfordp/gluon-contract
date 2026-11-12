@@ -19,6 +19,9 @@ from gluon_contract.formats import parse_traceparent
 from gluon_contract.harness import Harness
 from gluon_contract.http import request
 
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
+
 BASE_FIELDS = (
     "@timestamp",
     "@version",

@@ -4,8 +4,11 @@
 
 The consumer probe's resilience-wrapped lookup (ADR 0025's recipient lookup,
 ADR 0028 decision 8) calls this. By default it answers as user-service does
-(200, `{userId, email, createdAt}`); a check scripts the next answers to be a
-status, a delay or a reset connection, and reads back every request it got.
+(200, `{userId, email, createdAt}`), and any other path isn't found (404,
+empty); a check scripts the next answers to be a status, a delay or a reset
+connection, and reads back every request it got. The harness also starts one
+per service a service calls (RPN-3); until a check scripts it, a stub standing
+in for order-service finds no order.
 """
 
 import json
@@ -146,8 +149,9 @@ class HttpStub:
                     self.close_connection = True
                     self.connection.shutdown(socket.SHUT_RDWR)
                     return
-                status = 200 if behaviour is None else behaviour.code
                 match = USER_PATH.match(self.path)
+                default = 200 if match else 404
+                status = default if behaviour is None else behaviour.code
                 body = user_body(match.group(1)) if status == 200 and match else b""
                 self.send_response(status)
                 if body:

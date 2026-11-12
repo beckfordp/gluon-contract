@@ -7,12 +7,13 @@ Needs the jars `bin/sandbox-setup --only cdc` installs; skipped, visibly, withou
 
 import os
 import socket
+import time
 from pathlib import Path
 
 import pytest
-from kafka import KafkaConsumer
+from kafka import KafkaAdminClient, KafkaConsumer
 
-from gluon_contract.cdc import KafkaBroker, cdc_home
+from gluon_contract.cdc import CdcError, KafkaBroker, cdc_home
 
 HOME = cdc_home(os.environ)
 pytestmark = pytest.mark.skipif(
@@ -60,3 +61,41 @@ def test_committed_offsets_are_read_per_group(tmp_path: Path) -> None:
         consumer.close()
         assert seen == [b"a", b"b"]
         assert kafka.committed("probe-group", "user-events") == {0: 2}
+
+
+def test_topics_are_created_and_creating_them_again_is_harmless(tmp_path: Path) -> None:
+    """Absent before create_topics, there after it (listing them creates nothing); a second
+    call with the same topics changes nothing and raises nothing."""
+    wanted = {"order-events", "payment-events"}
+    with KafkaBroker(HOME, tmp_path) as kafka:
+        before = topics_on(kafka)
+        kafka.create_topics(sorted(wanted))
+        after = topics_on(kafka)
+        kafka.create_topics(sorted(wanted))
+        again = topics_on(kafka)
+    assert before & wanted == set()
+    assert after & wanted == wanted
+    assert again == after
+
+
+def test_creating_topics_on_a_broker_that_isnt_there_gives_up_at_its_deadline(
+    tmp_path: Path,
+) -> None:
+    """Retried while the broker doesn't answer, then a CdcError naming the topics, near
+    the deadline rather than after the client's own 30 s bootstrap timeout."""
+    with KafkaBroker(HOME, tmp_path) as kafka:
+        kafka.stop()
+        started = time.monotonic()
+        with pytest.raises(CdcError, match="order-events, payment-events"):
+            kafka.create_topics(["order-events", "payment-events"], timeout_s=3)
+        elapsed = time.monotonic() - started
+    assert 3 <= elapsed < 10, elapsed
+
+
+def topics_on(kafka: KafkaBroker) -> set[str]:
+    """The broker's topics now, from its metadata."""
+    admin = KafkaAdminClient(bootstrap_servers=kafka.bootstrap)
+    try:
+        return set(admin.list_topics())
+    finally:
+        admin.close()

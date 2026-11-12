@@ -37,6 +37,30 @@ def test_by_default_a_user_is_found_as_user_service_answers() -> None:
     }
 
 
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/orders/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        f"/users/{USER}/orders",
+        "/",
+    ],
+)
+def test_by_default_any_other_path_is_not_found(path: str) -> None:
+    """404, empty: an unscripted stub finds nothing but a user, so a stub standing in for
+    order-service never answers an order lookup with an empty 200 (RPN-3 review R5)."""
+    with HttpStub() as stub:
+        status, body = get(stub, path)
+    assert (status, body) == (404, b"")
+
+
+def test_a_scripted_status_applies_to_any_path() -> None:
+    """A scripted answer is used whatever the path: a check can make any lookup fail."""
+    with HttpStub() as stub:
+        stub.script(Status(200), Status(503))
+        answers = [get(stub, "/orders/x"), get(stub, "/orders/x")]
+    assert answers == [(200, b""), (503, b"")]
+
+
 def test_scripted_answers_are_used_in_order_then_the_default() -> None:
     """Status(503), Status(404), then the default 200."""
     with HttpStub() as stub:

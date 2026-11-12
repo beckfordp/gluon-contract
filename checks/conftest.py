@@ -16,6 +16,7 @@ from gluon_contract.pytest_plugin import (  # noqa: F401
     probe,
     pytest_addoption,
     pytest_collection_modifyitems,
+    pytest_configure,
     pytest_report_header,
     user_events,
 )

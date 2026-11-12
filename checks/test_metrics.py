@@ -9,12 +9,16 @@ names and histogram buckets.
 
 from dataclasses import replace
 
+import pytest
 from support import new_email, post_credentials, signed_up
 
 from gluon_contract.capture import capture_file
 from gluon_contract.harness import Harness
 from gluon_contract.http import request
 from gluon_contract.metrics import metric_shapes, samples
+
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
 
 SERVICE_FAMILIES = (
     "http_server_request_duration_seconds",

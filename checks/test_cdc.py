@@ -23,6 +23,9 @@ from gluon_contract.harness import Harness
 from gluon_contract.pytest_plugin import TopicReader
 from gluon_contract.routing import load_connector, route
 
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
+
 type Db = psycopg.Connection[tuple[Any, ...]]
 
 

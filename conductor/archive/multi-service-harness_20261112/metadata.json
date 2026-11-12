@@ -1,0 +1,8 @@
+{
+  "track_id": "multi-service-harness_20261112",
+  "type": "feature",
+  "status": "completed",
+  "created_at": "2026-11-12T18:00:00Z",
+  "updated_at": "2026-11-12T19:30:00Z",
+  "description": "The harness for more than one service: the service as a parameter, each service's env contract and dependencies, checks selected by service (gluon PLAN.md RPN-3)"
+}

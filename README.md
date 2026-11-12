@@ -6,16 +6,19 @@ schema and stored formats, outbox rows and the Kafka envelope, traces, metrics,
 logs, runtime config — and checks each one for correctness, against any
 implementation of that service.
 
-First target: user-service. The reference is the specified contracts: the
-documented contracts, the Scala-generated OpenAPI/AsyncAPI artifacts, the
-Scala repo's test suites and `verify-*.sh` scripts, and behaviour captured
-from the Scala service on request. The Rust port (`user-service-rs`) is judged
+First target: user-service; the second, notification-service (gluon ADR 0029),
+arrives one check group at a time. A run judges one service (`--service`).
+The reference is the specified contracts: the documented contracts, the
+Scala-generated OpenAPI/AsyncAPI artifacts, the Scala repo's test suites and
+`verify-*.sh` scripts, and behaviour captured from the Scala service on
+request. The Rust port (`user-service-rs`) is judged
 against them; the Scala service confirms them on the laptop. See
 [ADR 0028](https://github.com/beckfordp/gluon/blob/main/docs/adr/0028-rust-port-spike-user-service.md)
 for why, and gluon's `PLAN.md` "Rust Spike" for the order of work.
 
-**Status:** the isolated-mode runner is built (RUST-1.2); the check groups
-arrive one PLAN item at a time (RUST-1.3 onwards); see
+**Status:** the isolated-mode runner is built (RUST-1.2); user-service's
+check groups are done (RUST-1.3 to RUST-6.x); the harness starts
+notification-service too (RPN-3), whose groups arrive one session at a time; see
 [`conductor/tracks.md`](./conductor/tracks.md).
 
 ## Prerequisites
@@ -38,6 +41,7 @@ uv run pytest                             # the harness's own unit + integration
 scripts/ci.sh                             # what CI runs: format, lint, types, tests
 scripts/verify-isolated-runner.sh         # RUST-1.2, verified end to end (~100 s; --skip-ci)
 scripts/verify-ns-capture.sh [dir]        # RPN-1: a notification-service capture checked on its own
+scripts/verify-multi-service-harness.sh   # RPN-3: the service as a parameter (~15 min; --skip-ci, --skip-contract)
 ```
 
 Each track has a `scripts/verify-<track>.sh` that checks what the track set
@@ -57,12 +61,41 @@ spans, then the build under test with the env-var contract (its ports,
 `TZ`, `JAVA_HOME` from your environment). Everything stops at the end of the
 session, even after a failure.
 
+### More than one service
+
+A run judges one service: `--service` (`CONTRACT_SERVICE`), default
+`user-service`. What each service needs beyond Postgres and the OTLP stub is
+its profile in `src/gluon_contract/services.py`, from its `application.conf`
+and gluon `environments/local/<service>.values.yaml`:
+
+| Service | Also started | Also in its env contract |
+|---|---|---|
+| `user-service` | — | — |
+| `notification-service` | a Kafka broker (the CDC stack's jars) with `user-events`, `order-events`, `payment-events`, `fulfilment-events` created; a scriptable stub each for user-service and order-service | `KAFKA_BOOTSTRAP_SERVERS`, `USER_SERVICE_URL`, `ORDER_SERVICE_URL` |
+
+The broker's jars are checked before anything starts (`CONTRACT_CDC_HOME`, default
+where gluon `bin/sandbox-setup --only cdc` puts them). Checks reach them as
+`harness.kafka` and `harness.stubs["<service>"]`.
+
+A check module marked `pytest.mark.service("<name>")` is that service's
+contract: a run for another service deselects it. The plugin runs unmarked
+checks for any service, but CI requires every module in `checks/` to carry a
+marker naming known services (`tests/unit/test_check_markers.py`); a check that
+really is service-neutral names them all. Every group in `checks/` today is
+user-service's, so
+
+```
+uv run pytest checks --service notification-service --target-cmd "<its build>"
+```
+
+deselects them all until notification-service's groups arrive (RPN-4 on).
+
 | Option | Variable | Default |
 |---|---|---|
+| `--service` | `CONTRACT_SERVICE` | `user-service` (or `notification-service`) |
 | `--target-cmd` | `CONTRACT_TARGET_CMD` | required |
 | `--target-cwd` | `CONTRACT_TARGET_CWD` | the current directory |
 | `--target-name` | `CONTRACT_TARGET_NAME` | the command's first word |
-| — | `CONTRACT_SERVICE` | `user-service` |
 | — | `CONTRACT_PG_BIN` | the directory of `pg_ctl` on the `PATH` |
 | — | `CONTRACT_READINESS_PATH` | `/health/ready` |
 | — | `CONTRACT_READINESS_DEADLINE` | `60` (seconds) |
@@ -70,8 +103,8 @@ session, even after a failure.
 
 ## Layout
 
-- `src/gluon_contract/` — the harness: config, env-var contract, throwaway
-  Postgres, OTLP decoding and stub, target process, harness, `contracts/`
+- `src/gluon_contract/` — the harness: config, service profiles, env-var
+  contract, throwaway Postgres, OTLP decoding and stub, target process, harness, `contracts/`
   rules, pytest wiring; notification-service's capture check and scenario
   table (`ns_capture`, `ns_scenarios`; RPN-1)
 - `tests/unit/`, `tests/integration/` — the harness's own tests (CI runs

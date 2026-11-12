@@ -15,12 +15,16 @@ from datetime import timedelta
 from typing import Any
 
 import psycopg
+import pytest
 from support import new_email, post_credentials, signed_up
 
 from gluon_contract.formats import is_uuid, parse_traceparent
 from gluon_contract.harness import Harness
 from gluon_contract.registry import latest_schema, validation_errors
 from gluon_contract.routing import load_connector, route
+
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
 
 type Db = psycopg.Connection[tuple[Any, ...]]
 JAVA_INSTANT = re.compile(r"^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d{3}|\.\d{6}|\.\d{9})?Z$")

@@ -48,10 +48,15 @@ added here that the sandbox doesn't already have is added to
   `config`, `env_contract`, `ports`, `postgres`, `otlp` + `otlp_stub`,
   `target`, `harness`, `contracts`, `pytest_plugin`; *(2026-11-11, RPN-1)*
   `ns_scenarios` (what notification-service's capture drove) and
-  `ns_capture` (that capture checked on its own; `python -m` entry point)
+  `ns_capture` (that capture checked on its own; `python -m` entry point);
+  *(2026-11-12, RPN-3)* `services` (each service's profile: the broker,
+  topics and called services the harness starts for it) and
+  `check_markers` (each check module's service, read with `ast`; CI requires
+  one on every module in `checks/`)
 - `tests/unit/` (pure) and `tests/integration/` (local processes, including
   `stand_in_target.py`, a test double for the build under test) — run in CI
-- `checks/` — the contract checks, one module per group (RUST-1.3 onwards);
+- `checks/` — the contract checks, one module per group (RUST-1.3 onwards),
+  each marked with the service it judges (`pytest.mark.service`, RPN-3);
   `checks/conftest.py` imports the wiring from `gluon_contract.pytest_plugin`
   (pytest allows `pytest_plugins` only in the root conftest). Run by path;
   type-checked by a separate `mypy checks` (its `conftest` module name would

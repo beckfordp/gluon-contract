@@ -21,8 +21,9 @@ from gluon_contract.formats import is_token, is_uuid, java_instant
 from gluon_contract.harness import Harness
 from gluon_contract.http import HttpResponse, json_body, request
 
-pytestmark = pytest.mark.cluster
-"""Runs in cluster mode too: these need only the service's API (RUST-5.4)."""
+pytestmark = [pytest.mark.service("user-service"), pytest.mark.cluster]
+"""user-service's contract (deselected in a run for another service, RPN-3); runs in
+cluster mode too: these need only the service's API (RUST-5.4)."""
 
 
 PASSWORD = "correct-horse-battery-1"

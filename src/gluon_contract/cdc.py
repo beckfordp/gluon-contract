@@ -20,7 +20,7 @@ import subprocess
 import time
 import urllib.request
 import uuid
-from collections.abc import Callable, Mapping
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from types import TracebackType
@@ -31,6 +31,8 @@ from kafka.errors import (
     CoordinatorLoadInProgressError,
     CoordinatorNotAvailableError,
     NotCoordinatorError,
+    RetriableError,
+    TopicAlreadyExistsError,
 )
 
 from gluon_contract.ports import free_port
@@ -311,6 +313,50 @@ class KafkaBroker:
         if self._process is not None:
             self._processes.stop(self._process)
             self._process = None
+
+    def create_topics(self, topics: Sequence[str], *, timeout_s: float = 60.0) -> None:
+        """Creates each of `topics` not there yet: one partition, replication 1, as the
+        notification-service capture's CAPTURE.sh creates its input topics. Returns once
+        each has a leader.
+
+        Retried while the broker isn't ready, and when a topic appears between listing
+        and creating (a client's auto-create), until `timeout_s`.
+
+        Raises:
+            CdcError: the topics still couldn't be created at the deadline.
+        """
+        deadline = time.monotonic() + timeout_s
+        while True:
+            budget_ms = max(1000, int((deadline - time.monotonic()) * 1000))
+            try:
+                self._create_missing(topics, budget_ms)
+                return
+            except (RetriableError, TopicAlreadyExistsError) as error:
+                if time.monotonic() >= deadline:
+                    raise CdcError(
+                        f"couldn't create topics {', '.join(topics)} on {self.bootstrap} "
+                        f"within {timeout_s}s: {error}"
+                    ) from error
+                time.sleep(0.5)
+
+    def _create_missing(self, topics: Sequence[str], timeout_ms: int) -> None:
+        """One attempt: list the topics, create the missing ones, wait for their leaders."""
+        admin = KafkaAdminClient(
+            bootstrap_servers=self.bootstrap,
+            bootstrap_timeout_ms=timeout_ms,
+            request_timeout_ms=timeout_ms,
+        )
+        try:
+            existing = set(admin.list_topics())
+            missing = {
+                topic: {"num_partitions": 1, "replication_factor": 1}
+                for topic in topics
+                if topic not in existing
+            }
+            if missing:
+                admin.create_topics(missing, wait_for_metadata=True)
+        finally:
+            admin.close()
 
     def produce(
         self, topic: str, key: str | None, value: str | None, headers: Mapping[str, str]

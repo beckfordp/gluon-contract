@@ -1,0 +1,8 @@
+{
+  "track_id": "rpn3-review-fixes_20261112",
+  "type": "fix",
+  "status": "completed",
+  "created_at": "2026-11-12T20:00:00Z",
+  "updated_at": "2026-11-12T23:00:00Z",
+  "description": "The must and should fixes from the user's review of track multi-service-harness_20261112 (gluon PLAN.md RPN-3)"
+}

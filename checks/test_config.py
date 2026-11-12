@@ -26,6 +26,9 @@ from gluon_contract.http import request
 from gluon_contract.ports import free_port
 from gluon_contract.target import TargetProcess
 
+pytestmark = pytest.mark.service("user-service")
+"""user-service's contract: deselected in a run for another service (RPN-3)."""
+
 type Db = psycopg.Connection[tuple[Any, ...]]
 
 # The JVM runtime instrumentations' scopes (capture metrics.txt): fixed names, not the
