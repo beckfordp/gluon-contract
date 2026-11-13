@@ -1,0 +1,1 @@
+Task: coverage map (Phase 1). 14 scripts mapped to covering tests/ci.sh/verify-port steps; 4 CI gaps (check sources TD-41, env vs gluon-local values, no GNU-only commands, implicit-behaviours list); 3 scripts kept with reasons.
