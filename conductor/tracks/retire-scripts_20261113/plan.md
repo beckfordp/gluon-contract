@@ -49,10 +49,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
 ## Phase 3: Retire
-- [ ] Task: `verify-check-group.sh` cut to §3 (header, usage, `--skip-ci` removed)
-- [ ] Task: delete covered scripts (the 7 group wrappers + others the map covers)
-- [ ] Task: live references updated (README, tech-stack, docs/implicit-behaviours.md); archives untouched
-- [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
+- [x] Task: `verify-check-group.sh` cut to §3 (header, usage, `--skip-ci` removed) `24f1058` — `test_user_schema.py --expect-green` PASS
+- [x] Task: delete covered scripts (the 7 group wrappers + others the map covers) `6e35b31` — 13 (portable-harness in `6fe7829`)
+- [x] Task: live references updated (README, tech-stack, docs/implicit-behaviours.md); archives untouched `30e76ee`
+- [x] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
 
 ## Phase 4: Rule
 - [ ] Task: `conductor/workflow.md` Phase Completion step 4: retirement rule (user-service-rs wording)
