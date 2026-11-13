@@ -1,0 +1,1 @@
+Task: delete covered scripts (Phase 3). Deleted 13 verify-*.sh per the coverage map in plan.md (portable-harness went in 6fe7829). Kept: verify-check-group.sh (tool), verify-user-scala-confirmation.sh (laptop B2), verify-cluster-mode.sh (RUST-5.4 open), plus verify-retire-scripts.sh until archive.
