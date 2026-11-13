@@ -52,7 +52,10 @@ added here that the sandbox doesn't already have is added to
   *(2026-11-12, RPN-3)* `services` (each service's profile: the broker,
   topics and called services the harness starts for it) and
   `check_markers` (each check module's service, read with `ast`; CI requires
-  one on every module in `checks/`)
+  one on every module in `checks/`); *(2026-11-13, RPN-4)* `sent_email`
+  (notification-service's captured rows as seed data) and `expect` (response
+  comparisons for any service's checks, failures spelled out since pytest
+  doesn't rewrite asserts in `src/`)
 - `tests/unit/` (pure) and `tests/integration/` (local processes, including
   `stand_in_target.py`, a test double for the build under test) — run in CI
 - `checks/` — the contract checks, one module per group (RUST-1.3 onwards),

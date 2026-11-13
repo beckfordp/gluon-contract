@@ -18,7 +18,9 @@ for why, and gluon's `PLAN.md` "Rust Spike" for the order of work.
 
 **Status:** the isolated-mode runner is built (RUST-1.2); user-service's
 check groups are done (RUST-1.3 to RUST-6.x); the harness starts
-notification-service too (RPN-3), whose groups arrive one session at a time; see
+notification-service too (RPN-3), whose groups arrive one session at a time:
+its REST group (`checks/test_notification_rest.py`, RPN-4) is written and red
+against the walking skeleton until the Rust session that implements it; see
 [`conductor/tracks.md`](./conductor/tracks.md).
 
 ## Prerequisites
@@ -42,6 +44,8 @@ scripts/ci.sh                             # what CI runs: format, lint, types, t
 scripts/verify-isolated-runner.sh         # RUST-1.2, verified end to end (~100 s; --skip-ci)
 scripts/verify-ns-capture.sh [dir]        # RPN-1: a notification-service capture checked on its own
 scripts/verify-multi-service-harness.sh   # RPN-3: the service as a parameter (~15 min; --skip-ci, --skip-contract)
+scripts/verify-notification-rest-group.sh # RPN-4: notification-service's REST group, red on the skeleton (~8 min; --skip-ci)
+scripts/verify-check-group.sh checks/test_<group>.py [--service NAME] [--expect-green | --expect-red PATTERN]
 ```
 
 Each track has a `scripts/verify-<track>.sh` that checks what the track set
@@ -81,14 +85,19 @@ A check module marked `pytest.mark.service("<name>")` is that service's
 contract: a run for another service deselects it. The plugin runs unmarked
 checks for any service, but CI requires every module in `checks/` to carry a
 marker naming known services (`tests/unit/test_check_markers.py`); a check that
-really is service-neutral names them all. Every group in `checks/` today is
-user-service's, so
+really is service-neutral names them all. notification-service's groups
+arrive one session at a time, the first its REST group (RPN-4):
 
 ```
 uv run pytest checks --service notification-service --target-cmd "<its build>"
 ```
 
-deselects them all until notification-service's groups arrive (RPN-4 on).
+runs `checks/test_notification_rest.py` and deselects every user-service
+group. Until its consumers exist (RPN-10 on), nothing creates `sent_email`
+rows through the API, so its `/emails` checks seed the table with the
+capture's own rows (`gluon_contract.sent_email`) and expect the capture's
+answers; comparisons any service's checks can use are in
+`gluon_contract.expect`.
 
 | Option | Variable | Default |
 |---|---|---|
@@ -106,7 +115,8 @@ deselects them all until notification-service's groups arrive (RPN-4 on).
 - `src/gluon_contract/` — the harness: config, service profiles, env-var
   contract, throwaway Postgres, OTLP decoding and stub, target process, harness, `contracts/`
   rules, pytest wiring; notification-service's capture check and scenario
-  table (`ns_capture`, `ns_scenarios`; RPN-1)
+  table (`ns_capture`, `ns_scenarios`; RPN-1); its captured `sent_email` rows as
+  seed data (`sent_email`) and response comparisons for any service (`expect`; RPN-4)
 - `tests/unit/`, `tests/integration/` — the harness's own tests (CI runs
   both; the integration tests start local processes, including a stand-in
   target)
