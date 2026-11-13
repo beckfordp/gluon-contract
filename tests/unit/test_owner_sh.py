@@ -4,6 +4,7 @@
 
 import os
 import pwd
+import re
 import subprocess
 from pathlib import Path
 
@@ -106,3 +107,17 @@ def test_run_as_owner_stops_anyone_else(tmp_path: Path) -> None:
     result = run(f'run_as_owner "{tmp_path}" /no/such/script; echo carried-on', bin_dir)
     assert result.returncode == 1
     assert result.stdout == f"FAIL run as someone-else, who owns {tmp_path}\n"
+
+
+def test_no_script_calls_a_gnu_or_linux_only_command_itself() -> None:
+    """owner.sh holds the fallbacks for `stat -c`, `getent` and /proc; other scripts use it
+    (was verify-portable-harness.sh)."""
+    scripts = sorted(p for p in OWNER_SH.parents[1].rglob("*.sh") if p != OWNER_SH)
+    assert scripts
+    calls = [
+        f"{path.name}:{number}: {line.strip()}"
+        for path in scripts
+        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1)
+        if re.search(r"stat -c|getent|/proc/", line) and not line.lstrip().startswith("#")
+    ]
+    assert calls == []

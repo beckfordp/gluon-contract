@@ -6,7 +6,10 @@ Source: each service's `src/main/resources/application.conf` (the `${?VAR}`
 overrides) and gluon `environments/local/<service>.values.yaml`.
 """
 
+from pathlib import Path
+
 import pytest
+import yaml
 
 from gluon_contract.env_contract import (
     BASE_VARIABLES,
@@ -15,8 +18,11 @@ from gluon_contract.env_contract import (
     PostgresLogin,
     postgres_login,
     service_env,
+    variable_prefix,
 )
-from gluon_contract.services import UnknownServiceError
+from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError
+
+GLUON_LOCAL = Path(__file__).resolve().parents[4] / "environments" / "local"
 
 ENDPOINTS = Endpoints(
     http_port=18080,
@@ -171,3 +177,17 @@ def test_postgres_login_is_the_domain_name_throughout() -> None:
     assert postgres_login("notification-service") == PostgresLogin(
         database="notification", user="notification", password="notification"
     )
+
+
+@pytest.mark.parametrize("service", KNOWN_SERVICES)
+def test_the_variables_are_the_ones_gluon_local_sets(service: str) -> None:
+    """The names gluon-local's values file sets, plus the service's two ports (the chart
+    sets them) and POSTGRES_PORT (gluon-local uses the default; the harness a free port)."""
+    values = yaml.safe_load((GLUON_LOCAL / f"{service}.values.yaml").read_text(encoding="utf-8"))
+    prefix = variable_prefix(service)
+    expected = {entry["name"] for entry in values["env"]} | {
+        f"{prefix}_PORT",
+        f"{prefix}_METRICS_PORT",
+        "POSTGRES_PORT",
+    }
+    assert set(service_env(service, NOTIFICATION_ENDPOINTS, base_env={})) == expected
