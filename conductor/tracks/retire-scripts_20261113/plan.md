@@ -55,9 +55,9 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
 
 ## Phase 4: Rule
-- [ ] Task: `conductor/workflow.md` Phase Completion step 4: retirement rule (user-service-rs wording)
-- [ ] Task: `verify-retire-scripts.sh` PASS; failure path proven on a copy
-- [ ] Task: Conductor - User Manual Verification 'Phase 4' (Protocol in workflow.md)
+- [x] Task: `conductor/workflow.md` Phase Completion step 4: retirement rule (user-service-rs wording) `881d0e4`
+- [x] Task: `verify-retire-scripts.sh` PASS; failure path proven on a copy — PASS 38 checks, ci.sh 322 passed, 94.66%; copy with a missing kept tool: exit 1, tool named. Found: `test_cluster_mode` skips only without jars or binary, so with the binary built but the AsyncAPI HTML not rendered it fails (rendered with `asyncapi-html.sh`; follow-up)
+- [x] Task: Conductor - User Manual Verification 'Phase 4' (Protocol in workflow.md)
 
 At archive: `verify-retire-scripts.sh` deleted (per the rule). gluon follow-up: verify-port `CONTRACT_TRACK_SCRIPTS`, docs/ports table, docs/sandbox.md rule, TD-41/TD-46 ticks.
 
