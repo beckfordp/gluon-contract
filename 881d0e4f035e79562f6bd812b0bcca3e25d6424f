@@ -1,0 +1,1 @@
+Task: retirement rule (Phase 4). conductor/workflow.md Phase Completion step 4: at archive each script section is mapped; covered → nothing, CI-runnable → a test under tests/, else kept in a script verify-port runs; empty script deleted with the archive commit. Same wording as user-service-rs, adapted to this repo.
