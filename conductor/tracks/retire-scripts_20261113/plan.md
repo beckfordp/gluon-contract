@@ -48,7 +48,7 @@
 - [x] Task: `scripts/ci.sh` green, coverage ≥ 80% — 321 passed, 1 skipped (`test_cluster_mode`, no CDC jars here), 94.62%
 - [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
-## Phase 3: Retire
+## Phase 3: Retire [checkpoint: b1e654b]
 - [x] Task: `verify-check-group.sh` cut to §3 (header, usage, `--skip-ci` removed) `24f1058` — `test_user_schema.py --expect-green` PASS
 - [x] Task: delete covered scripts (the 7 group wrappers + others the map covers) `6e35b31` — 13 (portable-harness in `6fe7829`)
 - [x] Task: live references updated (README, tech-stack, docs/implicit-behaviours.md); archives untouched `30e76ee`
