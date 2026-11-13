@@ -1,0 +1,1 @@
+Phase 1 verification (prompt off): scripts/verify-retire-scripts.sh red 33/38 for the stated reasons (retirement is Phase 3); ci.sh green 290 passed, 94.52%. Coverage map in plan.md: 14 delete, 3 keep, 4 CI gaps for Phase 2.
