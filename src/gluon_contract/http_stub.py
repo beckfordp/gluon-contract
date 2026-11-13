@@ -5,8 +5,8 @@
 The consumer probe's resilience-wrapped lookup (ADR 0025's recipient lookup,
 ADR 0028 decision 8) calls this. By default it answers as user-service does
 (200, `{userId, email, createdAt}`), and any other path isn't found (404,
-empty); a check scripts the next answers to be a status, a delay or a reset
-connection, and reads back every request it got. The harness also starts one
+empty); a check scripts the next answers to be a status, a delay, a hang or a
+reset connection, and reads back every request it got. The harness also starts one
 per service a service calls (RPN-3); until a check scripts it, a stub standing
 in for order-service finds no order.
 """
@@ -42,11 +42,16 @@ class Delay:
 
 
 @dataclass(frozen=True, slots=True)
+class Hang:
+    """Never answer: hold the request until the stub stops, so only a client timeout ends it."""
+
+
+@dataclass(frozen=True, slots=True)
 class Reset:
     """Close the connection without answering."""
 
 
-type Behaviour = Status | Delay | Reset
+type Behaviour = Status | Delay | Hang | Reset
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,6 +82,7 @@ class HttpStub:
         self._script: deque[Behaviour] = deque()
         self._requests: list[StubRequest] = []
         self._lock = threading.Lock()
+        self._stopping = threading.Event()
         self._server = ThreadingHTTPServer((HOST, 0), self._handler())
         self._server.daemon_threads = True
         self.port: int = self._server.server_address[1]
@@ -94,7 +100,8 @@ class HttpStub:
         exc: BaseException | None,
         traceback: TracebackType | None,
     ) -> None:
-        """Stops serving and frees the port."""
+        """Releases any hung request, stops serving and frees the port."""
+        self._stopping.set()
         self._server.shutdown()
         self._server.server_close()
 
@@ -145,6 +152,10 @@ class HttpStub:
                 if isinstance(behaviour, Delay):
                     time.sleep(behaviour.seconds)
                     behaviour = behaviour.then
+                if isinstance(behaviour, Hang):
+                    stub._stopping.wait()
+                    self.close_connection = True
+                    return
                 if isinstance(behaviour, Reset):
                     self.close_connection = True
                     self.connection.shutdown(socket.SHUT_RDWR)

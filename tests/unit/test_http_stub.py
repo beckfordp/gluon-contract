@@ -5,18 +5,21 @@
 import http.client
 import json
 import socket
+import threading
 import time
 
 import pytest
 
-from gluon_contract.http_stub import Delay, HttpStub, Reset, Status
+from gluon_contract.http_stub import Delay, Hang, HttpStub, Reset, Status
 
 USER = "691b03e8-f1d7-45d9-a561-5183ffae9d0b"
 
 
-def get(stub: HttpStub, path: str, headers: dict[str, str] | None = None) -> tuple[int, bytes]:
+def get(
+    stub: HttpStub, path: str, headers: dict[str, str] | None = None, *, timeout: float = 10
+) -> tuple[int, bytes]:
     """One GET, (status, body)."""
-    connection = http.client.HTTPConnection("127.0.0.1", stub.port, timeout=10)
+    connection = http.client.HTTPConnection("127.0.0.1", stub.port, timeout=timeout)
     try:
         connection.request("GET", path, headers=headers or {})
         response = connection.getresponse()
@@ -87,6 +90,36 @@ def test_a_reset_closes_the_connection_without_an_answer() -> None:
         with pytest.raises((http.client.RemoteDisconnected, ConnectionResetError)):
             get(stub, f"/users/{USER}")
         assert get(stub, f"/users/{USER}")[0] == 200
+
+
+def test_a_hang_never_answers_and_the_next_request_moves_on() -> None:
+    """The client times out; the next request gets the default answer; both are recorded."""
+    with HttpStub() as stub:
+        stub.script(Hang())
+        with pytest.raises(TimeoutError):
+            get(stub, f"/users/{USER}", timeout=0.5)
+        assert get(stub, f"/users/{USER}")[0] == 200
+        assert len(stub.requests()) == 2
+
+
+def test_stopping_releases_a_hung_request() -> None:
+    """A request still held when the stub stops ends with a dropped connection."""
+    outcome: list[BaseException] = []
+
+    def hung_get(stub: HttpStub) -> None:
+        try:
+            get(stub, f"/users/{USER}")
+        except (http.client.RemoteDisconnected, ConnectionError) as error:
+            outcome.append(error)
+
+    with HttpStub() as stub:
+        stub.script(Hang())
+        client = threading.Thread(target=hung_get, args=(stub,))
+        client.start()
+        stub.wait_for_requests(1, timeout_s=5)
+    client.join(timeout=5)
+    assert not client.is_alive()
+    assert len(outcome) == 1
 
 
 def test_every_request_is_recorded_with_its_headers() -> None:

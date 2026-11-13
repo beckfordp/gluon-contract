@@ -21,7 +21,7 @@ from typing import Any
 import pytest
 
 from gluon_contract.cdc import KafkaBroker
-from gluon_contract.http_stub import HttpStub, Reset, Status
+from gluon_contract.http_stub import Hang, HttpStub, Reset, Status
 from gluon_contract.metrics import metric_shapes, samples
 from gluon_contract.pytest_plugin import ProbeRun
 
@@ -184,6 +184,24 @@ def test_transient_failures_are_retried(
     wait_until(lambda: lookups(lookup_stub, user_id) == 3, "three lookups")
     settle()
     assert lookups(lookup_stub, user_id) == 3
+    assert kafka.records(run.dlq_topic) == []
+
+
+def test_a_lookup_past_its_timeout_is_abandoned_and_retried(
+    kafka: KafkaBroker, lookup_stub: HttpStub, probe: Probe
+) -> None:
+    """The first lookup is never answered, so a second comes only if the call timed out and
+    was retried: checked by the order of events, not elapsed time.
+
+    Source: ADR 0025 ("an explicit request timeout"); purerest Retry (timeouts are
+    retriable); notification-service Main (5 s client timeout).
+    """
+    run = probe(PROBE_LOOKUP_TIMEOUT="500ms", PROBE_LOOKUP_BASE_DELAY="10ms")
+    lookup_stub.script(Hang())
+    user_id = registered(kafka, run)
+    wait_until(lambda: lookups(lookup_stub, user_id) == 2, "a second lookup")
+    settle()
+    assert lookups(lookup_stub, user_id) == 2
     assert kafka.records(run.dlq_topic) == []
 
 
