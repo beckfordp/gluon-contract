@@ -1,6 +1,6 @@
 # Plan — retire-scripts (gluon TD-46, TD-41)
 
-## Phase 1: Acceptance and coverage map
+## Phase 1: Acceptance and coverage map [checkpoint: 1182b42]
 - [x] Task: `scripts/verify-retire-scripts.sh`, red `4ba3dc0` — 33 of 38 failed: 14 present and self-named, check-group §1/§2, no `test_check_sources.py`, no rule; ci.sh green (290 passed, 94.52%)
   - [x] Checks: retired scripts gone; kept present + `bash -n` clean; no `git grep` hits outside `conductor/archive`; verify-check-group.sh has no §1/§2; rule in workflow.md; `scripts/ci.sh` green
   - [x] Run: red for the stated reasons
