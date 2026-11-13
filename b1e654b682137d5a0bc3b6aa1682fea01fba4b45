@@ -1,0 +1,1 @@
+Phase 3 verification (prompt off): verify-retire-scripts.sh --skip-ci 36/37, only the workflow.md rule (Phase 4) left; verify-check-group.sh checks/test_user_schema.py --expect-green PASS; notification_capture CLI PASS on the committed capture.
