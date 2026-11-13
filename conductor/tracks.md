@@ -6,6 +6,8 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
+- [ ] **Track: TD-46, TD-41: verify scripts into CI, every citation checked**
+  *Link: [./tracks/retire-scripts_20261113/](./tracks/retire-scripts_20261113/)*
 
 ---
 
