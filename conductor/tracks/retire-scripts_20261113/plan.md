@@ -38,7 +38,7 @@
   | implicit-behaviours §2 `--run` | verify-port `contract` (superset) |
 
   Kept: `verify-check-group.sh` (§3 only: a tool for writing groups red then green), `verify-user-scala-confirmation.sh` (laptop B2: stages the Scala service), `verify-cluster-mode.sh` (RUST-5.4 open, laptop; its §2 is skipped silently in CI without the jars/build).
-- [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
 ## Phase 2: Into CI (TDD)
 - [ ] Task: `tests/unit/test_check_sources.py`: every check in `checks/test_*.py` has a `Source:` line; every capture file it names exists (TD-41.1)
