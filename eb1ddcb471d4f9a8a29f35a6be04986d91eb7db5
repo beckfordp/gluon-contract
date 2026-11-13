@@ -1,0 +1,1 @@
+Phase 2 verification (prompt off): scripts/ci.sh green, 321 passed, 1 skipped (test_cluster_mode: no CDC jars on this machine), 94.62%. New CI guards each proven red on a mutation: later capture citation (TD-41), renamed implicit-behaviours check, stat -c in a script, extra gluon-local variable. verify-retire-scripts.sh still red for the Phase 3/4 items.
