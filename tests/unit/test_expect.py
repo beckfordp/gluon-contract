@@ -8,7 +8,7 @@ from gluon_contract.capture import load_exchange
 from gluon_contract.expect import TEXT_PLAIN, assert_same, assert_same_cors, assert_text_error
 from gluon_contract.http import HttpResponse
 
-NS = "notification-service"
+NOTIFICATION = "notification-service"
 NOT_FOUND = HttpResponse(404, (("Content-Type", TEXT_PLAIN),), b"Not found")
 """What a build without the route answers."""
 
@@ -23,7 +23,7 @@ def json_response(status: int, body: bytes) -> HttpResponse:
 
 @pytest.mark.parametrize(
     ("service", "captured"),
-    [(NS, "emails-all"), (NS, "emails-none"), ("user-service", "users-404")],
+    [(NOTIFICATION, "emails-all"), (NOTIFICATION, "emails-none"), ("user-service", "users-404")],
 )
 def test_the_captured_answer_itself_is_the_same(service: str, captured: str) -> None:
     """Either service's capture, read through its `service`."""
@@ -33,7 +33,7 @@ def test_the_captured_answer_itself_is_the_same(service: str, captured: str) -> 
 def test_another_status_fails_naming_the_capture_and_both_statuses() -> None:
     """The status is compared first, so a missing route reads as the 404 it is."""
     with pytest.raises(AssertionError) as failure:
-        assert_same(NOT_FOUND, "emails-all", service=NS)
+        assert_same(NOT_FOUND, "emails-all", service=NOTIFICATION)
     message = str(failure.value)
     assert "emails-all" in message
     assert "expected 200 application/json" in message
@@ -44,13 +44,13 @@ def test_another_status_fails_naming_the_capture_and_both_statuses() -> None:
 def test_a_different_json_body_fails_showing_both() -> None:
     """Same status and Content-Type, another body: both bodies in the message."""
     with pytest.raises(AssertionError, match=r"emails-none: body expected \[\], got \[1\]"):
-        assert_same(json_response(200, b"[1]"), "emails-none", service=NS)
+        assert_same(json_response(200, b"[1]"), "emails-none", service=NOTIFICATION)
 
 
 def test_a_body_that_is_not_json_fails_quoting_it() -> None:
     """A JSON answer was captured; text instead says so."""
     with pytest.raises(AssertionError, match="emails-none: body is not JSON: 'oops'"):
-        assert_same(json_response(200, b"oops"), "emails-none", service=NS)
+        assert_same(json_response(200, b"oops"), "emails-none", service=NOTIFICATION)
 
 
 # --- assert_text_error -----------------------------------------------------------------------
@@ -82,9 +82,9 @@ def test_a_text_error_with_other_text_fails_showing_both() -> None:
 @pytest.mark.parametrize(
     ("service", "captured"),
     [
-        (NS, "cors-preflight"),
-        (NS, "cors-preflight-bad-header"),
-        (NS, "cors-simple"),
+        (NOTIFICATION, "cors-preflight"),
+        (NOTIFICATION, "cors-preflight-bad-header"),
+        (NOTIFICATION, "cors-simple"),
         ("user-service", "cors-preflight"),
     ],
 )
@@ -105,14 +105,14 @@ def test_cors_header_lists_compare_as_sets() -> None:
         ),
         b"",
     )
-    assert_same_cors(response, "cors-preflight", service=NS)
+    assert_same_cors(response, "cors-preflight", service=NOTIFICATION)
 
 
 def test_a_missing_cors_header_fails_naming_it() -> None:
     """A preflight answered without the allow headers: each named, expected and got."""
-    refused = load_exchange("cors-preflight-bad-header", service=NS)
+    refused = load_exchange("cors-preflight-bad-header", service=NOTIFICATION)
     with pytest.raises(AssertionError) as failure:
-        assert_same_cors(refused, "cors-preflight", service=NS)
+        assert_same_cors(refused, "cors-preflight", service=NOTIFICATION)
     message = str(failure.value)
     assert message.startswith("cors-preflight: ")
     assert "Access-Control-Allow-Origin: expected ['*'], got []" in message
@@ -121,14 +121,14 @@ def test_a_missing_cors_header_fails_naming_it() -> None:
 
 def test_an_extra_cors_header_fails_naming_it() -> None:
     """Credentials allowed where the capture has none."""
-    captured = load_exchange("cors-simple", service=NS)
+    captured = load_exchange("cors-simple", service=NOTIFICATION)
     response = HttpResponse(
         200, (*captured.headers, ("Access-Control-Allow-Credentials", "true")), captured.body
     )
     with pytest.raises(
         AssertionError, match=r"Access-Control-Allow-Credentials: expected \[\], got \['true'\]"
     ):
-        assert_same_cors(response, "cors-simple", service=NS)
+        assert_same_cors(response, "cors-simple", service=NOTIFICATION)
 
 
 def test_a_cors_answer_with_another_status_fails_naming_both() -> None:
@@ -136,7 +136,7 @@ def test_a_cors_answer_with_another_status_fails_naming_both() -> None:
     with pytest.raises(
         AssertionError, match="cors-preflight: expected 200, got 404; body 'Not found'"
     ):
-        assert_same_cors(NOT_FOUND, "cors-preflight", service=NS)
+        assert_same_cors(NOT_FOUND, "cors-preflight", service=NOTIFICATION)
 
 
 def test_vary_is_compared_too() -> None:
@@ -146,4 +146,4 @@ def test_vary_is_compared_too() -> None:
         AssertionError,
         match=r"Vary: expected \['Access-Control-Request-Headers', 'Access-Control-Request-Meth",
     ):
-        assert_same_cors(without_vary, "cors-preflight-bad-header", service=NS)
+        assert_same_cors(without_vary, "cors-preflight-bad-header", service=NOTIFICATION)

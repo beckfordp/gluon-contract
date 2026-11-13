@@ -21,7 +21,7 @@ from gluon_contract.capture import load_exchange
 from gluon_contract.expect import assert_same, assert_same_cors, assert_text_error
 from gluon_contract.harness import Harness
 from gluon_contract.http import HttpResponse, request
-from gluon_contract.ns_scenarios import O_CUST, O_GUEST, U_FLAKY, U_GONE, U_OK
+from gluon_contract.notification_scenarios import O_CUST, O_GUEST, U_FLAKY, U_GONE, U_OK
 from gluon_contract.sent_email import SentEmailRow, captured_rows, existing_at, insert
 
 pytestmark = pytest.mark.service("notification-service")

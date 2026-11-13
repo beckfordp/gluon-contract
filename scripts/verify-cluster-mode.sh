@@ -3,7 +3,7 @@
 # Verifies track cluster-mode_20261110 (gluon PLAN.md RUST-5.4, prepared): which
 # checks cluster mode runs, and cluster mode end to end against a started Rust
 # service standing in for a deployment (tests/integration/test_cluster_mode.py).
-# On the laptop, against gluon-local (see gluon docs/rust-spike-verification.md):
+# On the laptop, against gluon-local (see gluon docs/ports/user-service-verification.md):
 #   uv run pytest checks --base-url http://user-service.gluon-local.svc.cluster.local:8080
 #   scripts/verify-cluster-mode.sh
 set -uo pipefail

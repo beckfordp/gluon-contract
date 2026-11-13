@@ -1,6 +1,6 @@
 # Initial Concept
 
-Black-box contract harness — per gluon ADR 0028 and PLAN.md "Rust Spike": a
+Black-box contract harness — per gluon ADR 0028 and gluon `plans/rust-port/user-service/plan.md`: a
 Python + pytest program that exercises every wire contract of a Gluon service
 and checks it for correctness, against any implementation of it. First target:
 user-service. The reference is the specified contracts; the Rust port
@@ -30,7 +30,7 @@ In order of precedence:
 ## Users
 - The consultant (solo): runs it in the sandbox against the Rust service, and
   once on the laptop against the Scala service to confirm the expectations
-- Reviewers of the Rust spike: read the check names and failure messages as
+- Reviewers of the user-service port: read the check names and failure messages as
   the list of contracts
 
 ## Goals
@@ -47,7 +47,7 @@ In order of precedence:
 - **Cluster mode** (laptop only, RUST-5.4): the REST checks against
   gluon-local, plus the real `user-events` topic
 - Every failure names the contract, its source, and expected vs actual
-- The consumer probe's checks (Rust Spike 6), against the CDC stack's Kafka
+- The consumer probe's checks (RUST-6), against the CDC stack's Kafka
   broker and a scriptable HTTP stub
 
 ## Non-goals
@@ -59,8 +59,8 @@ In order of precedence:
   start local processes only
 
 ## Scope (from gluon PLAN.md; items owned by this repo)
-Rust Spike 1 (RUST-1.1–1.9), Rust Spike 5's Scala confirmation and
-cluster-mode run (RUST-5.0, 5.4), and Rust Spike 6's stubs and probe group
+RUST-1 (RUST-1.1–1.9), RUST-5's Scala confirmation and
+cluster-mode run (RUST-5.0, 5.4), and RUST-6's stubs and probe group
 (RUST-6.1, 6.5). Worked one PLAN item at a time, outside-in: each check group
 is written, and seen failing for the stated reason, just before the Rust items
 that turn it green. Each track ends with a review.

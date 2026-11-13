@@ -152,9 +152,14 @@ def test_the_report_header_names_the_service(pytester: pytest.Pytester) -> None:
     """The run says which service's contract it judges."""
     service_suite(pytester)
     result = pytester.runpytest(
-        "--target-cmd", STAND_IN_CMD, "--target-name", "ns", "--service", "notification-service"
+        "--target-cmd",
+        STAND_IN_CMD,
+        "--target-name",
+        "notification",
+        "--service",
+        "notification-service",
     )
-    result.stdout.fnmatch_lines(["gluon-contract: target ns*as notification-service"])
+    result.stdout.fnmatch_lines(["gluon-contract: target notification*as notification-service"])
 
 
 def test_a_service_without_a_profile_stops_the_run_before_any_check(

@@ -12,7 +12,7 @@ anything is compared with it:
   `decode-otlp`) gives the same spans;
 - every `.jsonl` line is JSON;
 - each `kafka/<topic>-dlq.txt` holds exactly the scenario table's dead letters;
-- `db/sent-email.jsonl` is exactly the scenario table's rows (`ns_scenarios`).
+- `db/sent-email.jsonl` is exactly the scenario table's rows (`notification_scenarios`).
 
 Each check is pure and returns problems naming the file relative to the
 capture; `check_capture` reads a directory and runs them all. Only what these
@@ -20,8 +20,8 @@ checks define is a problem; anything else (a missing file, bytes that aren't
 UTF-8, a `.pb` `decode-otlp` can't read) raises, as reading user-service's
 capture does (`capture.capture_file`, `capture.load_exchange`). Usage:
 
-    python -m gluon_contract.ns_capture check [DIR]        # PASS, or FAIL and exit 1
-    python -m gluon_contract.ns_capture decode-otlp [DIR]  # write otlp/*.json
+    python -m gluon_contract.notification_capture check [DIR]        # PASS, or FAIL and exit 1
+    python -m gluon_contract.notification_capture decode-otlp [DIR]  # write otlp/*.json
 
 DIR defaults to the latest notification-service capture.
 """
@@ -41,7 +41,7 @@ from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import ExportTrace
 from gluon_contract.capture import CaptureError, parse_exchange
 from gluon_contract.cluster import parse_console_line
 from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
-from gluon_contract.ns_scenarios import (
+from gluon_contract.notification_scenarios import (
     TOPICS,
     envelope_field,
     expected_dead_letters,
@@ -162,7 +162,8 @@ def check_otlp_export(pb_file: str, pb: bytes, json_body: bytes | None) -> list[
         return [
             Problem(
                 json_file,
-                f"missing: decode {pb_file} with `python -m gluon_contract.ns_capture decode-otlp`",
+                f"missing: decode {pb_file} with "
+                "`python -m gluon_contract.notification_capture decode-otlp`",
             )
         ]
     try:
@@ -343,7 +344,7 @@ def write_otlp_json(directory: Path) -> list[Path]:
 def main(argv: Sequence[str]) -> int:
     """`check [DIR]` or `decode-otlp [DIR]`; returns the exit code."""
     parser = argparse.ArgumentParser(
-        prog="python -m gluon_contract.ns_capture",
+        prog="python -m gluon_contract.notification_capture",
         description="Check a notification-service capture, or decode its OTLP exports.",
     )
     parser.add_argument("command", choices=("check", "decode-otlp"))

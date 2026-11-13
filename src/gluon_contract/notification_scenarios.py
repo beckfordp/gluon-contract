@@ -9,7 +9,7 @@ record: the `sent_email` row it makes, if any, and whether it is dead-lettered.
 
 What no comment states is taken from the capture and marked `(capture)`: the
 subjects, the `error` texts, and `customer_id` staying empty when an order
-lookup finds no recipient. The capture check (`ns_capture`) holds the capture
+lookup finds no recipient. The capture check (`notification_capture`) holds the capture
 to this table; the consumer checks reuse it (RPN-10 on).
 """
 

@@ -10,7 +10,7 @@ import pytest
 
 from gluon_contract.capture import load_exchange
 from gluon_contract.formats import java_instant
-from gluon_contract.ns_scenarios import O_CUST, O_GUEST, U_FLAKY, U_OK
+from gluon_contract.notification_scenarios import O_CUST, O_GUEST, U_FLAKY, U_OK
 from gluon_contract.sent_email import SentEmailRow, captured_rows, existing_at, parse_rows
 
 SERVICE = "notification-service"
@@ -64,7 +64,8 @@ def test_a_line_that_is_not_json_is_refused_by_number() -> None:
 def test_the_captured_rows_all_parse() -> None:
     """The capture's 20 rows, one per source event, each with an aware created_at.
 
-    Source: capture db/sent-email.jsonl (checked against the scenario table by ns_capture).
+    Source: capture db/sent-email.jsonl (checked against the scenario table by
+    notification_capture).
     """
     rows = captured_rows()
     assert len(rows) == 20

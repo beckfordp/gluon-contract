@@ -49,7 +49,7 @@ for name in "${OPENINGS[@]}"; do
   opening="$(awk '{ print } /^run_as_owner |^home=/ { exit }' "$script" |
     sed "s|\"\${BASH_SOURCE\[0\]}\"|\"$PWD/$script\"|")"
   # verify-check-group's opening needs a group to check; the others ignore it.
-  if out="$(bash -c "$opening"$'\n''echo opening-done' "$name" checks/test_rest.py 2>&1)" &&
+  if out="$(bash -c "$opening"$'\n''echo opening-done' "$name" checks/test_user_rest.py 2>&1)" &&
     [ "$(tail -1 <<< "$out")" = opening-done ]; then
     ok "$name: the opening runs"
   else

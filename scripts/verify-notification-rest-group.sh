@@ -65,7 +65,7 @@ else
 fi
 
 echo "== 2. The seed, seen from outside (capture $(basename "$CAPTURE")) =="
-psql_ns() { "$PG_BIN/psql" --no-psqlrc -h "$SCRATCH" -U notification -d notification "$@"; }
+psql_notification() { "$PG_BIN/psql" --no-psqlrc -h "$SCRATCH" -U notification -d notification "$@"; }
 if "$PG_BIN/initdb" -D "$SCRATCH/pg" -U notification --auth=trust > "$SCRATCH/initdb.log" 2>&1 \
   && "$PG_BIN/pg_ctl" start -D "$SCRATCH/pg" -l "$SCRATCH/pg.log" -w \
     -o "-c listen_addresses='' -c unix_socket_directories=$SCRATCH -c timezone=UTC" > /dev/null 2>&1 \
@@ -75,8 +75,8 @@ else
   bad "throwaway Postgres didn't start"
   tail -5 "$SCRATCH/pg.log" "$SCRATCH/initdb.log" 2> /dev/null | sed 's/^/     /'
 fi
-if psql_ns -q -v ON_ERROR_STOP=1 -f "$CAPTURE/db/schema.sql" > "$SCRATCH/schema.log" 2>&1; then
-  ok "the capture's schema loaded: $(psql_ns -tAc "select count(*) from information_schema.columns where table_name = 'sent_email'") sent_email columns"
+if psql_notification -q -v ON_ERROR_STOP=1 -f "$CAPTURE/db/schema.sql" > "$SCRATCH/schema.log" 2>&1; then
+  ok "the capture's schema loaded: $(psql_notification -tAc "select count(*) from information_schema.columns where table_name = 'sent_email'") sent_email columns"
 else
   bad "db/schema.sql didn't load"
   tail -5 "$SCRATCH/schema.log" | sed 's/^/     /'
@@ -92,12 +92,12 @@ with psycopg.connect(host=sys.argv[1], dbname="notification", user="notification
     insert(connection, captured_rows())
 PY
 then
-  ok "seeded: $(psql_ns -tAc "select count(*) from sent_email") rows"
+  ok "seeded: $(psql_notification -tAc "select count(*) from sent_email") rows"
 else
   bad "seeding failed"
   tail -5 "$SCRATCH/seed.log" | sed 's/^/     /'
 fi
-psql_ns -tAc "select row_to_json(s) from sent_email s order by created_at" > "$SCRATCH/dumped.jsonl" 2>&1
+psql_notification -tAc "select row_to_json(s) from sent_email s order by created_at" > "$SCRATCH/dumped.jsonl" 2>&1
 if cmp -s "$SCRATCH/dumped.jsonl" "$CAPTURE/db/sent-email.jsonl"; then
   ok "dumped as CAPTURE.sh did: byte for byte db/sent-email.jsonl ($(wc -l < "$SCRATCH/dumped.jsonl") lines)"
 else
@@ -133,16 +133,16 @@ collect() {
   uv run --no-sync pytest checks --collect-only -q -p no:cacheprovider --service "$1" 2> /dev/null | grep '::'
 }
 modules() { cut -d: -f1 | sort -u | tr '\n' ' '; }
-ns="$(collect notification-service)"
-us="$(collect user-service)"
-ns_modules="$(modules <<< "$ns")"
-if [ "$ns_modules" = "checks/test_notification_rest.py " ]; then
-  ok "a notification-service run collects only checks/test_notification_rest.py: $(grep -c . <<< "$ns") checks"
+notification="$(collect notification-service)"
+user="$(collect user-service)"
+notification_modules="$(modules <<< "$notification")"
+if [ "$notification_modules" = "checks/test_notification_rest.py " ]; then
+  ok "a notification-service run collects only checks/test_notification_rest.py: $(grep -c . <<< "$notification") checks"
 else
-  bad "a notification-service run collects: ${ns_modules:-nothing}"
+  bad "a notification-service run collects: ${notification_modules:-nothing}"
 fi
-if [ -n "$us" ] && ! grep -q '^checks/test_notification_rest.py::' <<< "$us"; then
-  ok "a user-service run collects none of it: $(grep -c . <<< "$us") checks from $(modules <<< "$us" | wc -w) modules"
+if [ -n "$user" ] && ! grep -q '^checks/test_notification_rest.py::' <<< "$user"; then
+  ok "a user-service run collects none of it: $(grep -c . <<< "$user") checks from $(modules <<< "$user" | wc -w) modules"
 else
   bad "a user-service run collects test_notification_rest.py, or nothing"
 fi

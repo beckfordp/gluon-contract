@@ -3,9 +3,9 @@
 # Verifies track scala-confirmation_20261110 (gluon PLAN.md RUST-5.0): the
 # harness against the Scala service in isolated mode, every check green but
 # the probe group's (Rust-only). The laptop pass's step B2 (gluon
-# docs/rust-spike-verification.md), each check's outcome reported as found.
+# docs/ports/user-service-verification.md), each check's outcome reported as found.
 #
-#   scripts/verify-scala-confirmation.sh [--skip-ci] [--skip-stage]
+#   scripts/verify-user-scala-confirmation.sh [--skip-ci] [--skip-stage]
 #
 # USER_SERVICE_DIR is the Scala service's checkout (default
 # ../../services/user-service); its staged build runs from there, as it serves
@@ -31,7 +31,7 @@ passed=0
 failed=0
 ok() { echo "ok   $*"; passed=$((passed + 1)); }
 bad() { echo "FAIL $*"; failed=$((failed + 1)); }
-SCRATCH="$(mktemp -d /tmp/verify-scala-confirmation.XXXXXX)"
+SCRATCH="$(mktemp -d /tmp/verify-user-scala-confirmation.XXXXXX)"
 trap 'rm -rf "$SCRATCH"' EXIT
 SCALA_REPO="$(realpath "${USER_SERVICE_DIR:-../../services/user-service}")"
 BIN="$SCALA_REPO/target/universal/stage/bin/user-service"

@@ -19,7 +19,7 @@
 #      notification-service without the Kafka jars, stop a run as a usage
 #      error with the reason
 #   5. user-service runs unchanged: every check green against user-service-rs,
-#      with the same command line as gluon bin/verify-rust-spike (~10 min;
+#      with the same command line as gluon bin/verify-port user-service (~10 min;
 #      --skip-contract leaves it out)
 # Each result is printed as it is found; the exit status is 0 only if all pass.
 #
@@ -57,8 +57,8 @@ cleanup() {
 }
 trap cleanup EXIT
 PYTHON="$REPO/.venv/bin/python"
-NS_REPO="$GLUON/services/notification-service-rs"
-NS_BIN="$NS_REPO/target/debug/notification-service"
+NOTIFICATION_REPO="$GLUON/services/notification-service-rs"
+NOTIFICATION_BIN="$NOTIFICATION_REPO/target/debug/notification-service"
 port_open() { (exec 3<> "/dev/tcp/127.0.0.1/$1") 2> /dev/null; }
 http_code() { curl -s -m 5 -o /dev/null -w '%{http_code}' "$@" || true; }
 json() { "$PYTHON" -c "import json,sys; d=json.load(open(sys.argv[1])); print($2)" "$1"; }
@@ -120,8 +120,8 @@ done
 
 
 echo "== 3. notification-service's world, held open around notification-service-rs =="
-if (cd "$NS_REPO" && cargo build -q --locked) > "$SCRATCH/build.log" 2>&1 && [ -x "$NS_BIN" ]; then
-  ok "notification-service-rs built: $NS_BIN"
+if (cd "$NOTIFICATION_REPO" && cargo build -q --locked) > "$SCRATCH/build.log" 2>&1 && [ -x "$NOTIFICATION_BIN" ]; then
+  ok "notification-service-rs built: $NOTIFICATION_BIN"
 else
   bad "notification-service-rs didn't build"
   tail -5 "$SCRATCH/build.log" | sed 's/^/     /'
@@ -156,7 +156,7 @@ Path(info + ".stopped").write_text("ok")
 PY
 mkdir -p "$SCRATCH/world"
 INFO="$SCRATCH/world.json"
-"$PYTHON" "$SCRATCH/hold.py" "$NS_BIN" "$NS_REPO" "$INFO" "$SCRATCH/world" > "$SCRATCH/hold.log" 2>&1 &
+"$PYTHON" "$SCRATCH/hold.py" "$NOTIFICATION_BIN" "$NOTIFICATION_REPO" "$INFO" "$SCRATCH/world" > "$SCRATCH/hold.log" 2>&1 &
 HOLDER_PID=$!
 for _ in $(seq 1 1200); do
   [ -s "$INFO" ] && break
@@ -284,7 +284,7 @@ def test_ready(harness):
     assert harness.base_url
 PY
 out="$(CONTRACT_CDC_HOME="$SCRATCH/no-jars" uv run --no-sync pytest "$SCRATCH/suite" -p no:cacheprovider -q \
-  --service notification-service --target-cmd "$NS_BIN" 2>&1)"
+  --service notification-service --target-cmd "$NOTIFICATION_BIN" 2>&1)"
 code=$?
 if [ "$code" = 4 ] && grep -q "notification-service needs a Kafka broker: no Kafka jars in $SCRATCH/no-jars/kafka" <<< "$out"; then
   ok "notification-service without the Kafka jars: usage error (exit 4) saying where they were looked for"
@@ -294,21 +294,21 @@ else
 fi
 
 echo "== 5. user-service runs unchanged =="
-US_REPO="$GLUON/services/user-service-rs"
+USER_REPO="$GLUON/services/user-service-rs"
 if [ "$SKIP_CONTRACT" = 1 ]; then
   echo "skip --skip-contract given"
 else
-  if (cd "$US_REPO" && cargo build -q --locked -p user-service -p events-probe) > "$SCRATCH/us-build.log" 2>&1 \
-    && { [ -f "$US_REPO/target/asyncapi-docs/index.html" ] || (cd "$US_REPO" && scripts/asyncapi-html.sh) >> "$SCRATCH/us-build.log" 2>&1; }; then
+  if (cd "$USER_REPO" && cargo build -q --locked -p user-service -p events-probe) > "$SCRATCH/user-build.log" 2>&1 \
+    && { [ -f "$USER_REPO/target/asyncapi-docs/index.html" ] || (cd "$USER_REPO" && scripts/asyncapi-html.sh) >> "$SCRATCH/user-build.log" 2>&1; }; then
     ok "user-service-rs and events-probe built, AsyncAPI HTML rendered"
   else
     bad "user-service-rs build failed"
-    tail -5 "$SCRATCH/us-build.log" | sed 's/^/     /'
+    tail -5 "$SCRATCH/user-build.log" | sed 's/^/     /'
   fi
-  # As bin/verify-rust-spike's contract step runs it: no --service, the default.
+  # As bin/verify-port user-service's contract step runs it: no --service, the default.
   uv run --no-sync pytest checks -p no:cacheprovider -rA --tb=line -q \
-    --target-cmd "$US_REPO/target/debug/user-service" --target-cwd "$US_REPO" \
-    --target-name user-service-rs --probe-cmd "$US_REPO/target/debug/events-probe" > "$SCRATCH/contract.log" 2>&1
+    --target-cmd "$USER_REPO/target/debug/user-service" --target-cwd "$USER_REPO" \
+    --target-name user-service-rs --probe-cmd "$USER_REPO/target/debug/events-probe" > "$SCRATCH/contract.log" 2>&1
   code=$?
   green="$(grep -cE '^PASSED checks/' "$SCRATCH/contract.log")"
   red="$(grep -cE '^(FAILED|ERROR) checks/' "$SCRATCH/contract.log")"

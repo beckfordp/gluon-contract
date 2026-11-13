@@ -2,7 +2,7 @@
 
 """Comparing a response with the reference, for any service's checks (gluon RPN-4).
 
-The same comparisons as user-service's REST checks (`checks/test_rest.py`, RUST-1.3:
+The same comparisons as user-service's REST checks (`checks/test_user_rest.py`, RUST-1.3:
 JSON bodies exactly as parsed JSON, framework text errors on status, Content-Type
 and the exact text or its prefix), for a service named by the caller. pytest doesn't
 rewrite asserts outside test modules, so each failure spells out the capture,

@@ -17,9 +17,9 @@ for arg in "$@"; do
 done
 failed=()
 for group in traces metrics logs config; do
-  echo "######## checks/test_$group.py ########"
+  echo "######## checks/test_user_$group.py ########"
   # ${a[@]+"${a[@]}"}: bash 3.2 (macOS) calls an empty array unbound under set -u.
-  "$HERE/verify-check-group.sh" "checks/test_$group.py" ${skip[@]+"${skip[@]}"} \
+  "$HERE/verify-check-group.sh" "checks/test_user_$group.py" ${skip[@]+"${skip[@]}"} \
     ${expect[@]+"${expect[@]}"} || failed+=("$group")
   skip=(--skip-ci)
   echo

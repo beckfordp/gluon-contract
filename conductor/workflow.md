@@ -97,7 +97,7 @@ All tasks follow a strict lifecycle:
 
         **Manual Verification Steps:**
         1.  **Build the reference image:** `(cd ../../services/user-service && sbt Docker/publishLocal)`
-        2.  **Run the REST checks against it:** `uv run pytest checks/test_rest.py --target scala`
+        2.  **Run the REST checks against it:** `uv run pytest checks/test_user_rest.py --target scala`
         3.  **Confirm that you see:** every check passing, and the run leaving no containers behind (`docker ps -a`).
         ```
 

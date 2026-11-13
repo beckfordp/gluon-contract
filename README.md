@@ -14,7 +14,7 @@ Scala-generated OpenAPI/AsyncAPI artifacts, the Scala repo's test suites and
 request. The Rust port (`user-service-rs`) is judged
 against them; the Scala service confirms them on the laptop. See
 [ADR 0028](https://github.com/beckfordp/gluon/blob/main/docs/adr/0028-rust-port-spike-user-service.md)
-for why, and gluon's `PLAN.md` "Rust Spike" for the order of work.
+for why, and gluon's `plans/rust-port/user-service/plan.md` for the order of work.
 
 **Status:** the isolated-mode runner is built (RUST-1.2); user-service's
 check groups are done (RUST-1.3 to RUST-6.x); the harness starts
@@ -42,7 +42,7 @@ uv sync                                   # Python + locked dependencies
 uv run pytest                             # the harness's own unit + integration tests
 scripts/ci.sh                             # what CI runs: format, lint, types, tests
 scripts/verify-isolated-runner.sh         # RUST-1.2, verified end to end (~100 s; --skip-ci)
-scripts/verify-ns-capture.sh [dir]        # RPN-1: a notification-service capture checked on its own
+scripts/verify-notification-capture.sh [dir]        # RPN-1: a notification-service capture checked on its own
 scripts/verify-multi-service-harness.sh   # RPN-3: the service as a parameter (~15 min; --skip-ci, --skip-contract)
 scripts/verify-notification-rest-group.sh # RPN-4: notification-service's REST group, red on the skeleton (~8 min; --skip-ci)
 scripts/verify-check-group.sh checks/test_<group>.py [--service NAME] [--expect-green | --expect-red PATTERN]
@@ -115,7 +115,7 @@ answers; comparisons any service's checks can use are in
 - `src/gluon_contract/` — the harness: config, service profiles, env-var
   contract, throwaway Postgres, OTLP decoding and stub, target process, harness, `contracts/`
   rules, pytest wiring; notification-service's capture check and scenario
-  table (`ns_capture`, `ns_scenarios`; RPN-1); its captured `sent_email` rows as
+  table (`notification_capture`, `notification_scenarios`; RPN-1); its captured `sent_email` rows as
   seed data (`sent_email`) and response comparisons for any service (`expect`; RPN-4)
 - `tests/unit/`, `tests/integration/` — the harness's own tests (CI runs
   both; the integration tests start local processes, including a stand-in

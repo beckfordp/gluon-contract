@@ -17,4 +17,4 @@ else
   echo "FAIL no CDC jars in $home: run gluon bin/sandbox-setup --only cdc"
   exit 1
 fi
-exec "$(dirname "$SELF")/verify-check-group.sh" checks/test_cdc.py "$@" --expect-green
+exec "$(dirname "$SELF")/verify-check-group.sh" checks/test_user_cdc.py "$@" --expect-green

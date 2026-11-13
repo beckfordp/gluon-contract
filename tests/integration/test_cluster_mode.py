@@ -74,8 +74,10 @@ def test_the_cluster_checks_pass_against_a_running_service(pg_bin: Path, tmp_pat
     output = done.stdout
     assert done.returncode == 0, output[-3000:]
     passed = [line for line in output.splitlines() if line.startswith("PASSED ")]
-    assert any("test_cdc.py::test_a_signup_reaches_user_events_in_its_trace" in p for p in passed)
-    assert any("test_rest.py::" in p for p in passed)
-    assert any("test_docs.py::test_the_openapi_spec_is_the_scala_one" in p for p in passed)
+    assert any(
+        "test_user_cdc.py::test_a_signup_reaches_user_events_in_its_trace" in p for p in passed
+    )
+    assert any("test_user_rest.py::" in p for p in passed)
+    assert any("test_user_docs.py::test_the_openapi_spec_is_the_scala_one" in p for p in passed)
     assert "SKIPPED" in output
     assert "isolated mode" in output

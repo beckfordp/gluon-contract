@@ -41,5 +41,5 @@ Postgres 15432, the service 18080 (metrics 19091), the stub 18090. Output:
 - `20261111`: notification-service `b60d4d7`, clean tree. Committed as
   captured, no edits. Added in the sandbox (RPN-1), nothing else changed:
   `otlp/*.json`, each `otlp/*.pb` decoded to readable OTLP/JSON by
-  `python -m gluon_contract.ns_capture decode-otlp`; its `check` command
+  `python -m gluon_contract.notification_capture decode-otlp`; its `check` command
   confirms each gives the same spans as its `.pb`.

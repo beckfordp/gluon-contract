@@ -128,4 +128,4 @@ committed capture holds no live credential and no machine detail
 Everything else is as captured. The account data (`capture.kat@example.com`
 and the other `@example.com` addresses, the password `correct-horse-battery-1`,
 its PBKDF2 hashes) is test data made for the capture, and the checks depend
-on it: `test_schema.py` logs in with the Scala-made hash.
+on it: `test_user_schema.py` logs in with the Scala-made hash.

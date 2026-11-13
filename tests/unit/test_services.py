@@ -9,7 +9,7 @@ capture's `CAPTURE.sh`.
 
 import pytest
 
-from gluon_contract.ns_scenarios import TOPICS
+from gluon_contract.notification_scenarios import TOPICS
 from gluon_contract.services import (
     KNOWN_SERVICES,
     PROFILES,

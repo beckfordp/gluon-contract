@@ -5,7 +5,7 @@
 The capture (`contracts/notification-service/<date>/`, made by its `CAPTURE.sh`
 on the laptop) is the port's reference. Each check names the file it found wrong,
 relative to the capture, with what it expected and what it found; the scenario
-table (`ns_scenarios`) is what `CAPTURE.sh` drove, and what its rows and dead
+table (`notification_scenarios`) is what `CAPTURE.sh` drove, and what its rows and dead
 letters must be.
 """
 
@@ -21,7 +21,7 @@ from opentelemetry.proto.common.v1.common_pb2 import AnyValue, KeyValue
 from opentelemetry.proto.trace.v1.trace_pb2 import Span as ProtoSpan
 
 from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
-from gluon_contract.ns_capture import (
+from gluon_contract.notification_capture import (
     TIMED_EXCHANGES,
     Problem,
     check_capture,
@@ -34,7 +34,7 @@ from gluon_contract.ns_capture import (
     otlp_to_json,
     write_otlp_json,
 )
-from gluon_contract.ns_scenarios import (
+from gluon_contract.notification_scenarios import (
     DLQ_TOPICS,
     O_CUST,
     SCENARIOS,
@@ -119,7 +119,7 @@ def dlq_line(key: str, value: str) -> str:
 
 def short_envelope(event: str, event_type: str = "UserRegistered") -> str:
     """An envelope cut down to what the DLQ check reads (`eventId`); CAPTURE.sh's full
-    envelopes are `ns_scenarios.envelope`."""
+    envelopes are `notification_scenarios.envelope`."""
     return json.dumps(
         {"eventId": event, "eventType": event_type, "payload": {}}, separators=(",", ":")
     )
