@@ -40,7 +40,7 @@
   Kept: `verify-check-group.sh` (§3 only: a tool for writing groups red then green), `verify-user-scala-confirmation.sh` (laptop B2: stages the Scala service), `verify-cluster-mode.sh` (RUST-5.4 open, laptop; its §2 is skipped silently in CI without the jars/build).
 - [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
-## Phase 2: Into CI (TDD)
+## Phase 2: Into CI (TDD) [checkpoint: eb1ddcb]
 - [x] Task: `tests/unit/test_check_sources.py`: every check in `checks/test_*.py` has a `Source:` line; every capture file it names exists (TD-41.1) `49feb0d`
   - [x] Red: a mutation that cites a missing later name (`http/a.txt, missing.txt`) fails; also catch any real gap the old §2 missed — red: no module; real mutation `emails-delete.txt` → `emails-deleted.txt` (a later name) fails the guard; no real gaps
   - [x] Green: parser in `src/gluon_contract/` (service from module name), fix real gaps — `check_sources.py`, service from the module's marker (`check_markers`); 27 passed
