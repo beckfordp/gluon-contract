@@ -1,0 +1,1 @@
+Task: verify-retire-scripts.sh (retire-scripts_20261113, Phase 1). Acceptance: 14 retired scripts gone and unreferenced, 4 kept parse, verify-check-group.sh reduced to running a group, test_check_sources.py present, workflow.md rule. Red: 33 of 38 failed for those reasons; ci.sh green (290 passed, 94.52%).
