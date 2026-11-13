@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: MIT
-# Verifies one check group (gluon PLAN.md RUST-1.3 onwards): CI green, every
-# check names its source and every capture file it cites exists, and the group
-# runs against the Rust build, each check's outcome reported as it is found.
+# Runs one check group against the Rust build, each check's outcome reported as
+# it is found: the tool for writing a group red, then seeing it green. That each
+# check names its source and the capture files it cites exist is CI's
+# (tests/unit/test_check_sources.py); the whole harness against the build is
+# gluon bin/verify-port's contract step.
 #
-#   scripts/verify-check-group.sh checks/test_<group>.py [--service NAME] [--skip-ci]
+#   scripts/verify-check-group.sh checks/test_<group>.py [--service NAME]
 #                                 [--expect-green | --expect-red PATTERN]
 #
 # --service (default user-service; gluon RPN-4) names the service the group
-# judges: its Rust port services/<NAME>-rs and binary target/debug/<NAME>, its
-# capture, and the harness run's --service.
+# judges: its Rust port services/<NAME>-rs and binary target/debug/<NAME>, and
+# the harness run's --service.
 # The build runs from the Rust repo (as the Scala service runs from its own,
 # so ASYNCAPI_HTML_DIR's default target/asyncapi-docs resolves there; render
 # it first with services/user-service-rs/scripts/asyncapi-html.sh).
@@ -21,13 +23,11 @@
 set -uo pipefail
 SELF="$(realpath "${BASH_SOURCE[0]}")"
 cd "$(dirname "$SELF")/.."
-REPO="$PWD"
-USAGE="$0 checks/test_<group>.py [--service NAME] [--skip-ci] [--expect-green | --expect-red PATTERN]"
+USAGE="$0 checks/test_<group>.py [--service NAME] [--expect-green | --expect-red PATTERN]"
 GROUP="${1:?usage: $USAGE}"
 shift
 ARGS=("$@")
 SERVICE=user-service
-SKIP_CI=0
 EXPECT_GREEN=0
 EXPECT_RED=""
 while [ $# -gt 0 ]; do
@@ -36,7 +36,6 @@ while [ $# -gt 0 ]; do
       SERVICE="${2:?usage: $USAGE}"
       shift
       ;;
-    --skip-ci) SKIP_CI=1 ;;
     --expect-green) EXPECT_GREEN=1 ;;
     --expect-red)
       EXPECT_RED="${2:?usage: $USAGE}"
@@ -58,41 +57,7 @@ trap 'rm -rf "$SCRATCH"' EXIT
 RUST_REPO="$(realpath "../../services/$SERVICE-rs")"
 BIN="$RUST_REPO/target/debug/$SERVICE"
 
-echo "== 1. CI (scripts/ci.sh) =="
-if [ "$SKIP_CI" = 1 ]; then
-  echo "skip --skip-ci given"
-elif scripts/ci.sh > "$SCRATCH/ci.log" 2>&1; then
-  ok "$(grep -Eo '[0-9]+ passed' "$SCRATCH/ci.log" | tail -1), $(grep -Eo 'Total coverage: [0-9.]+%' "$SCRATCH/ci.log")"
-else
-  bad "scripts/ci.sh failed"
-  tail -8 "$SCRATCH/ci.log" | sed 's/^/     /'
-fi
-
-echo "== 2. Every check in $GROUP names its source =="
-.venv/bin/python - "$GROUP" "$SERVICE" > "$SCRATCH/sources.txt" 2>&1 << 'PY'
-import ast, re, sys
-from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
-capture = latest_capture(CONTRACTS_ROOT, sys.argv[2])
-tree = ast.parse(open(sys.argv[1]).read())
-for node in tree.body:
-    if isinstance(node, ast.FunctionDef) and node.name.startswith("test_"):
-        doc = ast.get_docstring(node) or ""
-        source = next((l.strip() for l in doc.splitlines() if l.strip().startswith("Source:")), "")
-        missing = [f for f in re.findall(r"http/([a-z0-9-]+)\.txt", doc)
-                   if "<" not in f and not (capture / "http" / f"{f}.txt").is_file()]
-        print(f"{node.name}\t{source}\t{' '.join(missing)}")
-PY
-while IFS=$'\t' read -r name source missing; do
-  if [ -z "$source" ]; then
-    bad "$name: no Source: line"
-  elif [ -n "$missing" ]; then
-    bad "$name cites capture files that don't exist: $missing"
-  else
-    ok "$name — ${source#Source: }"
-  fi
-done < "$SCRATCH/sources.txt"
-
-echo "== 3. The group against the Rust build =="
+echo "== The group against the Rust build =="
 if (cd "$RUST_REPO" && cargo build -q --locked -p "$SERVICE") > "$SCRATCH/build.log" 2>&1; then
   ok "built $BIN"
 else
