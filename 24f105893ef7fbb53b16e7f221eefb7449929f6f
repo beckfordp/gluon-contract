@@ -1,0 +1,1 @@
+Task: verify-check-group.sh cut to section 3 (Phase 3). Removed: CI section (ci.sh is verify-port harness-ci), the Source:/citation section (now tests/unit/test_check_sources.py), --skip-ci, unused REPO. Header says what's CI's and verify-port's. Run: checks/test_user_schema.py --expect-green PASS (6 green, 39 s).
