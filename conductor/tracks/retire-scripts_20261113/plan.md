@@ -44,9 +44,9 @@
 - [x] Task: `tests/unit/test_check_sources.py`: every check in `checks/test_*.py` has a `Source:` line; every capture file it names exists (TD-41.1) `49feb0d`
   - [x] Red: a mutation that cites a missing later name (`http/a.txt, missing.txt`) fails; also catch any real gap the old §2 missed — red: no module; real mutation `emails-delete.txt` → `emails-deleted.txt` (a later name) fails the guard; no real gaps
   - [x] Green: parser in `src/gluon_contract/` (service from module name), fix real gaps — `check_sources.py`, service from the module's marker (`check_markers`); 27 passed
-- [ ] Task: one test per unmapped CI-runnable section from the map (e.g. implicit-behaviours §1: every check `docs/implicit-behaviours.md` names exists), red then green
-- [ ] Task: `scripts/ci.sh` green, coverage ≥ 80%
-- [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
+- [x] Task: one test per unmapped CI-runnable section from the map (e.g. implicit-behaviours §1: every check `docs/implicit-behaviours.md` names exists), red then green `6fe7829` — `test_implicit_behaviours.py`; `test_owner_sh.py` no `stat -c`/`getent`/`/proc` outside owner.sh; `test_env_contract.py` vs gluon-local values; each red on a mutation. `verify-portable-harness.sh` deleted here (its own grep pattern was the only hit)
+- [x] Task: `scripts/ci.sh` green, coverage ≥ 80% — 321 passed, 1 skipped (`test_cluster_mode`, no CDC jars here), 94.62%
+- [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
 ## Phase 3: Retire
 - [ ] Task: `verify-check-group.sh` cut to §3 (header, usage, `--skip-ci` removed)
