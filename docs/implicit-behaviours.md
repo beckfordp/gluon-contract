@@ -9,8 +9,9 @@ documentation gap and where it is raised: **gluon** gaps are written into
 gaps are OpenAPI descriptions in the Scala repo, raised for the laptop pass
 (RUST-5), since the Scala build can't run in the sandbox.
 
-The list is checked by `scripts/verify-implicit-behaviours.sh`: every check
-named here exists, and (with `--run`) passes against the Rust build.
+The list is checked in CI (`tests/unit/test_implicit_behaviours.py`): every
+check named here exists. gluon `bin/verify-port`'s contract step runs them all
+against the Rust build.
 
 | # | Behaviour | Source | Check | Gap, where raised |
 |---|---|---|---|---|

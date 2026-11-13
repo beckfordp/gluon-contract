@@ -111,7 +111,7 @@ def test_run_as_owner_stops_anyone_else(tmp_path: Path) -> None:
 
 def test_no_script_calls_a_gnu_or_linux_only_command_itself() -> None:
     """owner.sh holds the fallbacks for `stat -c`, `getent` and /proc; other scripts use it
-    (was verify-portable-harness.sh)."""
+    (gluon TD-46)."""
     scripts = sorted(p for p in OWNER_SH.parents[1].rglob("*.sh") if p != OWNER_SH)
     assert scripts
     calls = [

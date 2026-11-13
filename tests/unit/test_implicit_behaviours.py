@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-"""docs/implicit-behaviours.md names only checks that exist (was verify-implicit-behaviours.sh)."""
+"""docs/implicit-behaviours.md names only checks that exist (gluon TD-46)."""
 
 import ast
 import re

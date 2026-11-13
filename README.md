@@ -41,15 +41,15 @@ No GitHub Packages token is needed.
 uv sync                                   # Python + locked dependencies
 uv run pytest                             # the harness's own unit + integration tests
 scripts/ci.sh                             # what CI runs: format, lint, types, tests
-scripts/verify-isolated-runner.sh         # RUST-1.2, verified end to end (~100 s; --skip-ci)
-scripts/verify-notification-capture.sh [dir]        # RPN-1: a notification-service capture checked on its own
-scripts/verify-multi-service-harness.sh   # RPN-3: the service as a parameter (~15 min; --skip-ci, --skip-contract)
-scripts/verify-notification-rest-group.sh # RPN-4: notification-service's REST group, red on the skeleton (~8 min; --skip-ci)
+uv run python -m gluon_contract.notification_capture check [dir]   # a notification-service capture checked on its own
 scripts/verify-check-group.sh checks/test_<group>.py [--service NAME] [--expect-green | --expect-red PATTERN]
+scripts/verify-user-scala-confirmation.sh # the harness against the staged Scala service (laptop)
+scripts/verify-cluster-mode.sh            # cluster mode against a started service (RUST-5.4)
 ```
 
 Each track has a `scripts/verify-<track>.sh` that checks what the track set
-out to do, reporting each result as it finds it.
+out to do, reporting each result as it finds it. At archive what CI can run
+moves into CI and the script goes (`conductor/workflow.md`).
 
 ## Running the contract checks
 
