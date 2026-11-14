@@ -73,7 +73,7 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
     - *2026-11-14 (prompting off): ci.sh PASS 348 passed 94.85%; verify-port contract 128/128
       (= baseline); notification group 19 red with '404' (= baseline); capture check PASS.*
 
-## Phase 3: Kafka broker out of cdc.py (TD-45)
+## Phase 3: Kafka broker out of cdc.py (TD-45) [checkpoint: 4aea434]
 - [x] Task: `processes.py` → `supervisor.py` `9d87f2f`, `f414b2d`
     - [x] `_Processes`/`_signal` moved, public: `Supervisor` (spawn, wait, logs, stop,
           `stop_all`), `signal_group`, `port_open`, `StackError`
