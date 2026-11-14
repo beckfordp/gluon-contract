@@ -26,21 +26,66 @@ from kafka.errors import (
     TopicAlreadyExistsError,
 )
 
-from gluon_contract.java_processes import (
-    HOST,
-    JavaProcesses,
-    StackError,
-    port_open,
-    properties_text,
-)
 from gluon_contract.ports import free_port
+from gluon_contract.supervisor import HOST, StackError, Supervisor, port_open
 
 # kafka-python logs at ERROR what is routine here (a topic nobody has created
 # yet, a broker mid-outage); pytest would report those lines as if checks failed.
 logging.getLogger("kafka").setLevel(logging.CRITICAL)
 
+KAFKA_VERSION = "3.8.0"
+"""gluon-local's; the jars gluon `bin/sandbox-setup --only cdc` installs."""
 CLUSTER_ID = "MkU3OEVBNTcwNTJENDM2Qk"
 """gluon-local's (infra/k8s/local-infra/kafka.yaml, CLUSTER_ID)."""
+LOG4J = """\
+log4j.rootLogger=INFO, stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%d] %p %m (%c)%n
+log4j.logger.org.apache.kafka=WARN
+log4j.logger.kafka=WARN
+log4j.logger.org.reflections=ERROR
+log4j.logger.io.debezium=INFO
+"""
+
+
+def properties_text(pairs: Mapping[str, str]) -> str:
+    """`pairs` as a .properties text."""
+    return "".join(f"{key}={value}\n" for key, value in pairs.items())
+
+
+class Jars:
+    """The installed Kafka jar sets (`home/<set>`), and a `java` command line on one,
+    logging per `LOG4J` from `work_dir`."""
+
+    def __init__(self, home: Path, work_dir: Path, java: str) -> None:
+        self.home = home
+        self.work_dir = work_dir
+        self._java = java
+
+    def prepare(self, needed: tuple[str, ...]) -> None:
+        """Checks the jar sets are installed and writes the logging config."""
+        missing = [name for name in needed if not (self.home / name).is_dir()]
+        if missing:
+            raise StackError(
+                f"no CDC jars in {self.home} (missing {', '.join(missing)}): run gluon "
+                "bin/sandbox-setup --only cdc, or set CONTRACT_CDC_HOME"
+            )
+        self.work_dir.mkdir(parents=True, exist_ok=True)
+        (self.work_dir / "log4j.properties").write_text(LOG4J, encoding="utf-8")
+
+    def argv(self, jars: str, heap: str, main: str, *args: str) -> list[str]:
+        """A `java` command line on one jar set."""
+        return [
+            self._java,
+            "-Xms64m",
+            f"-Xmx{heap}",
+            f"-Dlog4j.configuration=file:{self.work_dir / 'log4j.properties'}",
+            "-cp",
+            str(self.home / jars / "*"),
+            main,
+            *args,
+        ]
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,7 +128,8 @@ class KafkaBroker:
 
     def __init__(self, home: Path, work_dir: Path, *, java: str = "java") -> None:
         """Prepares, but doesn't start, the broker (jars in `home/kafka`)."""
-        self._processes = JavaProcesses(home, work_dir, java)
+        self._jars = Jars(home, work_dir, java)
+        self._supervisor = Supervisor(work_dir)
         self.work_dir = work_dir
         self.port = free_port()
         self._controller_port = free_port()
@@ -97,11 +143,11 @@ class KafkaBroker:
 
     def __enter__(self) -> Self:
         """Checks the jars, formats the storage and starts the broker."""
-        self._processes.prepare(("kafka",))
+        self._jars.prepare(("kafka",))
         try:
             self.start()
         except BaseException:
-            self._processes.stop_all()
+            self._supervisor.stop_all()
             raise
         return self
 
@@ -112,7 +158,7 @@ class KafkaBroker:
         traceback: TracebackType | None,
     ) -> None:
         """Stops the broker."""
-        self._processes.stop_all()
+        self._supervisor.stop_all()
 
     def start(self) -> None:
         """Starts the broker (formatting its storage the first time) and waits for its port."""
@@ -122,7 +168,7 @@ class KafkaBroker:
                 broker_properties(self.work_dir / "kafka-data", self.port, self._controller_port),
                 encoding="utf-8",
             )
-            argv = self._processes.argv(
+            argv = self._jars.argv(
                 "kafka",
                 "256m",
                 "kafka.tools.StorageTool",
@@ -138,17 +184,17 @@ class KafkaBroker:
                     f"formatting the broker's storage failed: {done.stdout}{done.stderr}"
                 )
             self._formatted = True
-        self._process = self._processes.spawn(
-            self._processes.argv("kafka", "384m", "kafka.Kafka", str(config)), "kafka.log"
+        self._process = self._supervisor.spawn(
+            self._jars.argv("kafka", "384m", "kafka.Kafka", str(config)), "kafka.log"
         )
-        self._processes.wait(
+        self._supervisor.wait(
             "the Kafka broker", lambda: port_open(self.port), self._process, "kafka.log"
         )
 
     def stop(self) -> None:
         """Stops the broker (an outage); `start()` brings it back."""
         if self._process is not None:
-            self._processes.stop(self._process)
+            self._supervisor.stop(self._process)
             self._process = None
 
     def create_topics(self, topics: Sequence[str], *, timeout_s: float = 60.0) -> None:

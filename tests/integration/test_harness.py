@@ -18,10 +18,11 @@ import pytest
 from kafka import KafkaAdminClient
 from processes import processes_mentioning
 
+from gluon_contract.cdc import cdc_home
 from gluon_contract.config import HarnessConfig
 from gluon_contract.env_contract import service_env
 from gluon_contract.harness import Harness
-from gluon_contract.java_processes import StackError, cdc_home
+from gluon_contract.supervisor import StackError
 from gluon_contract.target import TargetError
 
 STAND_IN = Path(__file__).with_name("stand_in_target.py")

@@ -15,8 +15,8 @@ import time
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 
-from gluon_contract.java_processes import StackError
 from gluon_contract.kafka import Record
+from gluon_contract.supervisor import StackError
 
 DEFAULT_CONSOLE_CONSUMER = (
     "kubectl",

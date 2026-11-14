@@ -14,9 +14,8 @@ from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import CdcStack
+from gluon_contract.cdc import CdcStack, cdc_home
 from gluon_contract.env_contract import postgres_login
-from gluon_contract.java_processes import cdc_home
 from gluon_contract.postgres import ThrowawayPostgres
 
 LOGIN = postgres_login("user-service")

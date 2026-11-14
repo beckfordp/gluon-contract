@@ -13,8 +13,9 @@ from pathlib import Path
 import pytest
 from kafka import KafkaAdminClient, KafkaConsumer
 
-from gluon_contract.java_processes import StackError, cdc_home
+from gluon_contract.cdc import cdc_home
 from gluon_contract.kafka import KafkaBroker
+from gluon_contract.supervisor import StackError
 
 HOME = cdc_home(os.environ)
 pytestmark = pytest.mark.skipif(

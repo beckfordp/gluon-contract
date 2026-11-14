@@ -14,7 +14,7 @@ from gluon_contract.cluster import (
     cluster_settings,
     parse_console_line,
 )
-from gluon_contract.java_processes import StackError
+from gluon_contract.supervisor import StackError
 
 
 def test_no_base_url_means_isolated_mode() -> None:

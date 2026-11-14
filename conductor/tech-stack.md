@@ -58,9 +58,10 @@ added here that the sandbox doesn't already have is added to
   doesn't rewrite asserts in `src/`); *(2026-11-14, gluon TD-34/35/45)* `shared_helpers`
   (CI's guard: no check module redefines a `support`/`expect` helper; only
   `postgres.connect` calls `psycopg.connect`), `kafka` (the KRaft broker and
-  `Record`, out of `cdc`) and `java_processes` (the jar set, `cdc_home`, the Java
-  process runner and `StackError`, which replaces `CdcError`); `cdc` keeps only
-  Connect and Debezium
+  `Record`, out of `cdc`, with the jar sets and their `java` command line) and
+  `supervisor` (runs a stack's processes: start in a group, wait until ready, stop;
+  `StackError`, which replaces `CdcError`; named for its job, not `java_processes`,
+  2026-11-14); `cdc` keeps Connect, Debezium and `cdc_home`
 - `tests/unit/` (pure) and `tests/integration/` (local processes, including
   `stand_in_target.py`, a test double for the build under test) — run in CI
 - `checks/` — the contract checks, one module per group (RUST-1.3 onwards),

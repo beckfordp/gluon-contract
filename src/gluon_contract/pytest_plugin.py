@@ -28,12 +28,11 @@ from typing import Any, Protocol
 import psycopg
 import pytest
 
-from gluon_contract.cdc import CdcStack
+from gluon_contract.cdc import CdcStack, cdc_home
 from gluon_contract.cluster import ClusterHarness, ConsoleTopicReader, cluster_settings
 from gluon_contract.config import DEFAULT_SERVICE, ConfigError, HarnessConfig, load_config
 from gluon_contract.harness import Harness
 from gluon_contract.http_stub import HttpStub
-from gluon_contract.java_processes import cdc_home
 from gluon_contract.kafka import KafkaBroker, Record
 from gluon_contract.otlp_stub import OtlpStub
 from gluon_contract.ports import free_port

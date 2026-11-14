@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: MIT
 
-"""Java processes' loopback and process-group plumbing (gluon TD-45), with real
+"""The supervisor's loopback and process-group plumbing (gluon TD-45), with real
 sockets and processes."""
 
 import signal
 import socket
 from pathlib import Path
 
-from gluon_contract.java_processes import JavaProcesses, port_open, signal_group
+from gluon_contract.supervisor import Supervisor, port_open, signal_group
 
 
 def test_port_open_sees_a_listener() -> None:
@@ -20,8 +20,8 @@ def test_port_open_sees_a_listener() -> None:
 
 def test_a_spawned_process_is_stopped_with_its_group(tmp_path: Path) -> None:
     """SIGTERM to the group; signalling a group that's gone is not an error."""
-    processes = JavaProcesses(tmp_path, tmp_path, "java")
-    process = processes.spawn(["sleep", "30"], "sleep.log")
-    processes.stop_all()
+    supervisor = Supervisor(tmp_path)
+    process = supervisor.spawn(["sleep", "30"], "sleep.log")
+    supervisor.stop_all()
     assert process.poll() is not None
     signal_group(process.pid, signal.SIGTERM)

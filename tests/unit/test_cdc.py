@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import CdcStack, connector_properties, worker_properties
+from gluon_contract.cdc import CdcStack, cdc_home, connector_properties, worker_properties
 from gluon_contract.env_contract import postgres_login
-from gluon_contract.java_processes import StackError
 from gluon_contract.postgres import PostgresEndpoint
 from gluon_contract.routing import load_connector
+from gluon_contract.supervisor import StackError
 
 ENDPOINT = PostgresEndpoint("127.0.0.1", 55432, postgres_login("user-service"))
 
@@ -56,3 +56,9 @@ def test_missing_jars_are_reported_before_anything_starts(tmp_path: Path) -> Non
         CdcStack(tmp_path / "nowhere", tmp_path / "work", ENDPOINT),
     ):
         pass
+
+
+def test_the_home_defaults_to_what_sandbox_setup_installs(tmp_path: Path) -> None:
+    """CONTRACT_CDC_HOME, else ~/.local/cdc-kafka-3.8.0_debezium-3.0.0.Final."""
+    assert cdc_home({}, home=tmp_path) == tmp_path / ".local/cdc-kafka-3.8.0_debezium-3.0.0.Final"
+    assert cdc_home({"CONTRACT_CDC_HOME": "/opt/cdc"}, home=tmp_path) == Path("/opt/cdc")

@@ -20,10 +20,10 @@ from pathlib import Path
 from types import TracebackType
 from typing import Self
 
+from gluon_contract.cdc import cdc_home
 from gluon_contract.config import HarnessConfig
 from gluon_contract.env_contract import Endpoints, postgres_login, service_env
 from gluon_contract.http_stub import HttpStub
-from gluon_contract.java_processes import cdc_home
 from gluon_contract.kafka import KafkaBroker
 from gluon_contract.otlp_stub import OtlpStub
 from gluon_contract.ports import free_port
