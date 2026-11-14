@@ -18,5 +18,7 @@ Phase verification: spec acceptance commands, run and shown.
     - [x] Rehearsal 3× green; `scripts/ci.sh` green
     - *Green 3/3, a fresh slot created on restart, no 'does not exist'; ci.sh 360 passed,
       95.13%. The SQL itself is gluon's file (committed there, with approval).*
-- [ ] Task: gluon `bin/k8s-local-up` runs the file (gluon commit, approved)
-- [ ] Task: Live switch both ways, acceptance 53/53 each; RUST-5.2 note in gluon plan
+- [x] Task: gluon `bin/k8s-local-up` runs the file (gluon commit, approved) gluon 026401b
+- [x] Task: Live switch both ways, acceptance 53/53 each; RUST-5.2 note in gluon plan gluon 026401b
+    - *Rust→Scala→Rust, no manual recovery, 53/53 each way. gluon `bin/verify-laptop-prep`
+      also checks the slot drop (22/22).*
