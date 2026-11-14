@@ -28,11 +28,11 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
           problems; a usage error otherwise (unit-tested through `main(argv)`)
     - [x] `verify-check-group.sh` uses both; the heredoc and the `-rA` parsing go
           (`-rA` stays only if the log still needs it)
-- [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
-    - [ ] The notification group against Rust: 19 red lines with full reasons, 5 green
-    - [ ] `--expect-red 404` on it: FAIL, naming the 5 passing checks (the fail path,
+- [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
+    - [x] The notification group against Rust: 19 red lines with full reasons, 5 green
+    - [x] `--expect-red 404` on it: FAIL, naming the 5 passing checks (the fail path,
           live)
-    - [ ] `checks/test_user_rest.py --service user-service --expect-green`: PASS, as
+    - [x] `checks/test_user_rest.py --service user-service --expect-green`: PASS, as
           before
-    - [ ] `scripts/ci.sh` green
+    - [x] `scripts/ci.sh` green
 - [ ] Task: Tick TD-40.1 in gluon `TECHNICAL_DEBT.md` (needs approval)
