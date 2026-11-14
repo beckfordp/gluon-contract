@@ -6,7 +6,7 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [ ] **Track: Per-service profiles, then notification health checks (TD-44, TD-42)**
+- [~] **Track: Per-service profiles, then notification health checks (TD-44, TD-42)**
   *Link: [./tracks/service-profiles_20261114/](./tracks/service-profiles_20261114/)*
 
 ---

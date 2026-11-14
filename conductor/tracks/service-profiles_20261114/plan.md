@@ -4,11 +4,15 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
 (TD-46 rule).
 
 ## Phase 0: Baseline
-- [ ] Task: Record the baseline
-    - [ ] `scripts/ci.sh` test count and run time
-    - [ ] `bin/verify-port user-service --only build contract` (expect 128/128)
-    - [ ] The notification REST group against notification-service-rs
+- [x] Task: Record the baseline
+    - [x] `scripts/ci.sh` test count and run time
+    - [x] `bin/verify-port user-service --only build contract` (expect 128/128)
+    - [x] The notification REST group against notification-service-rs
           (`verify-check-group.sh --service notification-service`)
+    - *Baseline 2026-11-14 (laptop, HEAD `2df21fb`): `ci.sh` 362 passed, 95.16%, 122 s
+      (run at `45edbe6`; only conductor files changed since). `verify-port user-service
+      --only build contract` PASS, 128/128. Notification REST group: 0 green, 19 red
+      (`/emails` is RPN-5's).*
 
 ## Phase 1: Per-service profiles (TD-44.1)
 - [ ] Task: The run's service is required
