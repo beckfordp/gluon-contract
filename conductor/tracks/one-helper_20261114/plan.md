@@ -13,25 +13,29 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
       94.64%, 111 s. `verify-port user-service --only build contract` PASS, 128/128 (probe
       10, cdc 3, config 10, docs 22, logs 16, metrics 7, outbox 5, rest 41, schema 6,
       traces 8). Notification REST group: all 19 checks red, each with '404'.*
-- [ ] Task: Guard rule 1: no check module redefines a shared helper
-    - [ ] Red: `tests/unit/test_shared_helpers.py`. ast reads the top-level names of
+- [x] Task: Guard rule 1: no check module redefines a shared helper af92f04
+    - [x] Red: `tests/unit/test_shared_helpers.py`. ast reads the top-level names of
           `checks/support.py` and `src/gluon_contract/expect.py`. Every other
           `checks/*.py` must not define them. Prove the failure path with an inline
           source. Run it: fails, naming `test_user_rest.py` and `test_user_schema.py`
-    - [ ] Put the ast reading in `src/gluon_contract/` (e.g. `check_sources` or a new
+    - [x] Put the ast reading in `src/gluon_contract/` (e.g. `check_sources` or a new
           `shared_names`) only if that makes it testable under the coverage gate;
           otherwise keep it in the test
-- [ ] Task: `test_user_rest.py` on `expect` and `support`
-    - [ ] Drop the local `assert_same`, `assert_text_error`, `TEXT_PLAIN`,
+- [x] Task: `test_user_rest.py` on `expect` and `support` af92f04
+    - [x] Drop the local `assert_same`, `assert_text_error`, `TEXT_PLAIN`,
           `CORS_HEADERS`; use `expect` with `service="user-service"` (module-level
           `functools.partial` if every call would repeat it)
-    - [ ] CORS checks: `expect.assert_same_cors` where it compares the same things;
+    - [x] CORS checks: `expect.assert_same_cors` where it compares the same things;
           otherwise `expect.CORS_HEADERS`. The body-is-empty assertion stays
-    - [ ] `new_email`, `PASSWORD`, `JSON` from support; `signup`/`login` over
+    - [x] `new_email`, `PASSWORD`, `JSON` from support; `signup`/`login` over
           `support.post_credentials`
-- [ ] Task: `test_user_schema.py` on `support`
-    - [ ] `new_email`, `PASSWORD`, `JSON` from support; `post` over `support.post_credentials`
-    - [ ] Guard green; `mypy checks`, ruff clean
+- [x] Task: `test_user_schema.py` on `support` af92f04
+    - [x] `new_email`, `PASSWORD`, `JSON` from support; `post` over `support.post_credentials`
+    - [x] Guard green; `mypy checks`, ruff clean
+    - *2026-11-14: one commit for the three tasks (the guard is red until both modules
+      move). Guard in `gluon_contract.shared_helpers` (under the coverage gate). Checks
+      pass `service=SERVICE` to `expect` as notification's do, no partial. Red: 10
+      redefinitions; green after. ci.sh 337 passed, 94.65%; rest 41/41, schema 6/6.*
 - [ ] Task: Conductor - User Manual Verification 'Baseline and shared check helpers' (Protocol in workflow.md)
     - ci.sh green; user-service contract run matches the baseline count
 
