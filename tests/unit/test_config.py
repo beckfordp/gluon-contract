@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import cdc_home
 from gluon_contract.config import ConfigError, HarnessConfig, find_pg_bin, load_config
+from gluon_contract.java_processes import cdc_home
 
 PG_TOOLS = ("initdb", "pg_ctl", "createdb")
 

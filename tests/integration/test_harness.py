@@ -18,10 +18,10 @@ import pytest
 from kafka import KafkaAdminClient
 from processes import processes_mentioning
 
-from gluon_contract.cdc import CdcError, cdc_home
 from gluon_contract.config import HarnessConfig
 from gluon_contract.env_contract import service_env
 from gluon_contract.harness import Harness
+from gluon_contract.java_processes import StackError, cdc_home
 from gluon_contract.target import TargetError
 
 STAND_IN = Path(__file__).with_name("stand_in_target.py")
@@ -191,7 +191,7 @@ def test_a_broker_that_cant_start_tears_everything_down(pg_bin: Path, tmp_path: 
     harness = Harness(
         notification_config(pg_bin, tmp_path, empty), base_env=BASE_ENV, work_root=work_root
     )
-    with pytest.raises(CdcError, match="no CDC jars"):
+    with pytest.raises(StackError, match="no CDC jars"):
         harness.__enter__()
     assert list(work_root.iterdir()) == []
     assert processes_mentioning(str(work_root)) == []

@@ -1,21 +1,14 @@
 # SPDX-License-Identifier: MIT
 
-"""The sandbox CDC stack's configuration (RUST-1.8), without starting Java."""
+"""The sandbox CDC stack's Connect configuration (RUST-1.8), without starting Java."""
 
 from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import (
-    CLUSTER_ID,
-    CdcError,
-    CdcStack,
-    broker_properties,
-    cdc_home,
-    connector_properties,
-    worker_properties,
-)
+from gluon_contract.cdc import CdcStack, connector_properties, worker_properties
 from gluon_contract.env_contract import postgres_login
+from gluon_contract.java_processes import StackError
 from gluon_contract.postgres import PostgresEndpoint
 from gluon_contract.routing import load_connector
 
@@ -26,18 +19,6 @@ def properties(text: str) -> dict[str, str]:
     """A .properties text as a dict (no continuation lines in ours)."""
     pairs = (line.split("=", 1) for line in text.splitlines() if line and not line.startswith("#"))
     return {key: value for key, value in pairs}
-
-
-def test_the_broker_is_a_single_kraft_node_on_loopback(tmp_path: Path) -> None:
-    """Broker and controller in one process, replication factors 1, gluon-local's cluster id."""
-    config = properties(broker_properties(tmp_path / "data", 59092, 59093))
-    assert config["process.roles"] == "broker,controller"
-    assert config["listeners"] == "PLAINTEXT://127.0.0.1:59092,CONTROLLER://127.0.0.1:59093"
-    assert config["advertised.listeners"] == "PLAINTEXT://127.0.0.1:59092"
-    assert config["controller.quorum.voters"] == "1@127.0.0.1:59093"
-    assert config["log.dirs"] == str(tmp_path / "data")
-    assert config["offsets.topic.replication.factor"] == "1"
-    assert CLUSTER_ID == "MkU3OEVBNTcwNTJENDM2Qk"
 
 
 def test_the_worker_passes_keys_and_values_through_as_strings(tmp_path: Path) -> None:
@@ -68,16 +49,10 @@ def test_the_connector_is_gluons_with_only_the_database_address_and_login_replac
     }
 
 
-def test_the_home_defaults_to_what_sandbox_setup_installs(tmp_path: Path) -> None:
-    """CONTRACT_CDC_HOME, else ~/.local/cdc-kafka-3.8.0_debezium-3.0.0.Final."""
-    assert cdc_home({}, home=tmp_path) == tmp_path / ".local/cdc-kafka-3.8.0_debezium-3.0.0.Final"
-    assert cdc_home({"CONTRACT_CDC_HOME": "/opt/cdc"}, home=tmp_path) == Path("/opt/cdc")
-
-
 def test_missing_jars_are_reported_before_anything_starts(tmp_path: Path) -> None:
     """Names the directory and how to fill it."""
     with (
-        pytest.raises(CdcError, match="sandbox-setup --only cdc"),
+        pytest.raises(StackError, match="sandbox-setup --only cdc"),
         CdcStack(tmp_path / "nowhere", tmp_path / "work", ENDPOINT),
     ):
         pass

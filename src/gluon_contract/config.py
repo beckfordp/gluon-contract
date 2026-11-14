@@ -16,7 +16,7 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
-from gluon_contract.cdc import cdc_home
+from gluon_contract.java_processes import cdc_home
 from gluon_contract.services import UnknownServiceError, profile
 
 PG_TOOLS = ("initdb", "pg_ctl", "createdb")

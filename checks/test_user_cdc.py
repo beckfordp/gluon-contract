@@ -17,9 +17,10 @@ import psycopg
 import pytest
 from support import new_email, new_traceparent, signed_up
 
-from gluon_contract.cdc import CdcStack, Record
+from gluon_contract.cdc import CdcStack
 from gluon_contract.formats import is_uuid, parse_traceparent
 from gluon_contract.harness import Harness
+from gluon_contract.kafka import Record
 from gluon_contract.pytest_plugin import TopicReader
 from gluon_contract.routing import load_connector, route
 

@@ -13,7 +13,8 @@ from pathlib import Path
 import pytest
 from kafka import KafkaAdminClient, KafkaConsumer
 
-from gluon_contract.cdc import CdcError, KafkaBroker, cdc_home
+from gluon_contract.java_processes import StackError, cdc_home
+from gluon_contract.kafka import KafkaBroker
 
 HOME = cdc_home(os.environ)
 pytestmark = pytest.mark.skipif(
@@ -81,12 +82,12 @@ def test_topics_are_created_and_creating_them_again_is_harmless(tmp_path: Path) 
 def test_creating_topics_on_a_broker_that_isnt_there_gives_up_at_its_deadline(
     tmp_path: Path,
 ) -> None:
-    """Retried while the broker doesn't answer, then a CdcError naming the topics, near
+    """Retried while the broker doesn't answer, then a StackError naming the topics, near
     the deadline rather than after the client's own 30 s bootstrap timeout."""
     with KafkaBroker(HOME, tmp_path) as kafka:
         kafka.stop()
         started = time.monotonic()
-        with pytest.raises(CdcError, match="order-events, payment-events"):
+        with pytest.raises(StackError, match="order-events, payment-events"):
             kafka.create_topics(["order-events", "payment-events"], timeout_s=3)
         elapsed = time.monotonic() - started
     assert 3 <= elapsed < 10, elapsed

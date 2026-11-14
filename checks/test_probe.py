@@ -20,8 +20,8 @@ from typing import Any
 
 import pytest
 
-from gluon_contract.cdc import KafkaBroker
 from gluon_contract.http_stub import Hang, HttpStub, Reset, Status
+from gluon_contract.kafka import KafkaBroker
 from gluon_contract.metrics import metric_shapes, samples
 from gluon_contract.pytest_plugin import ProbeRun
 

@@ -15,7 +15,8 @@ import time
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 
-from gluon_contract.cdc import CdcError, Record
+from gluon_contract.java_processes import StackError
+from gluon_contract.kafka import Record
 
 DEFAULT_CONSOLE_CONSUMER = (
     "kubectl",
@@ -96,7 +97,7 @@ class ConsoleTopicReader:
         """The first record on `topic` that `until` accepts.
 
         Raises:
-            CdcError: none within `timeout_s`, listing the last records seen.
+            StackError: none within `timeout_s`, listing the last records seen.
         """
         seen: list[Record] = []
         deadline = time.monotonic() + timeout_s
@@ -122,4 +123,4 @@ class ConsoleTopicReader:
                 process.wait()
             seen = seen[-5:]
             time.sleep(0.5)
-        raise CdcError(f"no matching record on {topic} after {timeout_s}s; saw {seen}")
+        raise StackError(f"no matching record on {topic} after {timeout_s}s; saw {seen}")

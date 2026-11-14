@@ -14,8 +14,9 @@ from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import CdcStack, cdc_home
+from gluon_contract.cdc import CdcStack
 from gluon_contract.env_contract import Endpoints, postgres_login, service_env
+from gluon_contract.java_processes import cdc_home
 from gluon_contract.ports import free_port
 from gluon_contract.postgres import ThrowawayPostgres
 from gluon_contract.target import TargetProcess

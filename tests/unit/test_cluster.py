@@ -8,13 +8,13 @@ from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import CdcError
 from gluon_contract.cluster import (
     DEFAULT_CONSOLE_CONSUMER,
     ConsoleTopicReader,
     cluster_settings,
     parse_console_line,
 )
+from gluon_contract.java_processes import StackError
 
 
 def test_no_base_url_means_isolated_mode() -> None:
@@ -76,8 +76,8 @@ def test_the_reader_returns_the_first_matching_record(tmp_path: Path) -> None:
 
 
 def test_the_reader_says_what_it_saw_when_nothing_matches(tmp_path: Path) -> None:
-    """A CdcError listing the last records read."""
+    """A StackError listing the last records read."""
     reader = ConsoleTopicReader(fake_consumer(tmp_path, ["NO_HEADERS\ta\t1"]))
-    with pytest.raises(CdcError, match="no matching record on user-events"):
+    with pytest.raises(StackError, match="no matching record on user-events"):
         reader.record("user-events", lambda r: r.key == "z", timeout_s=2)
     assert shlex.join(reader.argv("user-events", 1000))
