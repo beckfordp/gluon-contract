@@ -12,6 +12,7 @@ JSON bodies compare exactly as parsed JSON; framework text errors on status,
 Content-Type and text (as user-service's REST group, RUST-1.3).
 """
 
+import time
 from typing import Any
 
 import psycopg
@@ -227,3 +228,67 @@ def test_a_cross_origin_request_gets_allow_origin(harness: Harness, seeded: obje
     response = call(harness, "GET", "/emails", headers=ORIGIN)
     assert_same_cors(response, "cors-simple", service=SERVICE)
     same(response, "cors-simple")
+
+
+# --- Health and anything else (gluon TD-42) ----------------------------------------------
+
+
+def test_an_unknown_path_is_a_plain_text_404(harness: Harness) -> None:
+    """404 text/plain "Not found".
+
+    Source: capture http/unknown-path.txt.
+    """
+    response = call(harness, "GET", "/no-such-path")
+    assert_text_error(response, 404, captured_text("unknown-path"))
+
+
+@pytest.mark.parametrize(
+    ("path", "captured"), [("/health", "health"), ("/health/ready", "health-ready")]
+)
+def test_health_endpoints_answer_as_captured(harness: Harness, path: str, captured: str) -> None:
+    """200, empty body, no Content-Type.
+
+    Source: capture http/health.txt and http/health-ready.txt.
+    """
+    expected = load_exchange(captured, service=SERVICE)
+    response = call(harness, "GET", path)
+    assert (response.status, response.body, response.header("Content-Type")) == (
+        expected.status,
+        expected.body,
+        expected.header("Content-Type"),
+    ), response.text[:200]
+
+
+def test_head_on_health_is_a_plain_text_405_without_allow(harness: Harness) -> None:
+    """HEAD isn't routed to GET: 405, text/plain, and no `Allow` header.
+
+    Source: capture http/health-head.txt (`curl -I`, so no body was read).
+    """
+    expected = load_exchange("health-head", service=SERVICE)
+    response = call(harness, "HEAD", "/health")
+    assert (response.status, response.header("Content-Type"), response.header("Allow")) == (
+        expected.status,
+        expected.header("Content-Type"),
+        expected.header("Allow"),
+    )
+
+
+@pytest.mark.isolated
+def test_readiness_is_503_while_postgres_is_stopped_and_200_once_back(harness: Harness) -> None:
+    """/health/ready answers 503 with Postgres stopped, and 200 again once it's back.
+
+    Source: capture http/health-ready-pg-stopped.txt and health-ready-pg-restarted.txt
+    (CAPTURE.sh step 8; their bodies are curl's timing trailer, so status only). Runs
+    last: it stops and restarts the database.
+    """
+    stopped = load_exchange("health-ready-pg-stopped", service=SERVICE).status
+    restarted = load_exchange("health-ready-pg-restarted", service=SERVICE).status
+    harness.postgres.stop()
+    try:
+        assert call(harness, "GET", "/health/ready").status == stopped
+    finally:
+        harness.postgres.start()
+    deadline = time.monotonic() + 30
+    while call(harness, "GET", "/health/ready").status != restarted:
+        assert time.monotonic() < deadline, "not ready again 30 s after Postgres came back"
+        time.sleep(0.2)
