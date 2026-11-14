@@ -36,3 +36,6 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
           before
     - [x] `scripts/ci.sh` green
 - [x] Task: Tick TD-40.1 in gluon `TECHNICAL_DEBT.md` (needs approval) (gluon a6978b7)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions 4339236
