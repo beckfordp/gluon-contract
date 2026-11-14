@@ -2,9 +2,14 @@
 
 """Parsing captured `curl -si` exchanges (RUST-1.3 helpers)."""
 
+from pathlib import Path
+
 import pytest
 
-from gluon_contract.capture import CaptureError, load_exchange, parse_exchange
+from gluon_contract.capture import CaptureError, capture_file, load_exchange, parse_exchange
+from gluon_contract.services import UnknownServiceError
+
+SERVICE = "user-service"
 
 RAW = (
     b"HTTP/1.1 409 Conflict\r\n"
@@ -44,6 +49,24 @@ def test_garbage_is_a_capture_error() -> None:
 
 def test_the_committed_capture_loads() -> None:
     """The committed capture's 409 is the one the checks will compare with."""
-    exchange = load_exchange("signup-409")
+    exchange = load_exchange("signup-409", service=SERVICE)
     assert exchange.status == 409
     assert exchange.json() == {"error": "An account with this email already exists"}
+
+
+def test_a_capture_is_found_through_the_services_profile(tmp_path: Path) -> None:
+    """The service's newest dated capture, under the given root."""
+    for date in ("20261109", "20261110"):
+        (tmp_path / SERVICE / date / "http").mkdir(parents=True)
+        (tmp_path / SERVICE / date / "PROVENANCE.md").write_text("laptop\n", encoding="utf-8")
+    (tmp_path / SERVICE / "20261110" / "http" / "health.txt").write_bytes(RAW)
+    assert load_exchange("health", service=SERVICE, root=tmp_path).status == 409
+    assert capture_file("http/health.txt", service=SERVICE, root=tmp_path).parent.parent.name == (
+        "20261110"
+    )
+
+
+def test_a_service_without_a_profile_has_no_capture(tmp_path: Path) -> None:
+    """order-service isn't one the harness knows: named, with the known ones."""
+    with pytest.raises(UnknownServiceError, match="order-service"):
+        capture_file("metrics.txt", service="order-service", root=tmp_path)

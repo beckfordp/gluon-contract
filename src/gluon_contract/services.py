@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 
-"""What the harness starts for each service besides Postgres and the OTLP stub (RPN-3).
+"""Each service as the harness knows it (RPN-3, gluon TD-44): its capture, and what the
+harness starts for it besides Postgres and the OTLP stub.
 
 A service's profile names its dependencies as gluon-local gives them: a Kafka
 broker (and the topics it consumes, created before it starts), and the services
@@ -14,6 +15,9 @@ notification-service's topics, the capture's `CAPTURE.sh`
 """
 
 from dataclasses import dataclass
+from pathlib import Path
+
+from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
 
 
 class UnknownServiceError(Exception):
@@ -31,6 +35,14 @@ class ServiceProfile:
     """The topics it consumes, created on that broker before it starts."""
     calls: tuple[str, ...] = ()
     """The services it calls: each is stubbed, its `<DOMAIN>_SERVICE_URL` pointing there."""
+
+    def capture(self, root: Path = CONTRACTS_ROOT) -> Path:
+        """What the Scala service was captured doing: its newest `contracts/<name>/<date>/`.
+
+        Raises:
+            ContractsError: if there is none yet, or one lacks its provenance.
+        """
+        return latest_capture(root, self.name)
 
 
 PROFILES = (

@@ -8,6 +8,8 @@ from gluon_contract.capture import capture_file
 from gluon_contract.formats import parse_traceparent
 from gluon_contract.metrics import metric_shapes, samples
 
+SERVICE = "user-service"
+
 TEXT = """# TYPE users_registrations_total counter
 users_registrations_total{outcome="created",otel_scope_name="user-service"} 3.0
 users_registrations_total{outcome="duplicate",otel_scope_name="user-service"} 1.0
@@ -44,7 +46,7 @@ def test_samples_by_name() -> None:
 
 def test_the_captured_metrics_parse() -> None:
     """The capture's service families are there with their labels."""
-    shapes = metric_shapes(capture_file("metrics.txt").read_text())
+    shapes = metric_shapes(capture_file("metrics.txt", service=SERVICE).read_text())
     assert "otel_scope_name" in shapes["users_logins_total"].labels
     assert len(shapes["db_client_operation_duration_seconds"].buckets) > 10
 
@@ -63,4 +65,4 @@ def test_traceparent_parts() -> None:
     assert unsampled.sampled is False
     assert parse_traceparent("garbage") is None
     with pytest.raises(FileNotFoundError):
-        capture_file("no-such-file.txt")
+        capture_file("no-such-file.txt", service=SERVICE)

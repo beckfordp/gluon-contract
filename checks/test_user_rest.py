@@ -66,7 +66,7 @@ def test_signup_creates_an_account_and_returns_its_first_token(harness: Harness)
     Source: capture http/signup-201.txt; ADR 0028 decision 5 (token format).
     """
     response = signup(harness, new_email())
-    expected = load_exchange("signup-201")
+    expected = load_exchange("signup-201", service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         201,
         expected.header("Content-Type"),
@@ -174,7 +174,7 @@ def test_an_undecodable_signup_body_is_a_plain_text_400(
 
     Source: capture http/<captured>.txt; the user's 2026-11-09 decision on the prefix.
     """
-    assert load_exchange(captured).text.startswith("Invalid value for: body (")
+    assert load_exchange(captured, service=SERVICE).text.startswith("Invalid value for: body (")
     response = call(harness, "POST", "/auth/signup", body=body, headers=JSON)
     assert_text_error(response, 400, "Invalid value for: body (", prefix=True)
 
@@ -185,7 +185,9 @@ def test_signup_with_the_wrong_method_is_405(harness: Harness) -> None:
     Source: capture http/signup-wrong-method.txt.
     """
     assert_text_error(
-        call(harness, "GET", "/auth/signup"), 405, load_exchange("signup-wrong-method").text
+        call(harness, "GET", "/auth/signup"),
+        405,
+        load_exchange("signup-wrong-method", service=SERVICE).text,
     )
 
 
@@ -200,7 +202,7 @@ def test_login_returns_the_account_and_a_fresh_token_pair(harness: Harness) -> N
     email = new_email()
     user_id = signup(harness, email).json()["userId"]
     response = login(harness, email)
-    expected = load_exchange("login-200")
+    expected = load_exchange("login-200", service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         200,
         expected.header("Content-Type"),
@@ -270,7 +272,7 @@ def test_get_user_returns_id_email_and_creation_instant(
     email = new_email()
     user_id = signup(harness, email).json()["userId"]
     response = call(harness, "GET", f"/users/{user_id}")
-    expected = load_exchange("users-200")
+    expected = load_exchange("users-200", service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         200,
         expected.header("Content-Type"),
@@ -309,7 +311,7 @@ def test_a_malformed_user_id_is_a_plain_text_400(harness: Harness) -> None:
     Source: capture http/users-400-malformed.txt.
     """
     response = call(harness, "GET", "/users/not-a-uuid")
-    assert_text_error(response, 400, load_exchange("users-400-malformed").text)
+    assert_text_error(response, 400, load_exchange("users-400-malformed", service=SERVICE).text)
 
 
 @pytest.mark.parametrize(
@@ -340,7 +342,7 @@ def test_a_user_id_parses_as_java_uuid_fromstring_does(
     if status == 404:
         assert_same(response, "users-404", service=SERVICE)
     else:
-        assert_text_error(response, 400, load_exchange("users-400-malformed").text)
+        assert_text_error(response, 400, load_exchange("users-400-malformed", service=SERVICE).text)
 
 
 def test_a_user_with_the_wrong_method_is_405(harness: Harness) -> None:
@@ -349,7 +351,7 @@ def test_a_user_with_the_wrong_method_is_405(harness: Harness) -> None:
     Source: capture http/users-wrong-method.txt.
     """
     response = call(harness, "DELETE", "/users/00000000-0000-0000-0000-000000000000")
-    assert_text_error(response, 405, load_exchange("users-wrong-method").text)
+    assert_text_error(response, 405, load_exchange("users-wrong-method", service=SERVICE).text)
 
 
 # --- Anything else -------------------------------------------------------------
@@ -361,7 +363,9 @@ def test_an_unknown_path_is_a_plain_text_404(harness: Harness) -> None:
     Source: capture http/unknown-path.txt.
     """
     assert_text_error(
-        call(harness, "GET", "/no-such-path"), 404, load_exchange("unknown-path").text
+        call(harness, "GET", "/no-such-path"),
+        404,
+        load_exchange("unknown-path", service=SERVICE).text,
     )
 
 

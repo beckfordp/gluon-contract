@@ -18,6 +18,7 @@ from gluon_contract.http import request
 from gluon_contract.metrics import metric_shapes, samples
 
 pytestmark = pytest.mark.service("user-service")
+SERVICE = "user-service"
 """user-service's contract: deselected in a run for another service (RPN-3)."""
 
 SERVICE_FAMILIES = (
@@ -58,7 +59,7 @@ def test_the_service_families_match_the_capture(harness: Harness) -> None:
     Source: capture metrics.txt; ADR 0027 (dashboards query these families).
     """
     traffic(harness)
-    expected = metric_shapes(capture_file("metrics.txt").read_text())
+    expected = metric_shapes(capture_file("metrics.txt", service=SERVICE).read_text())
     actual = metric_shapes(harness.scrape_metrics())
     for name in SERVICE_FAMILIES:
         assert name in actual, f"{name} missing; exposed: {sorted(actual)}"

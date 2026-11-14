@@ -10,8 +10,9 @@ same type live responses have.
 import re
 from pathlib import Path
 
-from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
+from gluon_contract.contracts import CONTRACTS_ROOT
 from gluon_contract.http import HttpResponse
+from gluon_contract.services import profile
 
 STATUS_LINE = re.compile(rb"^HTTP/\d(?:\.\d)? (\d{3})")
 
@@ -38,21 +39,20 @@ def parse_exchange(raw: bytes) -> HttpResponse:
     return HttpResponse(status=int(status.group(1)), headers=headers, body=body)
 
 
-def capture_file(name: str, *, service: str = "user-service", root: Path = CONTRACTS_ROOT) -> Path:
+def capture_file(name: str, *, service: str, root: Path = CONTRACTS_ROOT) -> Path:
     """A file from the service's latest capture, e.g. `metrics.txt`.
 
     Raises:
         FileNotFoundError: when the capture has no such file.
+        UnknownServiceError: when the harness has no profile for `service`.
     """
-    path = latest_capture(root, service) / name
+    path = profile(service).capture(root) / name
     if not path.is_file():
         raise FileNotFoundError(path)
     return path
 
 
-def load_exchange(
-    name: str, *, service: str = "user-service", root: Path = CONTRACTS_ROOT
-) -> HttpResponse:
+def load_exchange(name: str, *, service: str, root: Path = CONTRACTS_ROOT) -> HttpResponse:
     """The captured exchange `http/<name>.txt` from the service's latest capture."""
-    path = latest_capture(root, service) / "http" / f"{name}.txt"
+    path = profile(service).capture(root) / "http" / f"{name}.txt"
     return parse_exchange(path.read_bytes())

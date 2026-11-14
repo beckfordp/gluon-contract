@@ -26,6 +26,7 @@ from gluon_contract.http import HttpResponse, request
 from gluon_contract.openapi import conformance, load_spec
 
 pytestmark = [pytest.mark.service("user-service"), pytest.mark.cluster]
+SERVICE = "user-service"
 """user-service's contract (deselected in a run for another service, RPN-3); runs in
 cluster mode too: these need only the service's API (RUST-5.4)."""
 
@@ -47,7 +48,7 @@ def test_docs_redirects_to_the_swagger_ui(harness: Harness) -> None:
     Source: capture http/docs.txt.
     """
     response = get(harness, "/docs")
-    expected = load_exchange("docs")
+    expected = load_exchange("docs", service=SERVICE)
     assert (response.status, response.header("Location"), response.body) == (
         expected.status,
         expected.header("Location"),
@@ -74,7 +75,7 @@ def test_the_swagger_ui_page_is_served(harness: Harness, path: str, captured: st
     Source: capture http/docs-slash.txt, http/docs-index.txt (swagger-ui 5.20.7's index.html).
     """
     response = get(harness, path)
-    expected = load_exchange(captured)
+    expected = load_exchange(captured, service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         200,
         expected.header("Content-Type"),
@@ -88,7 +89,7 @@ def test_the_initializer_loads_docs_yaml(harness: Harness) -> None:
     Source: capture http/docs-initializer.txt.
     """
     response = get(harness, "/docs/swagger-initializer.js")
-    expected = load_exchange("docs-initializer")
+    expected = load_exchange("docs-initializer", service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         200,
         expected.header("Content-Type"),
@@ -102,7 +103,7 @@ def test_every_asset_the_page_loads_is_served(harness: Harness) -> None:
     Source: capture http/docs-index.txt (the references); tapir SwaggerUI (the
     webjar's files served under /docs/).
     """
-    page = load_exchange("docs-index").text
+    page = load_exchange("docs-index", service=SERVICE).text
     assets = sorted({ref.removeprefix("./") for ref in re.findall(r'(?:href|src)="([^"]+)"', page)})
     assert "swagger-ui-bundle.js" in assets
     missing = {
@@ -121,7 +122,9 @@ def test_the_openapi_spec_is_the_scala_one(harness: Harness) -> None:
     """
     response = get(harness, "/docs/docs.yaml")
     assert (response.status, response.header("Content-Type")) == (200, "application/yaml")
-    assert yaml.safe_load(response.text) == yaml.safe_load(capture_file("openapi.yaml").read_text())
+    assert yaml.safe_load(response.text) == yaml.safe_load(
+        capture_file("openapi.yaml", service=SERVICE).read_text()
+    )
 
 
 # The REST exchanges the capture made (CAPTURE.md), re-made here: name →
@@ -181,7 +184,7 @@ def captured_conformance(spec: dict[str, Any], name: str) -> str | None:
     """How the Scala service's captured response measured up to its own spec."""
     method, path, _, _ = SCENARIOS[name]
     concrete = path.replace("USER", "691b03e8-f1d7-45d9-a561-5183ffae9d0b")
-    return conformance(spec, method, concrete, load_exchange(name))
+    return conformance(spec, method, concrete, load_exchange(name, service=SERVICE))
 
 
 def test_responses_conform_to_the_served_spec_as_the_scala_ones_do(harness: Harness) -> None:
@@ -194,7 +197,7 @@ def test_responses_conform_to_the_served_spec_as_the_scala_ones_do(harness: Harn
     a status the spec doesn't list).
     """
     served = load_spec(get(harness, "/docs/docs.yaml").text)
-    captured_spec = load_spec(capture_file("openapi.yaml").read_text())
+    captured_spec = load_spec(capture_file("openapi.yaml", service=SERVICE).read_text())
     email = new_email()
     user_id = signed_up(harness, email)["userId"]
     outcomes: dict[str, tuple[bool, bool, str | None]] = {}
@@ -239,7 +242,7 @@ def test_head_on_a_get_path_is_405(harness: Harness, path: str) -> None:
     """
     concrete = path.replace("USER", "00000000-0000-0000-0000-000000000000")
     response = request(harness.base_url, "HEAD", concrete)
-    expected = load_exchange("docs-yaml-headers")
+    expected = load_exchange("docs-yaml-headers", service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         expected.status,
         expected.header("Content-Type"),
@@ -268,12 +271,12 @@ def test_the_asyncapi_spec_is_the_scala_one(harness: Harness) -> None:
     Source: capture asyncapi.json and http/asyncapi-json.txt.
     """
     response = get(harness, "/docs/asyncapi.json")
-    expected = load_exchange("asyncapi-json")
+    expected = load_exchange("asyncapi-json", service=SERVICE)
     assert (response.status, response.header("Content-Type")) == (
         200,
         expected.header("Content-Type"),
     )
-    assert response.json() == json.loads(capture_file("asyncapi.json").read_text())
+    assert response.json() == json.loads(capture_file("asyncapi.json", service=SERVICE).read_text())
 
 
 def test_asyncapi_without_the_slash_redirects(harness: Harness) -> None:
@@ -303,7 +306,7 @@ def test_the_asyncapi_page_is_served(harness: Harness, path: str) -> None:
     """
     response = get(harness, path)
     assert (response.status, response.header("Content-Type")) == (200, "text/html")
-    assert response.body == capture_file("asyncapi-html/index.html").read_bytes()
+    assert response.body == capture_file("asyncapi-html/index.html", service=SERVICE).read_bytes()
 
 
 @pytest.mark.parametrize("name", HTML_FILES[1:])
@@ -314,7 +317,7 @@ def test_the_asyncapi_page_assets_are_the_scala_ones(harness: Harness, name: str
     """
     response = get(harness, f"/docs/asyncapi/{name}")
     assert response.status == 200
-    assert response.body == capture_file(f"asyncapi-html/{name}").read_bytes()
+    assert response.body == capture_file(f"asyncapi-html/{name}", service=SERVICE).read_bytes()
 
 
 def test_the_captured_asyncapi_html_is_complete() -> None:
@@ -322,7 +325,10 @@ def test_the_captured_asyncapi_html_is_complete() -> None:
 
     Source: capture asyncapi-html/index.html (its css/ and js/ references).
     """
-    page = capture_file("asyncapi-html/index.html").read_text()
+    page = capture_file("asyncapi-html/index.html", service=SERVICE).read_text()
     referenced = set(re.findall(r'(?:href|src)="((?:css|js)/[^"]+)"', page))
     assert referenced == set(HTML_FILES[1:])
-    assert all(Path(capture_file(f"asyncapi-html/{name}")).is_file() for name in HTML_FILES)
+    assert all(
+        Path(capture_file(f"asyncapi-html/{name}", service=SERVICE)).is_file()
+        for name in HTML_FILES
+    )

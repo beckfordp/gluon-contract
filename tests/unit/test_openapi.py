@@ -10,7 +10,9 @@ from gluon_contract.capture import capture_file
 from gluon_contract.http import HttpResponse
 from gluon_contract.openapi import conformance, load_spec, operation_for
 
-SPEC = load_spec(capture_file("openapi.yaml").read_text())
+SERVICE = "user-service"
+
+SPEC = load_spec(capture_file("openapi.yaml", service=SERVICE).read_text())
 JSON_TYPE = {"Content-Type": "application/json"}
 
 
