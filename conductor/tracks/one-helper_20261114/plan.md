@@ -4,11 +4,15 @@ Phase verification: each phase's walkthrough is the acceptance commands in spec.
 run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
 
 ## Phase 1: Baseline and shared check helpers (TD-34)
-- [ ] Task: Record the baseline
-    - [ ] `scripts/ci.sh` result and run time
-    - [ ] user-service contract run count (`bin/verify-port user-service --only build contract`)
-    - [ ] notification REST group outcome (`verify-check-group.sh ... --service notification-service --expect-red 404`)
-    - [ ] Record all three in this plan's notes
+- [x] Task: Record the baseline
+    - [x] `scripts/ci.sh` result and run time
+    - [x] user-service contract run count (`bin/verify-port user-service --only build contract`)
+    - [x] notification REST group outcome (`verify-check-group.sh ... --service notification-service --expect-red 404`)
+    - [x] Record all three in this plan's notes
+    - *Baseline 2026-11-14 (laptop, HEAD `b885488`): `ci.sh` PASS, 325 passed, coverage
+      94.64%, 111 s. `verify-port user-service --only build contract` PASS, 128/128 (probe
+      10, cdc 3, config 10, docs 22, logs 16, metrics 7, outbox 5, rest 41, schema 6,
+      traces 8). Notification REST group: all 19 checks red, each with '404'.*
 - [ ] Task: Guard rule 1: no check module redefines a shared helper
     - [ ] Red: `tests/unit/test_shared_helpers.py`. ast reads the top-level names of
           `checks/support.py` and `src/gluon_contract/expect.py`. Every other
