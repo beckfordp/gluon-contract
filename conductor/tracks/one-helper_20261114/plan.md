@@ -36,8 +36,10 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
       move). Guard in `gluon_contract.shared_helpers` (under the coverage gate). Checks
       pass `service=SERVICE` to `expect` as notification's do, no partial. Red: 10
       redefinitions; green after. ci.sh 337 passed, 94.65%; rest 41/41, schema 6/6.*
-- [ ] Task: Conductor - User Manual Verification 'Baseline and shared check helpers' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Baseline and shared check helpers' (Protocol in workflow.md)
     - ci.sh green; user-service contract run matches the baseline count
+    - *2026-11-14 (prompting off, run not walked through): ci.sh PASS 337 passed 94.65%;
+      verify-port contract 128/128 (= baseline); notification group 19 red with '404' (= baseline).*
 
 ## Phase 2: One Postgres connect, one sent-email parser (TD-35, TD-36)
 - [ ] Task: `postgres.connect` (TD-35)
