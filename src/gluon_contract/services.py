@@ -95,23 +95,36 @@ def profile(service: str) -> ServiceProfile:
     Raises:
         UnknownServiceError: naming the services the harness knows.
     """
-    for known in PROFILES:
-        if known.name == service:
-            return known
+    known = _known(service)
+    if known is not None:
+        return known
     raise UnknownServiceError(
         f"the harness has no profile for {service!r} (it knows {', '.join(KNOWN_SERVICES)}); "
         "add one to gluon_contract/services.py"
     )
 
 
+def domain_of(service: str) -> str:
+    """`user-service` → `user`."""
+    return service.removesuffix("-service")
+
+
 def variable_prefix(service: str) -> str:
     """Its profile's prefix, else `notification-service` → `NOTIFICATION_SERVICE`; a
     service the harness only stubs has no profile and the derived prefix."""
-    own = next((known.prefix for known in PROFILES if known.name == service), None)
-    return own or service.removesuffix("-service").upper().replace("-", "_") + "_SERVICE"
+    known = _known(service)
+    own = None if known is None else known.prefix
+    return own or domain_of(service).upper().replace("-", "_") + "_SERVICE"
 
 
 def stub_answer(service: str) -> Answer:
     """How a stub for `service` answers: its profile's; a service the harness only stubs
     (no profile) finds nothing until a check scripts it."""
-    return next((known.stub for known in PROFILES if known.name == service), no_answer)
+    known = _known(service)
+    return no_answer if known is None else known.stub
+
+
+def _known(service: str) -> ServiceProfile | None:
+    """The profile of `service`, if the harness has one (looked up at call time, so a
+    test can add one)."""
+    return next((known for known in PROFILES if known.name == service), None)
