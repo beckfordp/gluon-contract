@@ -16,6 +16,7 @@ from gluon_contract.contracts import (
     ContractsError,
     capture_dirs,
     latest_capture,
+    services,
 )
 
 
@@ -34,6 +35,15 @@ def test_capture_directories_are_listed_oldest_first(tmp_path: Path) -> None:
     older = capture(tmp_path, "user-service", "20261109")
     (tmp_path / "user-service" / "CAPTURE.md").write_text("commands\n", encoding="utf-8")
     assert capture_dirs(tmp_path, "user-service") == [older, newer]
+
+
+def test_hidden_directories_are_not_captures(tmp_path: Path) -> None:
+    """An editor's folder (`.idea/`) beside the captures is neither a capture nor a service."""
+    dated = capture(tmp_path, "user-service", "20261109")
+    capture(tmp_path, "user-service", ".idea", provenance=False)
+    capture(tmp_path, ".idea", "codeStyles", provenance=False)
+    assert capture_dirs(tmp_path, "user-service") == [dated]
+    assert services(tmp_path) == ["user-service"]
 
 
 def test_a_capture_without_provenance_is_an_error(tmp_path: Path) -> None:
@@ -63,5 +73,5 @@ def test_no_capture_yet_says_how_to_get_one(tmp_path: Path) -> None:
 def test_every_capture_in_this_repo_has_its_provenance() -> None:
     """The rule holds for what is committed here."""
     assert CONTRACTS_ROOT.is_dir()
-    for service in sorted(p for p in CONTRACTS_ROOT.iterdir() if p.is_dir()):
-        capture_dirs(CONTRACTS_ROOT, service.name)
+    for service in services(CONTRACTS_ROOT):
+        capture_dirs(CONTRACTS_ROOT, service)

@@ -20,6 +20,11 @@ class ContractsError(Exception):
     """`contracts/` is missing a capture or a capture's provenance."""
 
 
+def services(root: Path) -> list[str]:
+    """The services with a directory under `root`, by name; hidden ones (`.idea/`) aren't."""
+    return [path.name for path in _subdirectories(root)]
+
+
 def capture_dirs(root: Path, service: str) -> list[Path]:
     """The service's capture directories, oldest first (names are dated).
 
@@ -29,7 +34,7 @@ def capture_dirs(root: Path, service: str) -> list[Path]:
     service_dir = root / service
     if not service_dir.is_dir():
         return []
-    captures = sorted(path for path in service_dir.iterdir() if path.is_dir())
+    captures = _subdirectories(service_dir)
     unproven = [path.name for path in captures if not (path / PROVENANCE).is_file()]
     if unproven:
         raise ContractsError(
@@ -53,3 +58,10 @@ def latest_capture(root: Path, service: str) -> Path:
             f"as {root / service}/<date>/ with a {PROVENANCE}"
         )
     return captures[-1]
+
+
+def _subdirectories(directory: Path) -> list[Path]:
+    """`directory`'s subdirectories by name, hidden ones (an editor's `.idea/`) left out."""
+    return sorted(
+        path for path in directory.iterdir() if path.is_dir() and not path.name.startswith(".")
+    )

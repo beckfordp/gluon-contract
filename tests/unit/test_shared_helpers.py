@@ -76,6 +76,17 @@ CONNECT = "src/gluon_contract/postgres.py"
             ["tests/x.py:2 calls psycopg.connect: use gluon_contract.postgres.connect"],
         ),
         ("tests/x.py", "from gluon_contract.postgres import connect\nconnect(e)", []),
+        (
+            "tests/x.py",
+            "from psycopg import connect\nconnect(host='h')",
+            ["tests/x.py:1 imports psycopg.connect: use gluon_contract.postgres.connect"],
+        ),
+        (
+            "tests/x.py",
+            "from psycopg import connect as pg\npg(host='h')",
+            ["tests/x.py:1 imports psycopg.connect: use gluon_contract.postgres.connect"],
+        ),
+        ("tests/x.py", "from psycopg import sql", []),
     ],
 )
 def test_only_postgres_connect_calls_psycopg_connect(

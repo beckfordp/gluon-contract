@@ -49,7 +49,8 @@ def redefinition_problems(shared: Mapping[str, str], modules: Mapping[str, str])
 
 def connect_problems(sources: Mapping[str, str]) -> list[str]:
     """One line per call of `psycopg.connect` in a module (by path, its source given)
-    other than the one inside `gluon_contract.postgres.connect`."""
+    other than the one inside `gluon_contract.postgres.connect`, and per import of it by
+    name (`from psycopg import connect`), which would hide a call from this guard."""
     problems = []
     for module, source in sources.items():
         tree = ast.parse(source)
@@ -62,6 +63,13 @@ def connect_problems(sources: Mapping[str, str]) -> list[str]:
             f"{module}:{node.lineno} calls psycopg.connect: use gluon_contract.postgres.connect"
             for node in ast.walk(tree)
             if _is_psycopg_connect(node) and id(node) not in allowed
+        ]
+        problems += [
+            f"{module}:{node.lineno} imports psycopg.connect: use gluon_contract.postgres.connect"
+            for node in ast.walk(tree)
+            if isinstance(node, ast.ImportFrom)
+            and node.module == "psycopg"
+            and any(alias.name == "connect" for alias in node.names)
         ]
     return problems
 

@@ -10,6 +10,8 @@ from gluon_contract.harness import Harness
 from gluon_contract.http import HttpResponse, json_body, request
 
 PASSWORD = "correct-horse-battery-1"
+"""The password CAPTURE.md signs up with; it produced the capture's stored hashes, which
+the schema checks compare against."""
 JSON = {"Content-Type": "application/json"}
 
 

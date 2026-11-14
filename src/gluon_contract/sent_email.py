@@ -57,7 +57,7 @@ def parse_row(line: str) -> SentEmailRow:
 
     Raises:
         ValueError: saying why the line isn't a row (not JSON, not an object, a column
-            missing); the caller adds where it was.
+            missing, a timestamp that isn't one); the caller adds where it was.
     """
     try:
         document: object = json.loads(line)
@@ -70,13 +70,19 @@ def parse_row(line: str) -> SentEmailRow:
         raise ValueError(f"missing column {', '.join(missing)}")
     values: dict[str, Any] = {
         column: (
-            datetime.fromisoformat(document[column])
+            _timestamp(column, document[column])
             if column in TIMESTAMPS and document[column] is not None
             else document[column]
         )
         for column in COLUMNS
     }
     return SentEmailRow(**values)
+
+
+def _timestamp(column: str, value: object) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError(f"{column} is not a timestamp: {value!r}")
+    return datetime.fromisoformat(value)
 
 
 def parse_rows(text: str) -> list[SentEmailRow]:

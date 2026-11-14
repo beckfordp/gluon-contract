@@ -79,8 +79,12 @@ def test_one_line_parses_on_its_own() -> None:
         ("{oops", "not JSON: '{oops'"),
         ("[1, 2]", "not a JSON object: '[1, 2]'"),
         (ROW.replace(',"error":null', ""), "missing column error"),
+        (
+            ROW.replace('"failed_at":null', '"failed_at":123'),
+            "failed_at is not a timestamp: 123",
+        ),
     ],
-    ids=["not-json", "not-an-object", "missing-column"],
+    ids=["not-json", "not-an-object", "missing-column", "timestamp-not-text"],
 )
 def test_a_bad_line_is_refused_saying_why(line: str, message: str) -> None:
     """No line number: the caller knows it."""
