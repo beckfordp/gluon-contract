@@ -8,16 +8,22 @@ capture's `CAPTURE.sh`.
 """
 
 import json
+from pathlib import Path
 
 import pytest
 
+from gluon_contract import services
+from gluon_contract.config import load_config
+from gluon_contract.env_contract import Endpoints, service_env
 from gluon_contract.notification_scenarios import TOPICS
 from gluon_contract.services import (
     KNOWN_SERVICES,
     PROFILES,
+    ServiceProfile,
     UnknownServiceError,
     profile,
     stub_answer,
+    variable_prefix,
 )
 
 
@@ -79,3 +85,43 @@ def test_a_stub_for_user_service_answers_a_user_lookup() -> None:
 def test_a_stub_for_a_service_without_answers_finds_nothing() -> None:
     """order-service has no profile (the harness only stubs it): its stub finds no order."""
     assert stub_answer("order-service")("/orders/1") is None
+
+
+def test_a_new_service_is_one_profile(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Adding a service (cart-service, say) is its profile plus its checks (gluon TD-44):
+    the harness finds its capture, names its variables, configures a run for it, and
+    stubs it for a caller, with nothing else edited."""
+    cart = ServiceProfile(name="cart-service", calls=("user-service",), stub=lambda _: b"{}")
+    monkeypatch.setattr(services, "PROFILES", (*services.PROFILES, cart))
+    capture = tmp_path / "cart-service" / "20261120"
+    capture.mkdir(parents=True)
+    (capture / "PROVENANCE.md").write_text("laptop\n", encoding="utf-8")
+
+    assert profile("cart-service").capture(tmp_path) == capture
+    assert variable_prefix("cart-service") == "CART_SERVICE"
+    endpoints = Endpoints(
+        http_port=1,
+        metrics_port=2,
+        postgres_host="127.0.0.1",
+        postgres_port=3,
+        otlp_endpoint="http://127.0.0.1:4",
+        service_urls={"user-service": "http://stub"},
+    )
+    env = service_env("cart-service", endpoints, base_env={})
+    assert (env["CART_SERVICE_PORT"], env["POSTGRES_DB"], env["USER_SERVICE_URL"]) == (
+        "1",
+        "cart",
+        "http://stub",
+    )
+    assert stub_answer("cart-service")("/carts/1") == b"{}"
+    pg_bin = tmp_path / "pg"
+    pg_bin.mkdir()
+    for tool in ("initdb", "pg_ctl", "createdb"):
+        (pg_bin / tool).write_text("#!/bin/sh\n", encoding="utf-8")
+        (pg_bin / tool).chmod(0o755)
+    config = load_config(
+        {"CONTRACT_TARGET_CMD": "cart", "CONTRACT_SERVICE": "cart-service"},
+        cwd=tmp_path,
+        which=lambda name: str(pg_bin / name),
+    )
+    assert config.service == "cart-service"

@@ -61,7 +61,12 @@ added here that the sandbox doesn't already have is added to
   `Record`, out of `cdc`, with the jar sets and their `java` command line) and
   `supervisor` (runs a stack's processes: start in a group, wait until ready, stop;
   `StackError`, which replaces `CdcError`; named for its job, not `java_processes`,
-  2026-11-14); `cdc` keeps Connect, Debezium and `cdc_home`
+  2026-11-14); `cdc` keeps Connect, Debezium and `cdc_home`; *(2026-11-14, gluon
+  TD-44)* `services` is each service as the harness knows it: its capture
+  (`ServiceProfile.capture`), variable prefix, and how a stub standing in for it
+  answers (`stub`; `http_stub` itself is generic), beside the broker, topics and
+  called services. A run names its service (no default), and adding a service is
+  its profile plus its checks (`tests/unit/test_services.py` guards it)
 - `tests/unit/` (pure) and `tests/integration/` (local processes, including
   `stand_in_target.py`, a test double for the build under test) — run in CI
 - `checks/` — the contract checks, one module per group (RUST-1.3 onwards),
