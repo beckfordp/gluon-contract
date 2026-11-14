@@ -30,10 +30,10 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
     - [x] Remove the default and let mypy and the tests drive the changes
     - [x] `ServiceProfile.capture` (→ `latest_capture`); the helpers take the service;
           every `checks/test_user_*.py` passes its `SERVICE` constant
-- [ ] Task: The variable prefix lives in the profile
-    - [ ] `ServiceProfile.prefix`, defaulting to `variable_prefix(name)`; `env_contract`
+- [x] Task: The variable prefix lives in the profile 4ea17c2
+    - [x] `ServiceProfile.prefix`, defaulting to `variable_prefix(name)`; `env_contract`
           reads it
-    - [ ] Unit test: a profile with an explicit prefix is honoured
+    - [x] Unit test: a profile with an explicit prefix is honoured
 - [ ] Task: Stubs answer from the profile
     - [ ] Red: `HttpStub(answers=...)` unit tests: an order-service stub answers 404 on
           `/users/x`, a user-service stub 200 with `user_body`; scripted behaviours
