@@ -12,7 +12,7 @@ beyond that (a broker, the services it calls) is its profile (`services.py`).
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
-from gluon_contract.services import profile
+from gluon_contract.services import profile, variable_prefix
 
 BASE_VARIABLES = ("PATH", "HOME", "LANG", "TZ", "JAVA_HOME")
 """Passed through from the harness so the process can run at all; nothing else is."""
@@ -52,11 +52,6 @@ class PostgresLogin:
 def domain_of(service: str) -> str:
     """`user-service` → `user`."""
     return service.removesuffix("-service")
-
-
-def variable_prefix(service: str) -> str:
-    """`notification-service` → `NOTIFICATION_SERVICE`: its variables' prefix."""
-    return domain_of(service).upper().replace("-", "_") + "_SERVICE"
 
 
 def postgres_login(service: str) -> PostgresLogin:

@@ -34,7 +34,9 @@ class ServiceProfile:
     topics: tuple[str, ...] = ()
     """The topics it consumes, created on that broker before it starts."""
     calls: tuple[str, ...] = ()
-    """The services it calls: each is stubbed, its `<DOMAIN>_SERVICE_URL` pointing there."""
+    """The services it calls: each is stubbed, its `<prefix>_URL` pointing there."""
+    prefix: str | None = None
+    """Its variables' prefix (`<prefix>_PORT`, `<prefix>_URL`), if not `<DOMAIN>_SERVICE`."""
 
     def capture(self, root: Path = CONTRACTS_ROOT) -> Path:
         """What the Scala service was captured doing: its newest `contracts/<name>/<date>/`.
@@ -74,3 +76,10 @@ def profile(service: str) -> ServiceProfile:
         f"the harness has no profile for {service!r} (it knows {', '.join(KNOWN_SERVICES)}); "
         "add one to gluon_contract/services.py"
     )
+
+
+def variable_prefix(service: str) -> str:
+    """Its profile's prefix, else `notification-service` → `NOTIFICATION_SERVICE`; a
+    service the harness only stubs has no profile and the derived prefix."""
+    own = next((known.prefix for known in PROFILES if known.name == service), None)
+    return own or service.removesuffix("-service").upper().replace("-", "_") + "_SERVICE"

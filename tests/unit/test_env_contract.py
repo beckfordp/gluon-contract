@@ -6,11 +6,13 @@ Source: each service's `src/main/resources/application.conf` (the `${?VAR}`
 overrides) and gluon `environments/local/<service>.values.yaml`.
 """
 
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
 import yaml
 
+from gluon_contract import services
 from gluon_contract.env_contract import (
     BASE_VARIABLES,
     Endpoints,
@@ -18,9 +20,13 @@ from gluon_contract.env_contract import (
     PostgresLogin,
     postgres_login,
     service_env,
+)
+from gluon_contract.services import (
+    KNOWN_SERVICES,
+    ServiceProfile,
+    UnknownServiceError,
     variable_prefix,
 )
-from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError
 
 GLUON_LOCAL = Path(__file__).resolve().parents[4] / "environments" / "local"
 
@@ -191,3 +197,23 @@ def test_the_variables_are_the_ones_gluon_local_sets(service: str) -> None:
         "POSTGRES_PORT",
     }
     assert set(service_env(service, NOTIFICATION_ENDPOINTS, base_env={})) == expected
+
+
+def test_a_profiles_own_prefix_names_its_variables(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A service whose variables don't follow `<DOMAIN>_SERVICE` says so in its profile
+    (gluon TD-44): the ports, and the URL a caller of it reads, use that prefix."""
+    odd = ServiceProfile(name="cart-service", prefix="CART")
+    caller = ServiceProfile(name="checkout-service", calls=("cart-service",))
+    monkeypatch.setattr(services, "PROFILES", (*services.PROFILES, odd, caller))
+    assert variable_prefix("cart-service") == "CART"
+    env = service_env("cart-service", ENDPOINTS, base_env={})
+    assert env["CART_PORT"] == "18080"
+    assert env["CART_METRICS_PORT"] == "19090"
+    called = replace(ENDPOINTS, service_urls={"cart-service": "http://stub"})
+    assert service_env("checkout-service", called, base_env={})["CART_URL"] == "http://stub"
+
+
+def test_without_its_own_prefix_a_service_derives_one() -> None:
+    """`<DOMAIN>_SERVICE`, for profiled and unprofiled (only called) services alike."""
+    assert variable_prefix("notification-service") == "NOTIFICATION_SERVICE"
+    assert variable_prefix("order-service") == "ORDER_SERVICE"
