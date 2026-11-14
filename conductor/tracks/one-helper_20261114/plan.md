@@ -74,20 +74,36 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
       (= baseline); notification group 19 red with '404' (= baseline); capture check PASS.*
 
 ## Phase 3: Kafka broker out of cdc.py (TD-45)
-- [ ] Task: `processes.py`
-    - [ ] Move `_Processes` and `_signal` (public names: `Processes`, `signal_group`,
-          final names in task plan review); unit tests for any logic that has none
-          today (`tests/unit/test_cdc.py` cases move with it)
-- [ ] Task: `kafka.py`
-    - [ ] Move `KafkaBroker`, `Record`, `broker_properties`, the Kafka constants, and
-          whatever only the broker uses. `CdcError`, `HOST`, `cdc_home`,
-          `_port_open`: to whichever module needs them, with no cycle (shared ones
-          to `processes.py`). Decided in the task's plan review
-    - [ ] Update imports in `harness`, `pytest_plugin`, `checks/test_probe.py`,
-          `tests/integration/test_kafka_broker.py`, `tests/unit/test_cdc.py` (split
-          into `test_kafka.py` if its cases are the broker's). No re-export
-    - [ ] tech-stack.md Layout: `kafka`, `processes` with a dated note (TD-45)
-    - [ ] `cdc.py` holds only Connect/Debezium; ci.sh green incl. `test_kafka_broker.py`
+- [x] Task: `processes.py` → `supervisor.py` `9d87f2f`, `f414b2d`
+    - [x] `_Processes`/`_signal` moved, public: `Supervisor` (spawn, wait, logs, stop,
+          `stop_all`), `signal_group`, `port_open`, `StackError`
+    - *Decided 2026-11-14:* first named `java_processes` (`processes.py` clashed with
+      `tests/integration/processes.py`); renamed `supervisor` at the user's request,
+      named for its job, not its technology. The Java specifics (jar check, log4j,
+      `java` command line) are `kafka.Jars`. `CdcError` renamed `StackError` (it is
+      also the broker's and the cluster reader's).
+- [x] Task: `kafka.py` `9d87f2f`, `f414b2d`
+    - [x] `KafkaBroker`, `Record`, `broker_properties`, `CLUSTER_ID`, `KAFKA_VERSION`,
+          `properties_text`, `Jars` in `kafka.py`; `DEBEZIUM_VERSION` and `cdc_home`
+          in `cdc.py` (the install's directory names both versions; `cdc` already
+          imports `kafka`, so no cycle)
+    - [x] Imports updated in every caller; no re-export from `cdc`
+    - [x] Tests: `test_kafka.py` (broker config, jars, properties),
+          `test_supervisor.py`, `tests/integration/test_supervisor_process_group.py`;
+          `cdc_home`'s test in `test_cdc.py`
+    - [x] tech-stack.md Layout, dated note
+    - [x] `cdc.py` holds Connect, Debezium and `cdc_home`; ci.sh green: 354 passed,
+          95.02%
+    - *Contract runs after `9d87f2f`: 2 of 3 FAIL in
+      `test_readiness_is_503_while_postgres_is_down` (`pg_ctl: server does not shut
+      down`). Not TD-45's: alternating runs (2026-11-14) failed the same way on
+      `b3bb033`, before it. See the next task.*
+- [ ] Task: Readiness check's Postgres stop outlasts `pg_ctl`'s wait
+    - [ ] Find why a fast shutdown takes >60 s while the CDC stack is up (Debezium's
+          replication connection is the suspect), then fix in the harness so the
+          check's stop and restart are bounded; a new TD item in gluon if it can't be
+          fixed here
+    - [ ] Acceptance: contract run 128/128 five times in a row
 - [ ] Task: Close the track
     - [ ] Acceptance runs 1–5 from spec.md, results recorded here against the baseline
     - [ ] gluon `TECHNICAL_DEBT.md`: tick TD-34.1, 35.1, 36.1, 45.1 with dated notes
