@@ -14,7 +14,7 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       --only build contract` PASS, 128/128. Notification REST group: 0 green, 19 red
       (`/emails` is RPN-5's).*
 
-## Phase 1: Per-service profiles (TD-44.1)
+## Phase 1: Per-service profiles (TD-44.1) [checkpoint: ace4f77]
 - [x] Task: The run's service is required 24c7867
     - [x] Red: unit tests show that, without CONTRACT_SERVICE, `load_config` raises a
           ConfigError naming KNOWN_SERVICES, `run_service` fails the same way, and the
