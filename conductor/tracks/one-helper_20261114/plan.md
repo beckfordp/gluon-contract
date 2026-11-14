@@ -98,12 +98,14 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
       `test_readiness_is_503_while_postgres_is_down` (`pg_ctl: server does not shut
       down`). Not TD-45's: alternating runs (2026-11-14) failed the same way on
       `b3bb033`, before it. See the next task.*
-- [ ] Task: Readiness check's Postgres stop outlasts `pg_ctl`'s wait
-    - [ ] Find why a fast shutdown takes >60 s while the CDC stack is up (Debezium's
-          replication connection is the suspect), then fix in the harness so the
-          check's stop and restart are bounded; a new TD item in gluon if it can't be
-          fixed here
-    - [ ] Acceptance: contract run 128/128 five times in a row
+- [x] Task: Readiness check's Postgres stop outlasts `pg_ctl`'s wait `07a86f6`
+    - [x] Cause: a fast shutdown waits for each logical replication client to confirm
+          the shutdown checkpoint, up to `wal_sender_timeout` (60 s), pg_ctl's own
+          wait; Debezium confirms when it happens to (stops measured 4.5–208 s)
+    - [x] Red first: `test_a_stop_does_not_wait_for_a_logical_replication_client`
+          (`pg_recvlogical` frozen with SIGSTOP), 59.9 s, 3 of 3
+    - [x] Fix: `ThrowawayPostgres.stop()` ends replication connections first
+    - [x] Acceptance: ci.sh 355 passed, 95.03%; contract run 128/128 five times in a row
 - [ ] Task: Close the track
     - [ ] Acceptance runs 1–5 from spec.md, results recorded here against the baseline
     - [ ] gluon `TECHNICAL_DEBT.md`: tick TD-34.1, 35.1, 36.1, 45.1 with dated notes
