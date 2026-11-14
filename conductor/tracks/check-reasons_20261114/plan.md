@@ -4,9 +4,12 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
 (TD-46 rule).
 
 ## Phase 1: The report module and the script
-- [ ] Task: Record the baseline
-    - [ ] `verify-check-group.sh checks/test_notification_rest.py --service
+- [x] Task: Record the baseline
+    - [x] `verify-check-group.sh checks/test_notification_rest.py --service
           notification-service`: the red lines, cut as they are today (`- A...`)
+    - *Baseline 2026-11-14 (tests/contract `7871f51`'s run): worse than cut, the 19 red
+      lines carry no reason at all (`red  test_emails_lists_every_email_newest_first`);
+      5 green.*
 - [ ] Task: `check_report` reads outcomes from junit
     - [ ] Red: `tests/unit/test_check_report.py`, with junit samples: passed, failed
           (a long message, a multi-line one), error, skipped, a parametrised name; and
