@@ -35,4 +35,4 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
     - [x] `checks/test_user_rest.py --service user-service --expect-green`: PASS, as
           before
     - [x] `scripts/ci.sh` green
-- [ ] Task: Tick TD-40.1 in gluon `TECHNICAL_DEBT.md` (needs approval)
+- [x] Task: Tick TD-40.1 in gluon `TECHNICAL_DEBT.md` (needs approval) (gluon a6978b7)
