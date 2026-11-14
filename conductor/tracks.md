@@ -6,8 +6,6 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [x] **Track: One helper per job in tests/contract (TD-34, TD-35, TD-36, TD-45)**
-  *Link: [./tracks/one-helper_20261114/](./tracks/one-helper_20261114/)*
 
 ---
 
