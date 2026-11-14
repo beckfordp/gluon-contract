@@ -56,7 +56,7 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       contract` 128/128 (with gluon's `--service user-service`, working tree). Notification
       REST group 0 green, 19 red, as the baseline.*
 
-## Phase 2: Notification health checks (TD-42.1)
+## Phase 2: Notification health checks (TD-42.1) [checkpoint: 79283d2]
 - [x] Task: Health checks in `test_notification_rest.py` f8bcc85
     - [x] Red: run the checks against a notification-service-rs build whose `/health`
           answers a wrong body (a temporary local patch, not committed); they fail,
