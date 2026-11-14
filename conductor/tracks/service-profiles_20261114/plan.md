@@ -57,17 +57,21 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       REST group 0 green, 19 red, as the baseline.*
 
 ## Phase 2: Notification health checks (TD-42.1)
-- [ ] Task: Health checks in `test_notification_rest.py`
-    - [ ] Red: run the checks against a notification-service-rs build whose `/health`
+- [x] Task: Health checks in `test_notification_rest.py` f8bcc85
+    - [x] Red: run the checks against a notification-service-rs build whose `/health`
           answers a wrong body (a temporary local patch, not committed); they fail,
           naming the capture
-    - [ ] `/health` and `/health/ready`: 200, as captured
-    - [ ] HEAD `/health`
-    - [ ] The unknown path: a plain-text 404
-    - [ ] Readiness: 503 with Postgres stopped, 200 once it's back
-    - [ ] Written as in `test_user_rest.py`, using only the shared helpers in `expect`
+    - [x] `/health` and `/health/ready`: 200, as captured
+    - [x] HEAD `/health`
+    - [x] The unknown path: a plain-text 404
+    - [x] Readiness: 503 with Postgres stopped, 200 once it's back
+    - [x] Written as in `test_user_rest.py`, using only the shared helpers in `expect`
           and `support` (the TD-34 guard)
-    - [ ] Green against notification-service-rs, built here on the laptop
+    - [x] Green against notification-service-rs, built here on the laptop
+    - *Red 3/3 against a patched build (a body on /health, HEAD routed to GET, another
+      404 text, readiness always 200; reverted): each new check red where its behaviour
+      was broken. Green 3/3 against the real build: 5 green, the 19 /emails checks red as
+      before (RPN-5). HEAD is a text/plain 405 without Allow, as the capture.*
 - [ ] Task: Green against Scala
     - [ ] `sbt -batch stage` in `services/notification-service`
     - [ ] Run the group with `verify-check-group.sh` against the staged
