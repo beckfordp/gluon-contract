@@ -10,7 +10,7 @@ prints.
 
 import re
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
 
@@ -34,6 +34,8 @@ class Outcome:
     name: str
     state: State
     reason: str
+    text: str = field(default="", compare=False)
+    """The failure's text (its traceback); searched by `expect_red`, never shown."""
 
 
 def outcomes(path: Path) -> list[Outcome]:
@@ -60,12 +62,28 @@ def line(outcome: Outcome) -> str | None:
     return f"red  {outcome.name}" + (f" - {reason}" if reason else "")
 
 
+def expect_red(checks: list[Outcome], reason: str) -> list[str]:
+    """What stops `checks` being a group written red (`--expect-red`): one problem per
+    check that didn't fail, or failed without `reason` in its message or text."""
+    if not checks:
+        return ["no checks in the report"]
+    problems = []
+    for check in checks:
+        if check.state == "passed":
+            problems.append(f"{check.name}: passes")
+        elif check.state != "failed":
+            problems.append(f"{check.name}: {check.state}")
+        elif reason not in check.reason + check.text:
+            problems.append(f"{check.name}: fails without {reason!r}: {check.reason[:150]!r}")
+    return problems
+
+
 def _outcome(case: ET.Element) -> Outcome:
     name = case.get("name", "")
     for tag, state in RED_TAGS.items():
         element = case.find(tag)
         if element is not None:
-            return Outcome(name, state, element.get("message", ""))
+            return Outcome(name, state, element.get("message", ""), element.text or "")
     return Outcome(name, "passed", "")
 
 

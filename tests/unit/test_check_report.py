@@ -14,6 +14,7 @@ from gluon_contract.check_report import (
     REASON_LENGTH,
     CheckReportError,
     Outcome,
+    expect_red,
     line,
     outcomes,
 )
@@ -94,3 +95,47 @@ def test_an_unreadable_report_is_an_error_naming_it(tmp_path: Path, text: str | 
     path = tmp_path / "run.xml" if text is None else report(tmp_path, text)
     with pytest.raises(CheckReportError, match=r"run\.xml"):
         outcomes(path)
+
+
+# --- --expect-red ---------------------------------------------------------------------------
+
+
+def red(name: str, message: str, text: str = "") -> Outcome:
+    """A failed check."""
+    return Outcome(name, "failed", message, text)
+
+
+def test_every_check_red_with_the_reason_is_no_problem() -> None:
+    """A group written before its Rust items: each fails, each saying why. The reason may
+    be in the message or only in the failure's text (its traceback)."""
+    checks = [red("test_a", "got 404, expected 200"), red("test_b", "boom", "E  got 404")]
+    assert expect_red(checks, "404") == []
+
+
+def test_anything_but_a_failure_with_the_reason_is_named() -> None:
+    """A pass, an error, a skip, and a failure for another reason: one problem each,
+    worded as the script's heredoc worded them."""
+    checks = [
+        Outcome("test_pass", "passed", ""),
+        Outcome("test_error", "error", "failed on setup"),
+        Outcome("test_skip", "skipped", "cluster only"),
+        red("test_other", "got 500, expected 200"),
+        red("test_ok", "got 404"),
+    ]
+    assert expect_red(checks, "404") == [
+        "test_pass: passes",
+        "test_error: error",
+        "test_skip: skipped",
+        "test_other: fails without '404': 'got 500, expected 200'",
+    ]
+
+
+def test_no_checks_is_a_problem() -> None:
+    """An empty report proves nothing red."""
+    assert expect_red([], "404") == ["no checks in the report"]
+
+
+def test_the_failure_text_is_kept_from_the_report(tmp_path: Path) -> None:
+    """The traceback, for `expect_red` to search; not part of the reason."""
+    failed = outcomes(report(tmp_path))[1]
+    assert "E       AssertionError: got 404" in failed.text
