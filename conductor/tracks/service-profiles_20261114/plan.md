@@ -50,8 +50,11 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
           capture, prefix, env and stub are all reached with no other edits
     - [x] `tech-stack.md` Layout note
     - *Green on its first run, as a guard over the four tasks above should be.*
-- [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md):
+- [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md):
       ci.sh, user-service 128/128, notification group as in the baseline
+    - *2026-11-14: ci.sh 373 passed, 95.23%. `verify-port user-service --only build
+      contract` 128/128 (with gluon's `--service user-service`, working tree). Notification
+      REST group 0 green, 19 red, as the baseline.*
 
 ## Phase 2: Notification health checks (TD-42.1)
 - [ ] Task: Health checks in `test_notification_rest.py`
