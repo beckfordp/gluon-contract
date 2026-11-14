@@ -16,11 +16,11 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
           a missing or garbled report raising an error that names the file
     - [x] `Outcome(name, state, reason)`, `outcomes(path)`, and `line(outcome)` (200
           characters, whitespace collapsed, `…`)
-- [ ] Task: The `--expect-red` judgement in the module
-    - [ ] Red: tests where every check failed with the pattern → ok; one passing, one
+- [x] Task: The `--expect-red` judgement in the module ef6bb13
+    - [x] Red: tests where every check failed with the pattern → ok; one passing, one
           erroring, one skipped and one failing without it → each named, with the
           messages today's heredoc gives
-    - [ ] `expect_red(outcomes, pattern) -> list[str]`, the problems
+    - [x] `expect_red(outcomes, pattern) -> list[str]`, the problems
 - [ ] Task: CLI and the script
     - [ ] `python -m gluon_contract.check_report lines <report>` prints the lines and
           a final `green=N red=M`
