@@ -1,0 +1,1 @@
+Review fixes: test_cluster_mode skips without the AsyncAPI HTML too (proven: HTML hidden -> skipped with reason); check_sources: a bare name after a directory citation is in it, ./ names the capture root (3 new cases, red then green); backlog note: gluon files for 4 unit tests. ci.sh 325 passed, 94.68%.
