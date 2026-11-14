@@ -26,9 +26,9 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       building a harness config. The harness's own tests name none. Gluon
       `bin/verify-port` and `docs/ports/user-service-verification.md` updated in the
       working tree, to commit at the phase check.*
-- [ ] Task: Capture helpers need the service
-    - [ ] Remove the default and let mypy and the tests drive the changes
-    - [ ] `ServiceProfile.capture` (→ `latest_capture`); the helpers take the service;
+- [x] Task: Capture helpers need the service 3e19dc3
+    - [x] Remove the default and let mypy and the tests drive the changes
+    - [x] `ServiceProfile.capture` (→ `latest_capture`); the helpers take the service;
           every `checks/test_user_*.py` passes its `SERVICE` constant
 - [ ] Task: The variable prefix lives in the profile
     - [ ] `ServiceProfile.prefix`, defaulting to `variable_prefix(name)`; `env_contract`
