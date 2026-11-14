@@ -6,6 +6,8 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
+- [~] **Track: Full failure reasons in check output (TD-40)**
+  *Link: [./tracks/check-reasons_20261114/](./tracks/check-reasons_20261114/)*
 
 ---
 
@@ -20,8 +22,6 @@ an RPN item shared with notification-service-rs, this repo's track is the check 
 written red before the Rust track turns it green. When ready, run
 `/conductor:newTrack <title>`.
 
-RPN-4.1 tidy (laptop, before RPN-5):
-- Full failure reasons in check output (TD-40): `verify-check-group.sh` reads each outcome and message from the junit report
 
 CI:
 - GitHub Actions green on ubuntu + macOS (unparked 2026-11-11: work is on main only, red CI hides real failures): Ubuntu `CONTRACT_PG_BIN`, gluon files for 4 unit tests (incl. `test_env_contract`'s gluon-local values), uv-managed Python on macOS
