@@ -15,8 +15,10 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, TypedDict
 
-import psycopg
 from psycopg import sql
+
+from gluon_contract.env_contract import PostgresLogin
+from gluon_contract.postgres import Connection, PostgresEndpoint, connect
 
 HISTORY_TABLES = ("flyway_schema_history", "_sqlx_migrations")
 """Each implementation's migration bookkeeping; not part of the contract."""
@@ -34,9 +36,6 @@ class Snapshot(TypedDict):
     """(table, name) → (kind, definition)."""
     indexes: dict[str, str]
     """name → definition."""
-
-
-type Connection = psycopg.Connection[tuple[Any, ...]]
 
 
 def snapshot(connection: Connection) -> Snapshot:
@@ -124,16 +123,12 @@ def create_reference(connection: Connection, sql_files: Sequence[Path]) -> Itera
     """
     name = f"reference_{uuid.uuid4().hex[:12]}"
     info = connection.info
+    endpoint = PostgresEndpoint(
+        info.host, info.port, PostgresLogin(info.dbname, info.user, info.password)
+    )
     connection.execute(sql.SQL("create database {}").format(sql.Identifier(name)))
     try:
-        with psycopg.connect(
-            host=info.host,
-            port=info.port,
-            dbname=name,
-            user=info.user,
-            password=info.password,
-            autocommit=True,
-        ) as reference:
+        with connect(endpoint, database=name) as reference:
             for path in sql_files:
                 reference.execute(path.read_text(encoding="utf-8").encode())
             yield reference

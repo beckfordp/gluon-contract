@@ -6,12 +6,11 @@ import os
 import subprocess
 from pathlib import Path
 
-import psycopg
 from psycopg import sql
 
 from gluon_contract.capture import capture_file
 from gluon_contract.env_contract import postgres_login
-from gluon_contract.postgres import ThrowawayPostgres
+from gluon_contract.postgres import ThrowawayPostgres, connect
 from gluon_contract.sent_email import COLUMNS, SERVICE, SentEmailRow, captured_rows, insert
 
 LOGIN = postgres_login(SERVICE)
@@ -42,14 +41,7 @@ def test_the_captured_rows_go_in_and_come_back_unchanged(pg_bin: Path, tmp_path:
     rows = captured_rows()
     with ThrowawayPostgres(pg_bin, tmp_path, LOGIN) as pg:
         load_captured_schema(pg_bin, pg)
-        with psycopg.connect(
-            host=pg.endpoint.host,
-            port=pg.endpoint.port,
-            dbname=LOGIN.database,
-            user=LOGIN.user,
-            password=LOGIN.password,
-            autocommit=True,
-        ) as connection:
+        with connect(pg.endpoint) as connection:
             insert(connection, rows)
             query = sql.SQL("select {} from sent_email").format(
                 sql.SQL(", ").join(

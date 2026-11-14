@@ -15,7 +15,7 @@ from processes import processes_mentioning
 
 from gluon_contract.env_contract import postgres_login
 from gluon_contract.ports import free_port
-from gluon_contract.postgres import PostgresError, ThrowawayPostgres
+from gluon_contract.postgres import PostgresError, ThrowawayPostgres, connect
 
 LOGIN = postgres_login("user-service")
 
@@ -138,3 +138,15 @@ def test_a_failing_initdb_reports_its_output_and_leaves_nothing(tmp_path: Path) 
     assert "initdb failed (3): initdb: cannot be run as root" in message
     assert "(no server log)" in message
     assert not postgres.socket_dir.exists()
+
+
+def test_connect_logs_in_as_the_endpoint_says_with_autocommit(pg_bin: Path, tmp_path: Path) -> None:
+    """The domain user into the domain database, or another database named (TD-35)."""
+    with ThrowawayPostgres(pg_bin, tmp_path, LOGIN) as pg:
+        with connect(pg.endpoint) as connection:
+            assert connection.autocommit
+            row = connection.execute("select current_user, current_database()").fetchone()
+            assert row == (LOGIN.user, LOGIN.database)
+            connection.execute("create database other")
+        with connect(pg.endpoint, database="other") as other:
+            assert other.execute("select current_database()").fetchone() == ("other",)

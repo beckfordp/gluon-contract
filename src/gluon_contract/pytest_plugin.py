@@ -35,6 +35,7 @@ from gluon_contract.harness import Harness
 from gluon_contract.http_stub import HttpStub
 from gluon_contract.otlp_stub import OtlpStub
 from gluon_contract.ports import free_port
+from gluon_contract.postgres import connect
 from gluon_contract.probe import probe_env
 from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError, profile
 from gluon_contract.target import TargetProcess
@@ -222,15 +223,7 @@ def user_events(pytestconfig: pytest.Config, request: pytest.FixtureRequest) -> 
 @pytest.fixture
 def db(harness: Harness) -> Iterator[psycopg.Connection[tuple[Any, ...]]]:
     """A connection to the service's own database, as the service logs in (autocommit)."""
-    endpoint = harness.postgres.endpoint
-    with psycopg.connect(
-        host=endpoint.host,
-        port=endpoint.port,
-        dbname=endpoint.login.database,
-        user=endpoint.login.user,
-        password=endpoint.login.password,
-        autocommit=True,
-    ) as connection:
+    with connect(harness.postgres.endpoint) as connection:
         yield connection
 
 

@@ -15,7 +15,9 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from types import TracebackType
-from typing import Self
+from typing import Any, Self
+
+import psycopg
 
 from gluon_contract.env_contract import PostgresLogin
 from gluon_contract.ports import free_port
@@ -36,6 +38,24 @@ class PostgresEndpoint:
     host: str
     port: int
     login: PostgresLogin
+
+
+type Connection = psycopg.Connection[tuple[Any, ...]]
+
+
+def connect(endpoint: PostgresEndpoint, *, database: str | None = None) -> Connection:
+    """A connection as the endpoint's login, autocommit, into its database or `database`.
+
+    The one place the harness opens a Postgres connection (gluon TD-35).
+    """
+    return psycopg.connect(
+        host=endpoint.host,
+        port=endpoint.port,
+        dbname=endpoint.login.database if database is None else database,
+        user=endpoint.login.user,
+        password=endpoint.login.password,
+        autocommit=True,
+    )
 
 
 class ThrowawayPostgres:

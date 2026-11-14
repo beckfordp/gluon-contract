@@ -4,10 +4,8 @@
 
 from pathlib import Path
 
-import psycopg
-
 from gluon_contract.env_contract import postgres_login
-from gluon_contract.postgres import ThrowawayPostgres
+from gluon_contract.postgres import ThrowawayPostgres, connect
 from gluon_contract.schema import create_reference, diff_snapshots, snapshot
 
 LOGIN = postgres_login("user-service")
@@ -18,18 +16,6 @@ create index user_account_email_idx on "user_account" (email);
 """
 
 
-def connect(pg: ThrowawayPostgres, database: str) -> psycopg.Connection[tuple[object, ...]]:
-    """The domain user's connection to `database`."""
-    return psycopg.connect(
-        host=pg.endpoint.host,
-        port=pg.endpoint.port,
-        dbname=database,
-        user=LOGIN.user,
-        password=LOGIN.password,
-        autocommit=True,
-    )
-
-
 def test_the_same_sql_gives_the_same_snapshot_and_history_tables_are_ignored(
     pg_bin: Path, tmp_path: Path
 ) -> None:
@@ -37,7 +23,7 @@ def test_the_same_sql_gives_the_same_snapshot_and_history_tables_are_ignored(
     with ThrowawayPostgres(pg_bin, tmp_path, LOGIN) as pg:
         (tmp_path / "V1__schema.sql").write_text(SQL)
         with (
-            connect(pg, LOGIN.database) as service,
+            connect(pg.endpoint) as service,
             create_reference(service, [tmp_path / "V1__schema.sql"]) as reference,
         ):
             service.execute(SQL)
@@ -50,7 +36,7 @@ def test_a_different_schema_is_reported(pg_bin: Path, tmp_path: Path) -> None:
     with ThrowawayPostgres(pg_bin, tmp_path, LOGIN) as pg:
         (tmp_path / "V1__schema.sql").write_text(SQL)
         with (
-            connect(pg, LOGIN.database) as service,
+            connect(pg.endpoint) as service,
             create_reference(service, [tmp_path / "V1__schema.sql"]) as reference,
         ):
             service.execute(

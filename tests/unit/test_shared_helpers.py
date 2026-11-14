@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from gluon_contract.shared_helpers import defined_names, redefinition_problems
+from gluon_contract.shared_helpers import connect_problems, defined_names, redefinition_problems
 
 ROOT = Path(__file__).resolve().parents[2]
 CHECKS = ROOT / "checks"
@@ -56,3 +56,41 @@ def test_no_check_module_redefines_a_shared_helper() -> None:
     }
     assert modules
     assert redefinition_problems(shared, modules) == []
+
+
+CONNECT = "src/gluon_contract/postgres.py"
+
+
+@pytest.mark.parametrize(
+    ("module", "source", "problems"),
+    [
+        (CONNECT, "def connect():\n    return psycopg.connect(host='h')", []),
+        (
+            CONNECT,
+            "def other():\n    return psycopg.connect(host='h')",
+            [f"{CONNECT}:2 calls psycopg.connect: use gluon_contract.postgres.connect"],
+        ),
+        (
+            "tests/x.py",
+            "def connect():\n    return psycopg.connect(host='h')",
+            ["tests/x.py:2 calls psycopg.connect: use gluon_contract.postgres.connect"],
+        ),
+        ("tests/x.py", "from gluon_contract.postgres import connect\nconnect(e)", []),
+    ],
+)
+def test_only_postgres_connect_calls_psycopg_connect(
+    module: str, source: str, problems: list[str]
+) -> None:
+    """One Postgres connect (TD-35): only `connect` in postgres.py itself may call it."""
+    assert connect_problems({module: source}) == problems
+
+
+def test_nothing_but_postgres_connect_calls_psycopg_connect() -> None:
+    """CI's guard over src/ and tests/."""
+    sources = {
+        str(path.relative_to(ROOT)): path.read_text(encoding="utf-8")
+        for directory in ("src", "tests", "checks")
+        for path in sorted((ROOT / directory).rglob("*.py"))
+    }
+    assert CONNECT in sources
+    assert connect_problems(sources) == []
