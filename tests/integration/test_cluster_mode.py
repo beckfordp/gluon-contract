@@ -24,9 +24,11 @@ HOME = cdc_home(os.environ)
 REPO = Path(__file__).resolve().parents[2]
 RUST = REPO.parents[1] / "services" / "user-service-rs"
 BINARY = RUST / "target" / "debug" / "user-service"
+HTML = RUST / "target" / "asyncapi-docs" / "index.html"
 pytestmark = pytest.mark.skipif(
-    not (HOME / "COMPLETE").is_file() or not BINARY.is_file(),
-    reason=f"needs the CDC jars in {HOME} and a built {BINARY}",
+    not (HOME / "COMPLETE").is_file() or not BINARY.is_file() or not HTML.is_file(),
+    reason=f"needs the CDC jars in {HOME}, a built {BINARY} and its AsyncAPI HTML "
+    "(scripts/asyncapi-html.sh)",
 )
 
 

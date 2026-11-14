@@ -38,6 +38,16 @@ def test_x(harness):
         ),
         ("Source: capture openapi.yaml and http/*.txt (ADR 0028)", ["openapi.yaml", "http/*.txt"]),
         ("Source: capture asyncapi-html/ (css/, js/).", ["asyncapi-html/"]),
+        (
+            "Source: capture asyncapi-html/, index.html",
+            ["asyncapi-html/", "asyncapi-html/index.html"],
+        ),
+        # `./` names the capture root after a name in a directory
+        ("Source: capture http/a.txt and ./openapi.yaml", ["http/a.txt", "openapi.yaml"]),
+        (
+            "Source: capture http/a.txt, ./openapi.yaml, b.txt",
+            ["http/a.txt", "openapi.yaml", "b.txt"],
+        ),
         ("Source: ADR 0025; capture stdout.log, a span", ["stdout.log"]),
         ("Source: application.conf;\ncapture metrics.txt\n(the counter).", ["metrics.txt"]),
         ("Source: capture http/<captured>.txt, each answer", []),
