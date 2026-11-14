@@ -3,7 +3,7 @@
 Phase verification: each phase's walkthrough is the acceptance commands in spec.md,
 run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
 
-## Phase 1: Baseline and shared check helpers (TD-34)
+## Phase 1: Baseline and shared check helpers (TD-34) [checkpoint: 3e23151]
 - [x] Task: Record the baseline
     - [x] `scripts/ci.sh` result and run time
     - [x] user-service contract run count (`bin/verify-port user-service --only build contract`)
