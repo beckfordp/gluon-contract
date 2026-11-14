@@ -94,3 +94,6 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
     - *2026-11-14: Rust 5 green, the 19 `/emails` checks red (RPN-5); Scala 24/24;
       notification-service-rs ci.sh green after `bd7d8da`; tests/contract ci.sh 373
       passed, 95.23%.*
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions c9cd32e
