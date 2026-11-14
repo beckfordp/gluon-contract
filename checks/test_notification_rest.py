@@ -246,31 +246,34 @@ def test_an_unknown_path_is_a_plain_text_404(harness: Harness) -> None:
     ("path", "captured"), [("/health", "health"), ("/health/ready", "health-ready")]
 )
 def test_health_endpoints_answer_as_captured(harness: Harness, path: str, captured: str) -> None:
-    """200, empty body, no Content-Type.
+    """200, empty body (`Content-Length: 0`), no Content-Type.
 
     Source: capture http/health.txt and http/health-ready.txt.
     """
     expected = load_exchange(captured, service=SERVICE)
     response = call(harness, "GET", path)
-    assert (response.status, response.body, response.header("Content-Type")) == (
-        expected.status,
-        expected.body,
-        expected.header("Content-Type"),
-    ), response.text[:200]
+    assert [
+        (response.status, response.body),
+        *((name, response.header(name)) for name in ("Content-Type", "Content-Length")),
+    ] == [
+        (expected.status, expected.body),
+        *((name, expected.header(name)) for name in ("Content-Type", "Content-Length")),
+    ], response.text[:200]
 
 
 def test_head_on_health_is_a_plain_text_405_without_allow(harness: Harness) -> None:
-    """HEAD isn't routed to GET: 405, text/plain, and no `Allow` header.
+    """HEAD isn't routed to GET: 405, text/plain, the length of the text a GET would get
+    ("Method Not Allowed"), and no `Allow` header.
 
     Source: capture http/health-head.txt (`curl -I`, so no body was read).
     """
     expected = load_exchange("health-head", service=SERVICE)
     response = call(harness, "HEAD", "/health")
-    assert (response.status, response.header("Content-Type"), response.header("Allow")) == (
+    names = ("Content-Type", "Content-Length", "Allow")
+    assert [response.status, *(response.header(name) for name in names)] == [
         expected.status,
-        expected.header("Content-Type"),
-        expected.header("Allow"),
-    )
+        *(expected.header(name) for name in names),
+    ]
 
 
 @pytest.mark.isolated
