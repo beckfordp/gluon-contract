@@ -45,10 +45,11 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
     - [x] The probe checks stay green (they script the user stub)
     - *An answer is a function (path → JSON body, or None for 404) rather than a table:
       user-service's is `user_lookup`. Probe 10/10 against Rust.*
-- [ ] Task: Guard: a new service is one profile
-    - [ ] Unit test with a made-up `cart-service` profile and a temporary capture: its
+- [x] Task: Guard: a new service is one profile 2842248
+    - [x] Unit test with a made-up `cart-service` profile and a temporary capture: its
           capture, prefix, env and stub are all reached with no other edits
-    - [ ] `tech-stack.md` Layout note
+    - [x] `tech-stack.md` Layout note
+    - *Green on its first run, as a guard over the four tasks above should be.*
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md):
       ci.sh, user-service 128/128, notification group as in the baseline
 
