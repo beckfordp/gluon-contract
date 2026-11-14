@@ -42,16 +42,19 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
       verify-port contract 128/128 (= baseline); notification group 19 red with '404' (= baseline).*
 
 ## Phase 2: One Postgres connect, one sent-email parser (TD-35, TD-36)
-- [ ] Task: `postgres.connect` (TD-35)
-    - [ ] Red: guard rule 2 in `test_shared_helpers.py`: ast finds `psycopg.connect(`
+- [x] Task: `postgres.connect` (TD-35) f224c00
+    - [x] Red: guard rule 2 in `test_shared_helpers.py`: ast finds `psycopg.connect(`
           calls in `src/` and `tests/`, allowed only inside `postgres.connect`. Fails
           on the 4 sites
-    - [ ] Red: an integration test (`tests/integration/test_postgres.py`) where
+    - [x] Red: an integration test (`tests/integration/test_postgres.py`) where
           `connect(endpoint)` and `connect(endpoint, database=...)` reach the
           throwaway cluster with autocommit
-    - [ ] Green: `connect` in `postgres.py`; `pytest_plugin.db`,
+    - [x] Green: `connect` in `postgres.py`; `pytest_plugin.db`,
           `schema.create_reference` (endpoint from `connection.info` or passed in,
           whichever touches fewer callers), and the two integration tests use it
+    - *2026-11-14: `create_reference` builds the endpoint from `connection.info` (no
+      caller changes); `schema` reuses `postgres.Connection`. Guard covers `checks/`
+      too. ci.sh 343 passed, 94.75%; schema 6/6.*
 - [ ] Task: `sent_email.parse_row` (TD-36)
     - [ ] Red: `tests/unit/test_sent_email.py`: `parse_row` returns a typed row, and
           raises on non-JSON and on a missing column. `parse_rows` keeps its
