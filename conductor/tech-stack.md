@@ -38,7 +38,7 @@ that first needs them, before any code depends on them.
 Tool versions are pinned exactly in `pyproject.toml`; bump them deliberately.
 
 ## Sandbox
-Developed and run in the sandbox (ADR 0028). gluon `docs/sandbox.md` records
+Developed and run in the sandbox (ADR 0028). gluon `plans/private/sandbox.md` (laptop only) records
 it; `bin/sandbox-setup` rebuilds it (including this repo's `.venv`). A tool
 added here that the sandbox doesn't already have is added to
 `bin/sandbox-setup` in the same change.
