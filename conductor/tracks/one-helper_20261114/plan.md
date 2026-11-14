@@ -69,7 +69,9 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
     - *2026-11-14: messages are `line N: <why>` in both callers (`parse_rows` said
       `line N is not JSON`); blank lines skipped by both (`numbered_lines`); a non-object
       line is now its own problem. ci.sh 348 passed, 94.85%; capture check PASS (60 files).*
-- [ ] Task: Conductor - User Manual Verification 'One Postgres connect, one sent-email parser' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'One Postgres connect, one sent-email parser' (Protocol in workflow.md)
+    - *2026-11-14 (prompting off): ci.sh PASS 348 passed 94.85%; verify-port contract 128/128
+      (= baseline); notification group 19 red with '404' (= baseline); capture check PASS.*
 
 ## Phase 3: Kafka broker out of cdc.py (TD-45)
 - [ ] Task: `processes.py`
