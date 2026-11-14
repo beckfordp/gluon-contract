@@ -6,8 +6,6 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [x] **Track: Implementation switch resets Debezium's slot too (gluon RUST-5.2)**
-  *Link: [./tracks/switch-reset_20261114/](./tracks/switch-reset_20261114/)*
 
 ---
 
