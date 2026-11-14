@@ -41,7 +41,7 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
     - *2026-11-14 (prompting off, run not walked through): ci.sh PASS 337 passed 94.65%;
       verify-port contract 128/128 (= baseline); notification group 19 red with '404' (= baseline).*
 
-## Phase 2: One Postgres connect, one sent-email parser (TD-35, TD-36)
+## Phase 2: One Postgres connect, one sent-email parser (TD-35, TD-36) [checkpoint: 74adec8]
 - [x] Task: `postgres.connect` (TD-35) f224c00
     - [x] Red: guard rule 2 in `test_shared_helpers.py`: ast finds `psycopg.connect(`
           calls in `src/` and `tests/`, allowed only inside `postgres.connect`. Fails
