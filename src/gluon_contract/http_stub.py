@@ -1,29 +1,28 @@
 # SPDX-License-Identifier: MIT
 
-"""A scriptable stand-in for user-service's `GET /users/{id}` (RUST-6.1).
+"""A scriptable stand-in for a service another one calls (RUST-6.1, RPN-3).
 
-The consumer probe's resilience-wrapped lookup (ADR 0025's recipient lookup,
-ADR 0028 decision 8) calls this. By default it answers as user-service does
-(200, `{userId, email, createdAt}`), and any other path isn't found (404,
-empty); a check scripts the next answers to be a status, a delay, a hang or a
-reset connection, and reads back every request it got. The harness also starts one
-per service a service calls (RPN-3); until a check scripts it, a stub standing
-in for order-service finds no order.
+Unscripted, it answers a GET as the profile of the service it stands in for says
+(`services.stub_answer`, gluon TD-44): user-service's finds a user (200,
+`{userId, email, createdAt}`); anything its answer doesn't know isn't found (404,
+empty), so a stub for order-service finds no order. A check scripts the next answers
+to be a status, a delay, a hang or a reset connection, and reads back every request
+it got. The consumer probe's resilience-wrapped lookup (ADR 0025's recipient lookup,
+ADR 0028 decision 8) calls a user-service one; the harness starts one per service a
+service calls.
 """
 
-import json
-import re
 import socket
 import threading
 import time
 from collections import deque
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from types import TracebackType
 from typing import Self
 
 HOST = "127.0.0.1"
-USER_PATH = re.compile(r"^/users/([^/?]+)$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -63,22 +62,22 @@ class StubRequest:
     headers: dict[str, str] = field(default_factory=dict)
 
 
-def user_body(user_id: str) -> bytes:
-    """What user-service answers for an existing user (capture http/users-200.txt's shape)."""
-    return json.dumps(
-        {
-            "userId": user_id,
-            "email": f"{user_id}@example.com",
-            "createdAt": "2026-11-09T18:43:19.511602Z",
-        },
-        separators=(",", ":"),
-    ).encode()
+type Answer = Callable[[str], bytes | None]
+"""How a stub answers an unscripted GET of a path: the JSON body of a 200, or None for
+a 404."""
+
+
+def no_answer(_path: str) -> None:
+    """Finds nothing: a 404 for every path."""
+    return None
 
 
 class HttpStub:
     """The stub server; a context manager."""
 
-    def __init__(self) -> None:
+    def __init__(self, answer: Answer = no_answer) -> None:
+        """Ready to start; `answer` says how it answers unscripted GETs."""
+        self._answer = answer
         self._script: deque[Behaviour] = deque()
         self._requests: list[StubRequest] = []
         self._lock = threading.Lock()
@@ -160,10 +159,10 @@ class HttpStub:
                     self.close_connection = True
                     self.connection.shutdown(socket.SHUT_RDWR)
                     return
-                match = USER_PATH.match(self.path)
-                default = 200 if match else 404
+                found = stub._answer(self.path)
+                default = 404 if found is None else 200
                 status = default if behaviour is None else behaviour.code
-                body = user_body(match.group(1)) if status == 200 and match else b""
+                body = found if status == 200 and found is not None else b""
                 self.send_response(status)
                 if body:
                     self.send_header("Content-Type", "application/json")

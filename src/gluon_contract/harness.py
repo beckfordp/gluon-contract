@@ -28,7 +28,7 @@ from gluon_contract.kafka import KafkaBroker
 from gluon_contract.otlp_stub import OtlpStub
 from gluon_contract.ports import free_port
 from gluon_contract.postgres import ThrowawayPostgres
-from gluon_contract.services import ServiceProfile, profile
+from gluon_contract.services import ServiceProfile, profile, stub_answer
 from gluon_contract.target import TargetProcess
 
 HOST = "127.0.0.1"
@@ -89,7 +89,7 @@ class Harness:
                 )
                 self.kafka.create_topics(self.profile.topics)
             for called in self.profile.calls:
-                self.stubs[called] = self._stack.enter_context(HttpStub())
+                self.stubs[called] = self._stack.enter_context(HttpStub(stub_answer(called)))
             self.endpoints = Endpoints(
                 http_port=free_port(),
                 metrics_port=free_port(),

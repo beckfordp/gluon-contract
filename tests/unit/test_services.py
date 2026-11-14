@@ -7,21 +7,24 @@ Sources: each service's `application.conf` (`${?VAR}` overrides) and gluon
 capture's `CAPTURE.sh`.
 """
 
+import json
+
 import pytest
 
 from gluon_contract.notification_scenarios import TOPICS
 from gluon_contract.services import (
     KNOWN_SERVICES,
     PROFILES,
-    ServiceProfile,
     UnknownServiceError,
     profile,
+    stub_answer,
 )
 
 
 def test_user_service_needs_nothing_beyond_postgres_and_otlp() -> None:
     """user-service reads no broker and calls no service (its outbox reaches Kafka by CDC)."""
-    assert profile("user-service") == ServiceProfile(name="user-service")
+    user = profile("user-service")
+    assert (user.kafka, user.topics, user.calls) == (False, (), ())
     assert profile("user-service").kafka is False
 
 
@@ -58,3 +61,21 @@ def test_a_service_without_a_profile_is_an_error_naming_the_known_ones() -> None
 def test_topics_need_a_broker() -> None:
     """Every profile that consumes topics gets a broker to create them on."""
     assert all(known.kafka for known in PROFILES if known.topics)
+
+
+def test_a_stub_for_user_service_answers_a_user_lookup() -> None:
+    """Its profile's stub answer: `GET /users/{id}` as the capture's users-200 shape."""
+    answer = stub_answer("user-service")
+    body = answer("/users/abc")
+    assert body is not None
+    assert json.loads(body) == {
+        "userId": "abc",
+        "email": "abc@example.com",
+        "createdAt": "2026-11-09T18:43:19.511602Z",
+    }
+    assert answer("/users/abc/orders") is None
+
+
+def test_a_stub_for_a_service_without_answers_finds_nothing() -> None:
+    """order-service has no profile (the harness only stubs it): its stub finds no order."""
+    assert stub_answer("order-service")("/orders/1") is None

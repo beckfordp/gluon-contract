@@ -38,7 +38,7 @@ from gluon_contract.otlp_stub import OtlpStub
 from gluon_contract.ports import free_port
 from gluon_contract.postgres import connect
 from gluon_contract.probe import probe_env
-from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError, profile
+from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError, profile, stub_answer
 from gluon_contract.target import TargetProcess
 
 OPTIONS = {
@@ -259,7 +259,7 @@ def kafka(
 @pytest.fixture
 def lookup_stub() -> Iterator[HttpStub]:
     """user-service's GET /users/{id}, scriptable (5xx, delays, resets), for one check."""
-    with HttpStub() as stub:
+    with HttpStub(stub_answer("user-service")) as stub:
         yield stub
 
 
