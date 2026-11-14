@@ -72,10 +72,16 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       404 text, readiness always 200; reverted): each new check red where its behaviour
       was broken. Green 3/3 against the real build: 5 green, the 19 /emails checks red as
       before (RPN-5). HEAD is a text/plain 405 without Allow, as the capture.*
-- [ ] Task: Green against Scala
-    - [ ] `sbt -batch stage` in `services/notification-service`
-    - [ ] Run the group with `verify-check-group.sh` against the staged
+- [x] Task: Green against Scala 7871f51
+    - [x] `sbt -batch stage` in `services/notification-service`
+    - [x] Run the group with `verify-check-group.sh` against the staged
           `bin/notification-service`; record the results
+    - *2026-11-14, notification-service `b60d4d7`: 24/24 (the 5 new checks, and the 19
+      `/emails` checks, against Scala). Run with pytest directly, as runbook B2 does:
+      `verify-check-group.sh` builds only the Rust port. The first `sbt stage` hit
+      TD-51 (`ClassNotFoundException: notificationservice.AsyncApiChannels$`); the
+      retry passed, so TD-51 affects notification-service too. Health and HEAD now also
+      compare `Content-Length`, as the Rust capture test did.*
 - [ ] Task: notification-service-rs drops its health fixtures (its own repo and commit)
     - [ ] Remove the health test from `tests/capture.rs`, and `tests/fixtures/http/`
     - [ ] Narrow the `rust.md` §8 exception to `db/schema.sql`
