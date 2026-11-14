@@ -15,13 +15,17 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       (`/emails` is RPN-5's).*
 
 ## Phase 1: Per-service profiles (TD-44.1)
-- [ ] Task: The run's service is required
-    - [ ] Red: unit tests show that, without CONTRACT_SERVICE, `load_config` raises a
+- [x] Task: The run's service is required 24c7867
+    - [x] Red: unit tests show that, without CONTRACT_SERVICE, `load_config` raises a
           ConfigError naming KNOWN_SERVICES, `run_service` fails the same way, and the
           pytest plugin's usage-error message says so
-    - [ ] Drop `DEFAULT_SERVICE`; the `--service` help no longer names a default
-    - [ ] Callers pass it: `ci.sh`, `verify-check-group.sh`, the `pytest_plugin` tests,
+    - [x] Drop `DEFAULT_SERVICE`; the `--service` help no longer names a default
+    - [x] Callers pass it: `ci.sh`, `verify-check-group.sh`, the `pytest_plugin` tests,
           and gluon `bin/verify-port` (a gluon change, needs approval)
+    - *Required only where it matters: a run collecting service-marked checks, or
+      building a harness config. The harness's own tests name none. Gluon
+      `bin/verify-port` and `docs/ports/user-service-verification.md` updated in the
+      working tree, to commit at the phase check.*
 - [ ] Task: Capture helpers need the service
     - [ ] Remove the default and let mypy and the tests drive the changes
     - [ ] `ServiceProfile.capture` (→ `latest_capture`); the helpers take the service;
