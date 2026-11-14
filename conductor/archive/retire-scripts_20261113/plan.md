@@ -65,3 +65,5 @@ Risks: verify-port step 6 lists deleted scripts until the gluon follow-up lands 
 
 ## Phase: Review Fixes
 - [x] Task: Apply review suggestions 74f2114
+
+At archive: `verify-retire-scripts.sh` deleted (per the rule: every section one-off or covered by CI). gluon follow-up: verify-port `CONTRACT_TRACK_SCRIPTS`, docs/ports table, docs/sandbox.md rule, TD-41/TD-46 ticks.
