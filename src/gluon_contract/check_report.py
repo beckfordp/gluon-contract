@@ -20,7 +20,7 @@ from typing import Literal
 
 type State = Literal["passed", "failed", "error", "skipped"]
 
-RED_TAGS: dict[str, State] = {"failure": "failed", "error": "error", "skipped": "skipped"}
+STATE_TAGS: dict[str, State] = {"failure": "failed", "error": "error", "skipped": "skipped"}
 """A testcase's child element, by its tag, and the state it means; none means passed."""
 USAGE = (
     "usage: python -m gluon_contract.check_report lines <report>\n"
@@ -118,7 +118,7 @@ def main(argv: list[str]) -> int:
 
 def _outcome(case: ET.Element) -> Outcome:
     name = case.get("name", "")
-    for tag, state in RED_TAGS.items():
+    for tag, state in STATE_TAGS.items():
         element = case.find(tag)
         if element is not None:
             return Outcome(name, state, element.get("message", ""), element.text or "")
