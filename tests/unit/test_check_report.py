@@ -16,6 +16,7 @@ from gluon_contract.check_report import (
     Outcome,
     expect_red,
     line,
+    main,
     outcomes,
 )
 
@@ -139,3 +140,69 @@ def test_the_failure_text_is_kept_from_the_report(tmp_path: Path) -> None:
     """The traceback, for `expect_red` to search; not part of the reason."""
     failed = outcomes(report(tmp_path))[1]
     assert "E       AssertionError: got 404" in failed.text
+
+
+# --- python -m gluon_contract.check_report ----------------------------------------------------
+
+
+def test_lines_prints_each_checks_line_then_the_counts(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """What verify-check-group.sh shows, then `green=N red=M` for it to read; a skip
+    counts as neither."""
+    assert main(["lines", str(report(tmp_path))]) == 0
+    assert capsys.readouterr().out.splitlines() == [
+        "pass test_ok",
+        "red  test_red[HEAD-emails-head] - AssertionError: got 404 expected 200 assert 404 == 200",
+        'red  test_err - failed on setup with "RuntimeError: no harness"',
+        "green=1 red=2",
+    ]
+
+
+def test_expect_red_prints_the_problems_and_fails(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """The sample has a pass, an error and a skip: three problems, exit 1."""
+    assert main(["expect-red", str(report(tmp_path)), "404"]) == 1
+    assert capsys.readouterr().out.splitlines() == [
+        "test_ok: passes",
+        "test_err: error",
+        "test_skip: skipped",
+    ]
+
+
+def test_expect_red_with_every_check_red_prints_the_count(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Exit 0 and `N red`."""
+    only_red = REPORT.replace(
+        'name="test_ok" time="0.000" />',
+        'name="test_ok" time="0.000"><failure message="got 404">t</failure></testcase>',
+    )
+    only_red = only_red.split('<testcase classname="checks.test_x" name="test_err"')[0]
+    assert (
+        main(["expect-red", str(report(tmp_path, only_red + "</testsuite></testsuites>")), "404"])
+        == 0
+    )
+    assert capsys.readouterr().out == "2 red\n"
+
+
+def test_an_unreadable_report_fails_saying_so(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Exit 1, the reason on stderr, for either command."""
+    missing = str(tmp_path / "run.xml")
+    assert main(["lines", missing]) == 1
+    assert main(["expect-red", missing, "404"]) == 1
+    assert capsys.readouterr().err.count("no readable junit report") == 2
+
+
+@pytest.mark.parametrize(
+    "argv", [[], ["lines"], ["expect-red", "run.xml"], ["other", "run.xml"]], ids=str
+)
+def test_anything_else_is_a_usage_error(
+    argv: list[str], capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Exit 2, the usage on stderr."""
+    assert main(argv) == 2
+    assert "usage:" in capsys.readouterr().err

@@ -65,52 +65,27 @@ else
   bad "cargo build failed"
   tail -5 "$SCRATCH/build.log" | sed 's/^/     /'
 fi
-uv run --no-sync pytest "$GROUP" -p no:cacheprovider -rA --tb=line -q \
+uv run --no-sync pytest "$GROUP" -p no:cacheprovider --tb=line -q \
   --service "$SERVICE" --junitxml "$SCRATCH/run.xml" -o junit_logging=no \
   --target-cmd "$BIN" --target-cwd "$RUST_REPO" --target-name "$SERVICE-rs" > "$SCRATCH/run.log" 2>&1
 grep -E "^gluon-contract:" "$SCRATCH/run.log" | sed 's/^/     /'
+# Each check's line, its reason whole from the junit report (gluon TD-40), then green=N red=M
+REPORT=(uv run --no-sync python -m gluon_contract.check_report)
 green=0
 red=0
-while read -r outcome test rest; do
-  name="${test##*::}"
-  if [ "$outcome" = PASSED ]; then
-    green=$((green + 1))
-    echo "pass $name"
-  else
-    red=$((red + 1))
-    echo "red  $name${rest:+ $rest}"
-  fi
-done < <(grep -E '^(PASSED|FAILED|ERROR) [^ ]+::' "$SCRATCH/run.log")
+if "${REPORT[@]}" lines "$SCRATCH/run.xml" > "$SCRATCH/lines.txt" 2>&1; then
+  sed '$d' "$SCRATCH/lines.txt"
+  read -r green red < <(tail -1 "$SCRATCH/lines.txt" | sed -E 's/^green=([0-9]+) red=([0-9]+)$/\1 \2/')
+else
+  bad "$(cat "$SCRATCH/lines.txt")"
+  tail -5 "$SCRATCH/run.log" | sed 's/^/     /'
+fi
 summary="$(tail -1 "$SCRATCH/run.log")"
 if [ "$EXPECT_GREEN" = 1 ]; then
   [ "$red" = 0 ] && [ "$green" -gt 0 ] && ok "all $green checks green" || bad "$red of $((green + red)) checks red: $summary"
 elif [ -n "$EXPECT_RED" ]; then
   # Every check failed (no pass, error or skip), each failure holding the stated reason
-  if .venv/bin/python - "$SCRATCH/run.xml" "$EXPECT_RED" > "$SCRATCH/red.txt" 2>&1 << 'PY'
-import sys
-import xml.etree.ElementTree as ET
-
-report, reason = sys.argv[1], sys.argv[2]
-try:
-    cases = list(ET.parse(report).getroot().iter("testcase"))
-except (OSError, ET.ParseError) as error:
-    sys.exit(f"no junit report: {error}")
-problems = []
-for case in cases:
-    name = case.get("name", "")
-    failure = case.find("failure")
-    if case.find("error") is not None:
-        problems.append(f"{name}: error")
-    elif case.find("skipped") is not None:
-        problems.append(f"{name}: skipped")
-    elif failure is None:
-        problems.append(f"{name}: passes")
-    elif reason not in (failure.get("message", "") + (failure.text or "")):
-        problems.append(f"{name}: fails without {reason!r}: {failure.get('message', '')[:150]!r}")
-print("\n".join(problems) or f"{len(cases)} red")
-sys.exit(1 if problems or not cases else 0)
-PY
-  then
+  if "${REPORT[@]}" expect-red "$SCRATCH/run.xml" "$EXPECT_RED" > "$SCRATCH/red.txt" 2>&1; then
     ok "all $red checks red, each with '$EXPECT_RED'"
   else
     bad "not every check red with '$EXPECT_RED':"
