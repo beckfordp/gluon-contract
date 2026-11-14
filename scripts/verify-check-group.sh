@@ -6,10 +6,10 @@
 # (tests/unit/test_check_sources.py); the whole harness against the build is
 # gluon bin/verify-port's contract step.
 #
-#   scripts/verify-check-group.sh checks/test_<group>.py [--service NAME]
+#   scripts/verify-check-group.sh checks/test_<group>.py --service NAME
 #                                 [--expect-green | --expect-red PATTERN]
 #
-# --service (default user-service; gluon RPN-4) names the service the group
+# --service (required, as for every run: gluon TD-44) names the service the group
 # judges: its Rust port services/<NAME>-rs and binary target/debug/<NAME>, and
 # the harness run's --service.
 # The build runs from the Rust repo (as the Scala service runs from its own,
@@ -23,11 +23,11 @@
 set -uo pipefail
 SELF="$(realpath "${BASH_SOURCE[0]}")"
 cd "$(dirname "$SELF")/.."
-USAGE="$0 checks/test_<group>.py [--service NAME] [--expect-green | --expect-red PATTERN]"
+USAGE="$0 checks/test_<group>.py --service NAME [--expect-green | --expect-red PATTERN]"
 GROUP="${1:?usage: $USAGE}"
 shift
 ARGS=("$@")
-SERVICE=user-service
+SERVICE=""
 EXPECT_GREEN=0
 EXPECT_RED=""
 while [ $# -gt 0 ]; do
@@ -44,6 +44,7 @@ while [ $# -gt 0 ]; do
   esac
   shift
 done
+[ -n "$SERVICE" ] || { echo "usage: $USAGE" >&2; exit 2; }
 
 . "$(dirname "$SELF")/lib/owner.sh"
 run_as_owner "$PWD" "$SELF" "$GROUP" ${ARGS[@]+"${ARGS[@]}"}

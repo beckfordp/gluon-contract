@@ -62,7 +62,7 @@ fi
 if [ -x "$BIN" ]; then ok "staged build $BIN"; else bad "no staged build at $BIN"; fi
 
 echo "== 3. The harness against the Scala service =="
-uv run --no-sync pytest checks --ignore checks/test_probe.py -p no:cacheprovider -rA --tb=line -q \
+uv run --no-sync pytest checks --service user-service --ignore checks/test_probe.py -p no:cacheprovider -rA --tb=line -q \
   --target-cmd "$BIN" --target-cwd "$SCALA_REPO" --target-name user-service-scala > "$SCRATCH/run.log" 2>&1
 grep -E "^gluon-contract:" "$SCRATCH/run.log" | sed 's/^/     /'
 green=0

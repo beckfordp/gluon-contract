@@ -42,7 +42,7 @@ uv sync                                   # Python + locked dependencies
 uv run pytest                             # the harness's own unit + integration tests
 scripts/ci.sh                             # what CI runs: format, lint, types, tests
 uv run python -m gluon_contract.notification_capture check [dir]   # a notification-service capture checked on its own
-scripts/verify-check-group.sh checks/test_<group>.py [--service NAME] [--expect-green | --expect-red PATTERN]
+scripts/verify-check-group.sh checks/test_<group>.py --service NAME [--expect-green | --expect-red PATTERN]
 scripts/verify-user-scala-confirmation.sh # the harness against the staged Scala service (laptop)
 scripts/verify-cluster-mode.sh            # cluster mode against a started service (RUST-5.4)
 ```
@@ -54,7 +54,7 @@ moves into CI and the script goes (`conductor/workflow.md`).
 ## Running the contract checks
 
 ```
-uv run pytest checks --target-cmd "<command that starts the build under test>"
+uv run pytest checks --service user-service --target-cmd "<command that starts the build under test>"
 ```
 
 The first check that asks for the `harness` fixture starts, in a fresh work
@@ -67,8 +67,8 @@ session, even after a failure.
 
 ### More than one service
 
-A run judges one service: `--service` (`CONTRACT_SERVICE`), default
-`user-service`. What each service needs beyond Postgres and the OTLP stub is
+A run judges one service: `--service` (`CONTRACT_SERVICE`), required: there
+is no default service (gluon TD-44). What each service needs beyond Postgres and the OTLP stub is
 its profile in `src/gluon_contract/services.py`, from its `application.conf`
 and gluon `environments/local/<service>.values.yaml`:
 
@@ -101,7 +101,7 @@ answers; comparisons any service's checks can use are in
 
 | Option | Variable | Default |
 |---|---|---|
-| `--service` | `CONTRACT_SERVICE` | `user-service` (or `notification-service`) |
+| `--service` | `CONTRACT_SERVICE` | required: `user-service` or `notification-service` |
 | `--target-cmd` | `CONTRACT_TARGET_CMD` | required |
 | `--target-cwd` | `CONTRACT_TARGET_CWD` | the current directory |
 | `--target-name` | `CONTRACT_TARGET_NAME` | the command's first word |

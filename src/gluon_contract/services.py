@@ -46,7 +46,7 @@ PROFILES = (
 )
 
 KNOWN_SERVICES = tuple(known.name for known in PROFILES)
-"""The services a run can judge; the first is the default."""
+"""The services a run can judge, one named per run (no default: gluon TD-44)."""
 
 
 def profile(service: str) -> ServiceProfile:

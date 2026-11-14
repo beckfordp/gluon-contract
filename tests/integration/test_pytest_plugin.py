@@ -40,7 +40,9 @@ def test_a_check_gets_a_ready_harness_and_everything_stops(
     """--target-cmd starts the world for the session; it is gone afterwards."""
     record = tmp_path / "work_dir.txt"
     suite(pytester, record)
-    result = pytester.runpytest("--target-cmd", STAND_IN_CMD, "--target-name", "stand-in")
+    result = pytester.runpytest(
+        "--target-cmd", STAND_IN_CMD, "--target-name", "stand-in", "--service", "user-service"
+    )
     result.assert_outcomes(passed=1)
     result.stdout.fnmatch_lines(["gluon-contract: target stand-in*user-service*"])
     work_dir = Path(record.read_text())
@@ -56,7 +58,7 @@ def test_contract_variables_work_and_options_win(
     monkeypatch.setenv("CONTRACT_TARGET_CMD", STAND_IN_CMD)
     monkeypatch.setenv("CONTRACT_TARGET_NAME", "from-env")
     suite(pytester, tmp_path / "work_dir.txt")
-    result = pytester.runpytest("--target-name", "from-option")
+    result = pytester.runpytest("--target-name", "from-option", "--service", "user-service")
     result.assert_outcomes(passed=1)
     result.stdout.fnmatch_lines(["gluon-contract: target from-option*"])
 
@@ -67,7 +69,9 @@ def test_keep_artifacts_leaves_the_work_directory(
     """--keep-artifacts keeps logs and data for inspection."""
     record = tmp_path / "work_dir.txt"
     suite(pytester, record)
-    result = pytester.runpytest("--target-cmd", STAND_IN_CMD, "--keep-artifacts")
+    result = pytester.runpytest(
+        "--target-cmd", STAND_IN_CMD, "--keep-artifacts", "--service", "user-service"
+    )
     result.assert_outcomes(passed=1)
     work_dir = Path(record.read_text())
     try:
@@ -122,12 +126,31 @@ def service_suite(pytester: pytest.Pytester) -> None:
     pytester.makepyfile(**SERVICE_SUITE)
 
 
-def test_a_run_is_for_user_service_by_default(pytester: pytest.Pytester) -> None:
-    """No --service: user-service's checks and the neutral one run; the others are
+def test_a_run_of_service_checks_must_name_its_service(pytester: pytest.Pytester) -> None:
+    """No --service and no CONTRACT_SERVICE: a usage error naming the known services
+    before any check runs; there is no default service (gluon TD-44)."""
+    service_suite(pytester)
+    result = pytester.runpytest("-v", "--strict-markers")
+    assert result.ret == pytest.ExitCode.USAGE_ERROR
+    output = result.stdout.str() + result.stderr.str()
+    assert "CONTRACT_SERVICE (--service) is required" in output
+    assert "user-service, notification-service" in output
+    result.assert_outcomes()
+
+
+def test_a_run_without_service_checks_needs_no_service(pytester: pytest.Pytester) -> None:
+    """The harness's own tests name no service, and need none."""
+    pytester.makeconftest(CHECKS_CONFTEST())
+    pytester.makepyfile(test_neutral=SERVICE_SUITE["test_neutral"])
+    pytester.runpytest("--strict-markers").assert_outcomes(passed=1)
+
+
+def test_user_service_selects_its_checks(pytester: pytest.Pytester) -> None:
+    """--service user-service: its checks and the neutral one run; the others are
     deselected, not skipped (they aren't this run's contract). With --strict-markers,
     as checks/ runs (pyproject.toml): the conftest registers the service marker."""
     service_suite(pytester)
-    result = pytester.runpytest("-v", "--strict-markers")
+    result = pytester.runpytest("-v", "--strict-markers", "--service", "user-service")
     result.assert_outcomes(passed=2, deselected=1)
     result.stdout.fnmatch_lines(["*test_any_service PASSED*", "*test_user_contract PASSED*"])
     result.stdout.no_fnmatch_line("*test_notification_contract*")

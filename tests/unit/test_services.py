@@ -44,7 +44,7 @@ def test_notification_service_calls_user_service_and_order_service() -> None:
 
 
 def test_the_known_services_are_the_profiled_ones() -> None:
-    """user-service first: it is the default a run judges."""
+    """In the order the ports began; a run names one (there is no default)."""
     assert KNOWN_SERVICES == ("user-service", "notification-service")
 
 

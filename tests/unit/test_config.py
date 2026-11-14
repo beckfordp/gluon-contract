@@ -33,11 +33,17 @@ def no_executables(_name: str) -> str | None:
     return None
 
 
-def test_defaults_apply_when_only_the_target_command_is_given(tmp_path: Path) -> None:
-    """Everything but the target command has a default."""
+def test_defaults_apply_when_only_the_target_command_and_service_are_given(
+    tmp_path: Path,
+) -> None:
+    """Everything but the target command and the service has a default."""
     pg_bin = make_pg_bin(tmp_path / "pg")
     config = load_config(
-        {"CONTRACT_TARGET_CMD": "./target/debug/user-service", "CONTRACT_PG_BIN": str(pg_bin)},
+        {
+            "CONTRACT_TARGET_CMD": "./target/debug/user-service",
+            "CONTRACT_SERVICE": "user-service",
+            "CONTRACT_PG_BIN": str(pg_bin),
+        },
         cwd=tmp_path,
         which=no_executables,
     )
@@ -84,6 +90,20 @@ def test_every_setting_can_be_overridden(tmp_path: Path) -> None:
     assert config.keep_artifacts is True
 
 
+def test_the_service_is_required(tmp_path: Path) -> None:
+    """No default service (gluon TD-44): a run says whose contract it judges."""
+    pg_bin = make_pg_bin(tmp_path / "pg")
+    with pytest.raises(ConfigError) as raised:
+        load_config(
+            {"CONTRACT_TARGET_CMD": "./target/debug/user-service", "CONTRACT_PG_BIN": str(pg_bin)},
+            cwd=tmp_path,
+            which=no_executables,
+        )
+    assert raised.value.problems == (
+        "CONTRACT_SERVICE (--service) is required: one of user-service, notification-service",
+    )
+
+
 def test_a_service_without_a_profile_is_a_problem_naming_the_known_ones(tmp_path: Path) -> None:
     """A well-formed name the harness can't start is reported with the other problems."""
     with pytest.raises(ConfigError) as raised:
@@ -102,6 +122,7 @@ def test_user_service_needs_no_kafka_jars(tmp_path: Path) -> None:
     config = load_config(
         {
             "CONTRACT_TARGET_CMD": "svc",
+            "CONTRACT_SERVICE": "user-service",
             "CONTRACT_PG_BIN": str(pg_bin),
             "CONTRACT_CDC_HOME": str(tmp_path / "nowhere"),
         },
@@ -157,6 +178,7 @@ def test_keep_artifacts_accepts_common_spellings(tmp_path: Path, raw: str, expec
     config = load_config(
         {
             "CONTRACT_TARGET_CMD": "svc",
+            "CONTRACT_SERVICE": "user-service",
             "CONTRACT_PG_BIN": str(pg_bin),
             "CONTRACT_KEEP_ARTIFACTS": raw,
         },
@@ -176,7 +198,11 @@ def test_postgres_binaries_are_found_through_pg_ctl_on_the_path(tmp_path: Path) 
     def which(name: str) -> str | None:
         return str(links / "pg_ctl") if name == "pg_ctl" else None
 
-    config = load_config({"CONTRACT_TARGET_CMD": "svc"}, cwd=tmp_path, which=which)
+    config = load_config(
+        {"CONTRACT_TARGET_CMD": "svc", "CONTRACT_SERVICE": "user-service"},
+        cwd=tmp_path,
+        which=which,
+    )
     assert config.pg_bin == real
 
 

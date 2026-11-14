@@ -4,7 +4,7 @@
 # checks cluster mode runs, and cluster mode end to end against a started Rust
 # service standing in for a deployment (tests/integration/test_cluster_mode.py).
 # On the laptop, against gluon-local (see gluon docs/ports/user-service-verification.md):
-#   uv run pytest checks --base-url http://user-service.gluon-local.svc.cluster.local:8080
+#   uv run pytest checks --service user-service --base-url http://user-service.gluon-local.svc.cluster.local:8080
 #   scripts/verify-cluster-mode.sh
 set -uo pipefail
 SELF="$(realpath "${BASH_SOURCE[0]}")"
@@ -18,8 +18,8 @@ bad() { echo "FAIL $*"; failed=$((failed + 1)); }
 RUST_REPO="$(realpath ../../services/user-service-rs)"
 
 echo "== 1. What cluster mode runs =="
-collected="$(CONTRACT_BASE_URL=http://unused.invalid uv run --no-sync pytest checks --collect-only -q -m 'cluster and not isolated' 2> /dev/null | grep -c '::')"
-all="$(uv run --no-sync pytest checks --collect-only -q --target-cmd x 2> /dev/null | grep -c '::')"
+collected="$(CONTRACT_BASE_URL=http://unused.invalid uv run --no-sync pytest checks --service user-service --collect-only -q -m 'cluster and not isolated' 2> /dev/null | grep -c '::')"
+all="$(uv run --no-sync pytest checks --service user-service --collect-only -q --target-cmd x 2> /dev/null | grep -c '::')"
 if [ "$collected" -gt 0 ]; then ok "$collected of $all checks run in cluster mode (REST, docs, the topic check)"; else bad "no check is marked cluster"; fi
 
 echo "== 2. Cluster mode against a started service and the CDC stack =="

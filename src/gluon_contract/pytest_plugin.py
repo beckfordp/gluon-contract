@@ -30,7 +30,7 @@ import pytest
 
 from gluon_contract.cdc import CdcStack, cdc_home
 from gluon_contract.cluster import ClusterHarness, ConsoleTopicReader, cluster_settings
-from gluon_contract.config import DEFAULT_SERVICE, ConfigError, HarnessConfig, load_config
+from gluon_contract.config import SERVICE_REQUIRED, ConfigError, HarnessConfig, load_config
 from gluon_contract.harness import Harness
 from gluon_contract.http_stub import HttpStub
 from gluon_contract.kafka import KafkaBroker, Record
@@ -67,8 +67,8 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     group = parser.getgroup("gluon-contract", "gluon contract harness")
     group.addoption(
         "--service",
-        help=f"the service whose contract the run judges (CONTRACT_SERVICE; default "
-        f"{DEFAULT_SERVICE}; known: {', '.join(KNOWN_SERVICES)})",
+        help=f"the service whose contract the run judges (CONTRACT_SERVICE; required for "
+        f"service checks; known: {', '.join(KNOWN_SERVICES)})",
     )
     group.addoption(
         "--target-cmd", help="command that starts the build under test (CONTRACT_TARGET_CMD)"
@@ -114,7 +114,8 @@ def pytest_report_header(config: pytest.Config) -> str | None:
     if not command:
         return None
     name = raw.get("CONTRACT_TARGET_NAME") or command.split()[0]
-    return f"gluon-contract: target {name} ({command}) as {run_service(raw)}"
+    service = run_service(raw)
+    return f"gluon-contract: target {name} ({command})" + (f" as {service}" if service else "")
 
 
 @pytest.fixture(scope="session")
@@ -126,9 +127,9 @@ def harness_config(pytestconfig: pytest.Config) -> HarnessConfig:
         pytest.exit(str(error), returncode=pytest.ExitCode.USAGE_ERROR)
 
 
-def run_service(raw: Mapping[str, str]) -> str:
-    """The service a run judges: CONTRACT_SERVICE (or --service), else the default."""
-    return raw.get("CONTRACT_SERVICE") or DEFAULT_SERVICE
+def run_service(raw: Mapping[str, str]) -> str | None:
+    """The service a run judges: CONTRACT_SERVICE (or --service); None if not named."""
+    return raw.get("CONTRACT_SERVICE") or None
 
 
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
@@ -139,7 +140,6 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
     before any check starts anything.
     """
     raw = raw_settings(config)
-    service = _known_service_or_exit(raw)
     misnamed = [
         f"{item.nodeid}: {marker.args!r}"
         for item in items
@@ -152,6 +152,7 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
             f"({', '.join(KNOWN_SERVICES)}):\n" + "\n".join(f"- {line}" for line in misnamed),
             returncode=pytest.ExitCode.USAGE_ERROR,
         )
+    service = _known_service_or_exit(raw, items)
     selected: list[pytest.Item] = []
     deselected: list[pytest.Item] = []
     for item in items:
@@ -167,10 +168,18 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
             item.add_marker(pytest.mark.skip(reason=CLUSTER_SKIP))
 
 
-def _known_service_or_exit(raw: Mapping[str, str]) -> str:
+def _known_service_or_exit(raw: Mapping[str, str], items: list[pytest.Item]) -> str | None:
     """The run's service if the harness has a profile for it; else ends the run as a usage
-    error, listing every configuration problem in isolated mode (as the harness would)."""
+    error, listing every configuration problem in isolated mode (as the harness would).
+    A run that names no service is one only if it has no service checks (gluon TD-44)."""
     service = run_service(raw)
+    if service is None:
+        if any(item.get_closest_marker("service") for item in items):
+            pytest.exit(
+                f"Invalid harness configuration:\n- {SERVICE_REQUIRED}",
+                returncode=pytest.ExitCode.USAGE_ERROR,
+            )
+        return None
     try:
         profile(service)
     except UnknownServiceError as error:

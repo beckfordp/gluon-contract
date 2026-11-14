@@ -61,7 +61,10 @@ def test_the_cluster_checks_pass_against_a_running_service(pg_bin: Path, tmp_pat
                 ]
             )
             done = subprocess.run(
-                [sys.executable, "-m", "pytest", "checks", "-p", "no:cacheprovider", "-q", "-rA"],
+                [
+                    *(sys.executable, "-m", "pytest", "checks", "--service", "user-service"),
+                    *("-p", "no:cacheprovider", "-q", "-rA"),
+                ],
                 cwd=REPO,
                 env={
                     **os.environ,

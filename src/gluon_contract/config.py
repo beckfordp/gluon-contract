@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from gluon_contract.cdc import cdc_home
-from gluon_contract.services import UnknownServiceError, profile
+from gluon_contract.services import KNOWN_SERVICES, UnknownServiceError, profile
 
 PG_TOOLS = ("initdb", "pg_ctl", "createdb")
 """The PostgreSQL binaries the throwaway cluster needs."""
@@ -25,8 +25,8 @@ PG_TOOLS = ("initdb", "pg_ctl", "createdb")
 SERVICE_NAME = re.compile(r"^[a-z][a-z0-9]*-service$")
 """Gluon service names: `<domain>-service`, lower case."""
 
-DEFAULT_SERVICE = "user-service"
-"""The service a run judges unless CONTRACT_SERVICE says otherwise: the first port's."""
+SERVICE_REQUIRED = f"CONTRACT_SERVICE (--service) is required: one of {', '.join(KNOWN_SERVICES)}"
+"""There is no default service (gluon TD-44): a run names whose contract it judges."""
 DEFAULT_READINESS_PATH = "/health/ready"
 DEFAULT_READINESS_DEADLINE_S = 60.0
 
@@ -80,9 +80,11 @@ def load_config(
 
     argv = _target_argv(raw.get("CONTRACT_TARGET_CMD", ""), problems)
     target_cwd = _target_cwd(raw.get("CONTRACT_TARGET_CWD"), cwd, problems)
-    service = raw.get("CONTRACT_SERVICE") or DEFAULT_SERVICE
+    service = raw.get("CONTRACT_SERVICE", "")
     kafka_home = None
-    if not SERVICE_NAME.match(service):
+    if not service:
+        problems.append(SERVICE_REQUIRED)
+    elif not SERVICE_NAME.match(service):
         problems.append(
             f"CONTRACT_SERVICE must look like '<domain>-service' in lower case, got {service!r}"
         )
