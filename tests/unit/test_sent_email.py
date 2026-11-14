@@ -2,6 +2,7 @@
 
 """notification-service's captured `sent_email` rows, as seed data (gluon RPN-4)."""
 
+import re
 from dataclasses import replace
 from datetime import UTC, datetime
 from typing import Any
@@ -11,7 +12,13 @@ import pytest
 from gluon_contract.capture import load_exchange
 from gluon_contract.formats import java_instant
 from gluon_contract.notification_scenarios import O_CUST, O_GUEST, U_FLAKY, U_OK
-from gluon_contract.sent_email import SentEmailRow, captured_rows, existing_at, parse_rows
+from gluon_contract.sent_email import (
+    SentEmailRow,
+    captured_rows,
+    existing_at,
+    parse_row,
+    parse_rows,
+)
 
 SERVICE = "notification-service"
 FLAKY_EVENT = "e0000000-0000-4000-8000-000000000050"
@@ -57,8 +64,28 @@ def test_a_row_missing_a_column_is_refused_by_name() -> None:
 
 def test_a_line_that_is_not_json_is_refused_by_number() -> None:
     """Says which line."""
-    with pytest.raises(ValueError, match="line 2 is not JSON"):
+    with pytest.raises(ValueError, match="line 2: not JSON"):
         parse_rows(ROW + "\n{oops\n")
+
+
+def test_one_line_parses_on_its_own() -> None:
+    """`parse_row` is what `parse_rows` and the capture check both read a line with (TD-36)."""
+    assert parse_row(ROW) == parse_rows(ROW)[0]
+
+
+@pytest.mark.parametrize(
+    ("line", "message"),
+    [
+        ("{oops", "not JSON: '{oops'"),
+        ("[1, 2]", "not a JSON object: '[1, 2]'"),
+        (ROW.replace(',"error":null', ""), "missing column error"),
+    ],
+    ids=["not-json", "not-an-object", "missing-column"],
+)
+def test_a_bad_line_is_refused_saying_why(line: str, message: str) -> None:
+    """No line number: the caller knows it."""
+    with pytest.raises(ValueError, match=f"^{re.escape(message)}$"):
+        parse_row(line)
 
 
 def test_the_captured_rows_all_parse() -> None:

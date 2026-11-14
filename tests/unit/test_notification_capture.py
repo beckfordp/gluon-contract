@@ -375,7 +375,18 @@ def test_an_extra_or_duplicate_row_fails() -> None:
 def test_a_row_that_is_not_json_fails() -> None:
     """Reported as such, not as a missing row only."""
     problems = check_sent_email("db/sent-email.jsonl", all_rows() + "{\n")
-    assert names(problems) == {"db/sent-email.jsonl"}
+    assert [problem.message for problem in problems] == ["line 21: not JSON: '{'"]
+
+
+def test_a_row_missing_a_column_fails_and_the_rest_are_still_checked() -> None:
+    """Read with the seed's parser (TD-36): the bad line is named, the next lines still count."""
+    lines = [row_line(row) for row in expected_rows()]
+    lines[0] = lines[0].replace(',"error":null', "")
+    problems = check_sent_email("db/sent-email.jsonl", rows_text(*lines))
+    assert [problem.message for problem in problems] == [
+        "line 1: missing column error",
+        f"no row for event(s) {event_id(1)}",
+    ]
 
 
 # --- A capture directory ----------------------------------------------------------------

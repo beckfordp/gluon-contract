@@ -33,6 +33,7 @@ import re
 import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
 
 from google.protobuf import json_format
@@ -48,6 +49,7 @@ from gluon_contract.notification_scenarios import (
     expected_rows,
 )
 from gluon_contract.otlp import OtlpDecodeError, Span, decode_traces
+from gluon_contract.sent_email import numbered_lines, parse_row
 
 SERVICE = "notification-service"
 
@@ -250,14 +252,13 @@ def check_sent_email(file: str, text: str) -> list[Problem]:
     expected = {row.source_event_id: row for row in expected_rows()}
     seen: set[str] = set()
     problems = []
-    for number, line in enumerate(text.splitlines(), start=1):
+    for number, line in numbered_lines(text):
         try:
-            document = json.loads(line)
-        except ValueError:
-            problems.append(Problem(file, f"line {number} is not JSON: {line[:80]!r}"))
+            actual = parse_row(line)
+        except ValueError as error:
+            problems.append(Problem(file, f"line {number}: {error}"))
             continue
-        actual: dict[str, object] = document if isinstance(document, dict) else {}
-        event = str(actual.get("source_event_id"))
+        event = actual.source_event_id
         if event in seen:
             problems.append(Problem(file, f"line {number}: a second row for event {event}"))
             continue
@@ -269,16 +270,16 @@ def check_sent_email(file: str, text: str) -> list[Problem]:
             )
             continue
         differences = [
-            f"{column}: expected {value!r}, got {actual.get(column)!r}"
+            f"{column}: expected {value!r}, got {getattr(actual, column)!r}"
             for column, value in asdict(row).items()
-            if actual.get(column) != value
+            if getattr(actual, column) != value
         ]
         set_columns = TIMESTAMP_SET_BY_STATUS.get(row.status, ())
         differences += [
             f"{column}: expected {'a time' if column in set_columns else 'null'} "
-            f"for status {row.status!r}, got {actual.get(column)!r}"
+            f"for status {row.status!r}, got {_text(getattr(actual, column))}"
             for column in ("sent_at", "failed_at")
-            if (actual.get(column) is not None) != (column in set_columns)
+            if (getattr(actual, column) is not None) != (column in set_columns)
         ]
         if differences:
             problems.append(
@@ -288,6 +289,11 @@ def check_sent_email(file: str, text: str) -> list[Problem]:
     if missing:
         problems.append(Problem(file, f"no row for event(s) {', '.join(missing)}"))
     return problems
+
+
+def _text(value: datetime | None) -> str:
+    """A timestamp as the dump writes it, or None."""
+    return repr(None if value is None else value.isoformat())
 
 
 # --- A capture directory --------------------------------------------------------------------

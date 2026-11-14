@@ -52,33 +52,53 @@ class SentEmailRow:
 COLUMNS = tuple(field.name for field in fields(SentEmailRow))
 
 
-def parse_rows(text: str) -> list[SentEmailRow]:
-    """The rows of a `sent-email.jsonl` dump, in its order.
+def parse_row(line: str) -> SentEmailRow:
+    """One line of a `sent-email.jsonl` dump (`row_to_json`) as a typed row (gluon TD-36).
 
     Raises:
-        ValueError: naming the line that isn't JSON or lacks a column.
+        ValueError: saying why the line isn't a row (not JSON, not an object, a column
+            missing); the caller adds where it was.
+    """
+    try:
+        document: object = json.loads(line)
+    except ValueError as error:
+        raise ValueError(f"not JSON: {line[:80]!r}") from error
+    if not isinstance(document, dict):
+        raise ValueError(f"not a JSON object: {line[:80]!r}")
+    missing = [column for column in COLUMNS if column not in document]
+    if missing:
+        raise ValueError(f"missing column {', '.join(missing)}")
+    values: dict[str, Any] = {
+        column: (
+            datetime.fromisoformat(document[column])
+            if column in TIMESTAMPS and document[column] is not None
+            else document[column]
+        )
+        for column in COLUMNS
+    }
+    return SentEmailRow(**values)
+
+
+def parse_rows(text: str) -> list[SentEmailRow]:
+    """The rows of a `sent-email.jsonl` dump, in its order; blank lines skipped.
+
+    Raises:
+        ValueError: naming the first line that isn't a row, and why.
     """
     rows = []
-    for number, line in enumerate(text.splitlines(), start=1):
-        if not line.strip():
-            continue
+    for number, line in numbered_lines(text):
         try:
-            document: dict[str, Any] = json.loads(line)
+            rows.append(parse_row(line))
         except ValueError as error:
-            raise ValueError(f"line {number} is not JSON: {line[:80]!r}") from error
-        missing = [column for column in COLUMNS if column not in document]
-        if missing:
-            raise ValueError(f"line {number}: missing column {', '.join(missing)}")
-        values: dict[str, Any] = {
-            column: (
-                datetime.fromisoformat(document[column])
-                if column in TIMESTAMPS and document[column] is not None
-                else document[column]
-            )
-            for column in COLUMNS
-        }
-        rows.append(SentEmailRow(**values))
+            raise ValueError(f"line {number}: {error}") from error
     return rows
+
+
+def numbered_lines(text: str) -> list[tuple[int, str]]:
+    """The dump's non-blank lines with their line numbers, from 1."""
+    return [
+        (number, line) for number, line in enumerate(text.splitlines(), start=1) if line.strip()
+    ]
 
 
 def captured_rows(*, root: Path = CONTRACTS_ROOT) -> list[SentEmailRow]:
