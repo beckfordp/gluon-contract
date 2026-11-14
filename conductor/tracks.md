@@ -6,8 +6,6 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [x] **Track: Full failure reasons in check output (TD-40)**
-  *Link: [./tracks/check-reasons_20261114/](./tracks/check-reasons_20261114/)*
 
 ---
 
