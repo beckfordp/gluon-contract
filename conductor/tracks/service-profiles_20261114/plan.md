@@ -34,15 +34,17 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
     - [x] `ServiceProfile.prefix`, defaulting to `variable_prefix(name)`; `env_contract`
           reads it
     - [x] Unit test: a profile with an explicit prefix is honoured
-- [ ] Task: Stubs answer from the profile
-    - [ ] Red: `HttpStub(answers=...)` unit tests: an order-service stub answers 404 on
+- [x] Task: Stubs answer from the profile d71425c
+    - [x] Red: `HttpStub(answers=...)` unit tests: an order-service stub answers 404 on
           `/users/x`, a user-service stub 200 with `user_body`; scripted behaviours
           unchanged
-    - [ ] `ServiceProfile.stub`, a table from route to answer (user-service:
+    - [x] `ServiceProfile.stub`, a table from route to answer (user-service:
           `GET /users/{id}`)
-    - [ ] The harness builds each called service's stub from its profile
-    - [ ] `USER_PATH` and `user_body` move to the user-service profile
-    - [ ] The probe checks stay green (they script the user stub)
+    - [x] The harness builds each called service's stub from its profile
+    - [x] `USER_PATH` and `user_body` move to the user-service profile
+    - [x] The probe checks stay green (they script the user stub)
+    - *An answer is a function (path → JSON body, or None for 404) rather than a table:
+      user-service's is `user_lookup`. Probe 10/10 against Rust.*
 - [ ] Task: Guard: a new service is one profile
     - [ ] Unit test with a made-up `cart-service` profile and a temporary capture: its
           capture, prefix, env and stub are all reached with no other edits
