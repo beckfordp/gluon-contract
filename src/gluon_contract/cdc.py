@@ -23,6 +23,8 @@ from gluon_contract.postgres import PostgresEndpoint
 from gluon_contract.routing import load_connector
 from gluon_contract.supervisor import HOST, START_TIMEOUT_S, StackError, Supervisor
 
+OFFSETS = "connect.offsets"
+"""The worker's offsets file, in its work directory."""
 DEBEZIUM_VERSION = "3.0.0.Final"
 """gluon-local's; installed beside Kafka by gluon `bin/sandbox-setup --only cdc`."""
 
@@ -43,7 +45,7 @@ def worker_properties(work_dir: Path, bootstrap: str, rest_port: int, plugin_pat
             "bootstrap.servers": bootstrap,
             "key.converter": string,
             "value.converter": string,
-            "offset.storage.file.filename": str(work_dir / "connect.offsets"),
+            "offset.storage.file.filename": str(work_dir / OFFSETS),
             "offset.flush.interval.ms": "1000",
             "plugin.path": str(plugin_path),
             "listeners": f"http://{HOST}:{rest_port}",
@@ -169,6 +171,21 @@ class CdcStack:
                     f"the connector didn't stream again after a restart:\n"
                     f"{self._supervisor.tail('connect.log')}"
                 )
+            time.sleep(0.25)
+
+    def wait_for_offset(self, after: float, *, timeout_s: float = 10.0) -> None:
+        """Until the worker has written its offsets since `after` (a `time.time()`; it
+        flushes every second), so a restart resumes from the slot rather than
+        snapshotting afresh.
+
+        Raises:
+            StackError: if nothing is written within `timeout_s`.
+        """
+        offsets = self.work_dir / OFFSETS
+        deadline = time.monotonic() + timeout_s
+        while not (offsets.is_file() and offsets.stat().st_mtime > after):
+            if time.monotonic() > deadline:
+                raise StackError(f"no offset written to {offsets} within {timeout_s}s")
             time.sleep(0.25)
 
     def connector_status(self) -> str:

@@ -85,15 +85,6 @@ def publish(pg_bin: Path, pg: ThrowawayPostgres, cdc: CdcStack) -> Record:
     return cdc.record("user-events", lambda r: r.key == user_id, timeout_s=90)
 
 
-def wait_for_offset(offsets: Path, after: float) -> None:
-    """Until the worker has written its offsets file since `after` (it flushes every
-    second), so a restart resumes from the slot rather than snapshotting afresh."""
-    deadline = time.monotonic() + 10
-    while not (offsets.is_file() and offsets.stat().st_mtime > after):
-        assert time.monotonic() < deadline, f"no offset committed to {offsets}"
-        time.sleep(0.25)
-
-
 def test_an_outbox_row_arrives_on_its_topic_as_routed(pg_bin: Path, tmp_path: Path) -> None:
     """Key, value and headers exactly as the registered connector routes them."""
     with ThrowawayPostgres(pg_bin, tmp_path, LOGIN) as pg:
@@ -133,7 +124,7 @@ def test_after_a_schema_reset_and_a_connector_restart_rows_flow_again(
         with CdcStack(HOME, tmp_path / "cdc", pg.endpoint) as cdc:
             committed_after = time.time()
             publish(pg_bin, pg, cdc)
-            wait_for_offset(tmp_path / "cdc" / "connect.offsets", committed_after)
+            cdc.wait_for_offset(committed_after)
             psql(pg_bin, pg, str(SWITCH_RESET), flag="-f")
             psql(pg_bin, pg, OUTBOX + MIGRATION)
             cdc.restart_connector()

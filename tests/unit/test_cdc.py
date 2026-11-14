@@ -2,11 +2,18 @@
 
 """The sandbox CDC stack's Connect configuration (RUST-1.8), without starting Java."""
 
+import time
 from pathlib import Path
 
 import pytest
 
-from gluon_contract.cdc import CdcStack, cdc_home, connector_properties, worker_properties
+from gluon_contract.cdc import (
+    OFFSETS,
+    CdcStack,
+    cdc_home,
+    connector_properties,
+    worker_properties,
+)
 from gluon_contract.env_contract import postgres_login
 from gluon_contract.postgres import PostgresEndpoint
 from gluon_contract.routing import load_connector
@@ -62,3 +69,19 @@ def test_the_home_defaults_to_what_sandbox_setup_installs(tmp_path: Path) -> Non
     """CONTRACT_CDC_HOME, else ~/.local/cdc-kafka-3.8.0_debezium-3.0.0.Final."""
     assert cdc_home({}, home=tmp_path) == tmp_path / ".local/cdc-kafka-3.8.0_debezium-3.0.0.Final"
     assert cdc_home({"CONTRACT_CDC_HOME": "/opt/cdc"}, home=tmp_path) == Path("/opt/cdc")
+
+
+def test_an_offset_written_since_counts(tmp_path: Path) -> None:
+    """The wait ends once the worker has written its offsets after the given time."""
+    stack = CdcStack(tmp_path / "home", tmp_path, ENDPOINT)
+    before = time.time() - 1
+    (tmp_path / OFFSETS).write_bytes(b"offsets")
+    stack.wait_for_offset(before, timeout_s=1)
+
+
+def test_no_offset_written_since_is_an_error(tmp_path: Path) -> None:
+    """An offsets file older than the given time doesn't count."""
+    stack = CdcStack(tmp_path / "home", tmp_path, ENDPOINT)
+    (tmp_path / OFFSETS).write_bytes(b"offsets")
+    with pytest.raises(StackError, match=r"no offset written to .*connect\.offsets"):
+        stack.wait_for_offset(time.time() + 60, timeout_s=0.3)
