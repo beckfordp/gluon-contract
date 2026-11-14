@@ -8,6 +8,7 @@ domain database. `wal_level=logical` is on for the CDC stack (RUST-1.8). Only
 the cluster's private Unix socket trusts local connections, for setting up.
 """
 
+import contextlib
 import shutil
 import subprocess
 import tempfile
@@ -43,8 +44,11 @@ class PostgresEndpoint:
 type Connection = psycopg.Connection[tuple[Any, ...]]
 
 
-def connect(endpoint: PostgresEndpoint, *, database: str | None = None) -> Connection:
-    """A connection as the endpoint's login, autocommit, into its database or `database`.
+def connect(
+    endpoint: PostgresEndpoint, *, database: str | None = None, timeout_s: int | None = None
+) -> Connection:
+    """A connection as the endpoint's login, autocommit, into its database or `database`;
+    giving up after `timeout_s` if given.
 
     The one place the harness opens a Postgres connection (gluon TD-35).
     """
@@ -55,6 +59,7 @@ def connect(endpoint: PostgresEndpoint, *, database: str | None = None) -> Conne
         user=endpoint.login.user,
         password=endpoint.login.password,
         autocommit=True,
+        connect_timeout=timeout_s,
     )
 
 
@@ -155,8 +160,17 @@ class ThrowawayPostgres:
         that timed out can leave a server coming up that must not outlive the run.
         """
         if self.running or (self.data_dir / "postmaster.pid").exists():
+            self._end_replication()
             self._tool("pg_ctl", "stop", "-D", str(self.data_dir), "-m", "fast", "-w")
             self.running = False
+
+    def _end_replication(self) -> None:
+        """Ends the replication connections, so a fast shutdown doesn't wait for a client
+        to confirm the shutdown checkpoint: Debezium between confirmations held it up to
+        `wal_sender_timeout` (60 s), pg_ctl's own wait. A server that doesn't answer has
+        none to end."""
+        with contextlib.suppress(psycopg.Error), connect(self.endpoint, timeout_s=5) as db:
+            db.execute("select pg_terminate_backend(pid) from pg_stat_replication")
 
     def log_tail(self) -> str:
         """The last lines of the server log, for error messages."""

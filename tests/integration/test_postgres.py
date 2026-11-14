@@ -6,8 +6,11 @@ The service logs in as the domain user with a password over TCP, exactly as
 gluon-local's `<domain>-postgres` deployments are set up.
 """
 
+import os
+import signal
 import socket
 import subprocess
+import time
 from pathlib import Path
 
 import pytest
@@ -150,3 +153,46 @@ def test_connect_logs_in_as_the_endpoint_says_with_autocommit(pg_bin: Path, tmp_
             connection.execute("create database other")
         with connect(pg.endpoint, database="other") as other:
             assert other.execute("select current_database()").fetchone() == ("other",)
+
+
+STOP_BOUND_S = 10.0
+"""A fast shutdown with nothing to wait for takes about a second."""
+
+
+def test_a_stop_does_not_wait_for_a_logical_replication_client(
+    pg_bin: Path, tmp_path: Path
+) -> None:
+    """A frozen client on a logical slot (Debezium between confirmations) doesn't hold up
+    stop(): a fast shutdown otherwise waits for it to confirm the shutdown checkpoint,
+    up to `wal_sender_timeout`, past pg_ctl's own wait (the readiness check's flake,
+    2026-11-14)."""
+    with ThrowawayPostgres(pg_bin, tmp_path, LOGIN) as pg:
+        with connect(pg.endpoint) as connection:
+            connection.execute(
+                "select pg_create_logical_replication_slot('frozen', 'test_decoding')"
+            )
+        client = subprocess.Popen(
+            [
+                str(pg_bin / "pg_recvlogical"),
+                *("-h", str(pg.socket_dir), "-p", str(pg.endpoint.port)),
+                *("-U", LOGIN.user, "-d", LOGIN.database, "-S", "frozen"),
+                *("--start", "--no-loop", "-f", os.devnull),
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
+        )
+        try:
+            deadline = time.monotonic() + 30
+            with connect(pg.endpoint) as connection:
+                while not connection.execute("select 1 from pg_stat_replication").fetchone():
+                    assert time.monotonic() < deadline, "pg_recvlogical never streamed"
+                    time.sleep(0.2)
+            os.killpg(client.pid, signal.SIGSTOP)
+            started = time.monotonic()
+            pg.stop()
+            took = time.monotonic() - started
+            assert took < STOP_BOUND_S, f"stop() took {took:.1f}s with a frozen client"
+        finally:
+            os.killpg(client.pid, signal.SIGKILL)
+            client.wait()
