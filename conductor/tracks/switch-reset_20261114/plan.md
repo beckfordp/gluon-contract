@@ -22,3 +22,6 @@ Phase verification: spec acceptance commands, run and shown.
 - [x] Task: Live switch both ways, acceptance 53/53 each; RUST-5.2 note in gluon plan gluon 026401b
     - *Rust→Scala→Rust, no manual recovery, 53/53 each way. gluon `bin/verify-laptop-prep`
       also checks the slot drop (22/22).*
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions 31c3d26
