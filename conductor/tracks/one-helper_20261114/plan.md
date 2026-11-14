@@ -119,3 +119,6 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
 - [x] Task: Conductor - User Manual Verification 'Kafka broker out of cdc.py' (Protocol in workflow.md)
     - Script-free (spec decision): the acceptance runs above, results shown to and
       approved by the user, 2026-11-14
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions c4d4d96
