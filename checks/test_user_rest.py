@@ -15,8 +15,10 @@ from typing import Any
 
 import psycopg
 import pytest
+from support import JSON, PASSWORD, new_email, post_credentials
 
 from gluon_contract.capture import load_exchange
+from gluon_contract.expect import assert_same, assert_same_cors, assert_text_error
 from gluon_contract.formats import is_token, is_uuid, java_instant
 from gluon_contract.harness import Harness
 from gluon_contract.http import HttpResponse, json_body, request
@@ -26,14 +28,7 @@ pytestmark = [pytest.mark.service("user-service"), pytest.mark.cluster]
 cluster mode too: these need only the service's API (RUST-5.4)."""
 
 
-PASSWORD = "correct-horse-battery-1"
-TEXT_PLAIN = "text/plain; charset=UTF-8"
-JSON = {"Content-Type": "application/json"}
-
-
-def new_email() -> str:
-    """A throwaway address nobody else uses (product-guidelines.md)."""
-    return f"contract-{uuid.uuid4().hex[:12]}@example.com"
+SERVICE = "user-service"
 
 
 def call(
@@ -54,33 +49,12 @@ def call(
 
 def signup(harness: Harness, email: str, password: str = PASSWORD) -> HttpResponse:
     """POST /auth/signup."""
-    return call(harness, "POST", "/auth/signup", {"email": email, "password": password})
+    return post_credentials(harness, "/auth/signup", email, password)
 
 
 def login(harness: Harness, email: str, password: str = PASSWORD) -> HttpResponse:
     """POST /auth/login."""
-    return call(harness, "POST", "/auth/login", {"email": email, "password": password})
-
-
-def assert_same(actual: HttpResponse, captured: str) -> None:
-    """Status, Content-Type and JSON body exactly as in the capture."""
-    expected = load_exchange(captured)
-    assert (actual.status, actual.header("Content-Type")) == (
-        expected.status,
-        expected.header("Content-Type"),
-    ), f"{captured}: body was {actual.text[:200]!r}"
-    assert actual.json() == expected.json(), captured
-
-
-def assert_text_error(
-    actual: HttpResponse, status: int, text: str, *, prefix: bool = False
-) -> None:
-    """A framework error: plain text, exact or (for decode failures) exact up to the detail."""
-    assert (actual.status, actual.header("Content-Type")) == (status, TEXT_PLAIN), actual.text[:200]
-    if prefix:
-        assert actual.text.startswith(text), actual.text
-    else:
-        assert actual.text == text
+    return post_credentials(harness, "/auth/login", email, password)
 
 
 # --- POST /auth/signup -------------------------------------------------------
@@ -121,7 +95,7 @@ def test_signup_refuses_an_email_already_registered_after_normalisation(harness:
     """
     email = new_email()
     assert signup(harness, email).status == 201
-    assert_same(signup(harness, email.upper()), "signup-409")
+    assert_same(signup(harness, email.upper()), "signup-409", service=SERVICE)
 
 
 @pytest.mark.parametrize(
@@ -132,7 +106,7 @@ def test_signup_refuses_an_invalid_email(harness: Harness, email: str) -> None:
 
     Source: capture http/signup-400-email.txt.
     """
-    assert_same(signup(harness, email), "signup-400-email")
+    assert_same(signup(harness, email), "signup-400-email", service=SERVICE)
 
 
 def test_signup_refuses_a_password_under_8_characters(harness: Harness) -> None:
@@ -140,7 +114,7 @@ def test_signup_refuses_a_password_under_8_characters(harness: Harness) -> None:
 
     Source: capture http/signup-400-short.txt.
     """
-    assert_same(signup(harness, new_email(), "short"), "signup-400-short")
+    assert_same(signup(harness, new_email(), "short"), "signup-400-short", service=SERVICE)
 
 
 def test_password_length_is_counted_in_utf16_code_units(harness: Harness) -> None:
@@ -149,7 +123,7 @@ def test_password_length_is_counted_in_utf16_code_units(harness: Harness) -> Non
     Source: ADR 0028 Context ("Signup counts password length in UTF-16 code units").
     """
     assert signup(harness, new_email(), "😀😀😀😀").status == 201
-    assert_same(signup(harness, new_email(), "ééééééé"), "signup-400-short")
+    assert_same(signup(harness, new_email(), "ééééééé"), "signup-400-short", service=SERVICE)
 
 
 def test_only_ascii_whitespace_is_trimmed_from_an_email(harness: Harness) -> None:
@@ -256,8 +230,12 @@ def test_a_wrong_password_and_an_unknown_email_get_the_same_401(harness: Harness
     """
     email = new_email()
     signup(harness, email)
-    assert_same(login(harness, email, "wrong-password-1"), "login-401-wrong-password")
-    assert_same(login(harness, new_email(), "wrong-password-1"), "login-401-unknown-email")
+    assert_same(
+        login(harness, email, "wrong-password-1"), "login-401-wrong-password", service=SERVICE
+    )
+    assert_same(
+        login(harness, new_email(), "wrong-password-1"), "login-401-unknown-email", service=SERVICE
+    )
 
 
 def test_login_refuses_an_empty_password_and_an_invalid_email(harness: Harness) -> None:
@@ -265,8 +243,8 @@ def test_login_refuses_an_empty_password_and_an_invalid_email(harness: Harness) 
 
     Source: capture http/login-400-empty-password.txt; openapi.yaml (login 400: email invalid).
     """
-    assert_same(login(harness, new_email(), ""), "login-400-empty-password")
-    assert_same(login(harness, "not-an-email", PASSWORD), "signup-400-email")
+    assert_same(login(harness, new_email(), ""), "login-400-empty-password", service=SERVICE)
+    assert_same(login(harness, "not-an-email", PASSWORD), "signup-400-email", service=SERVICE)
 
 
 def test_an_undecodable_login_body_is_a_plain_text_400(harness: Harness) -> None:
@@ -318,7 +296,11 @@ def test_an_unknown_user_is_404(harness: Harness) -> None:
 
     Source: capture http/users-404.txt.
     """
-    assert_same(call(harness, "GET", "/users/00000000-0000-0000-0000-000000000000"), "users-404")
+    assert_same(
+        call(harness, "GET", "/users/00000000-0000-0000-0000-000000000000"),
+        "users-404",
+        service=SERVICE,
+    )
 
 
 def test_a_malformed_user_id_is_a_plain_text_400(harness: Harness) -> None:
@@ -356,7 +338,7 @@ def test_a_user_id_parses_as_java_uuid_fromstring_does(
     """
     response = call(harness, "GET", f"/users/{path_id}")
     if status == 404:
-        assert_same(response, "users-404")
+        assert_same(response, "users-404", service=SERVICE)
     else:
         assert_text_error(response, 400, load_exchange("users-400-malformed").text)
 
@@ -383,17 +365,6 @@ def test_an_unknown_path_is_a_plain_text_404(harness: Harness) -> None:
     )
 
 
-CORS_HEADERS = (
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Methods",
-    "Access-Control-Allow-Headers",
-    "Access-Control-Expose-Headers",
-    "Access-Control-Allow-Credentials",
-    "Access-Control-Max-Age",
-    "Vary",
-)
-
-
 def test_a_cors_preflight_is_answered_as_captured(harness: Harness) -> None:
     """200, empty; allow any origin, the five methods, Content-Type; no credentials.
 
@@ -409,11 +380,8 @@ def test_a_cors_preflight_is_answered_as_captured(harness: Harness) -> None:
             "Access-Control-Request-Headers": "content-type",
         },
     )
-    expected = load_exchange("cors-preflight")
-    assert response.status == expected.status
+    assert_same_cors(response, "cors-preflight", service=SERVICE)
     assert response.body == b""
-    for name in CORS_HEADERS:
-        assert response.header_set(name) == expected.header_set(name), name
 
 
 def test_a_cross_origin_request_gets_the_cors_response_headers(harness: Harness) -> None:
@@ -428,10 +396,7 @@ def test_a_cross_origin_request_gets_the_cors_response_headers(harness: Harness)
         {"email": new_email(), "password": "wrong-password-1"},
         headers={"Origin": "http://localhost:5173", "Content-Type": "application/json"},
     )
-    expected = load_exchange("cors-simple")
-    assert response.status == expected.status
-    for name in CORS_HEADERS:
-        assert response.header_set(name) == expected.header_set(name), name
+    assert_same_cors(response, "cors-simple", service=SERVICE)
 
 
 @pytest.mark.parametrize("path", ["/health", "/health/ready"])

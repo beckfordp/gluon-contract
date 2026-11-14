@@ -16,35 +16,25 @@ from typing import Any
 
 import psycopg
 import pytest
+from support import PASSWORD, new_email, post_credentials
 
 from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
 from gluon_contract.formats import PBKDF2_STORED, pbkdf2_matches, sha256_hex
 from gluon_contract.harness import Harness
-from gluon_contract.http import json_body, request
 from gluon_contract.schema import create_reference, diff_snapshots, migration_files, snapshot
 
 pytestmark = pytest.mark.service("user-service")
 """user-service's contract: deselected in a run for another service (RPN-3)."""
 
-PASSWORD = "correct-horse-battery-1"
-"""The password CAPTURE.md signs up with; it produced the capture's hashes."""
 SCALA_MIGRATIONS = (
     Path(__file__).resolve().parents[3] / "services/user-service/src/main/resources/db/migration"
 )
-JSON = {"Content-Type": "application/json"}
-
 type Db = psycopg.Connection[tuple[Any, ...]]
-
-
-def new_email() -> str:
-    """A throwaway address."""
-    return f"contract-{uuid.uuid4().hex[:12]}@example.com"
 
 
 def post(harness: Harness, path: str, email: str, password: str = PASSWORD) -> dict[str, Any]:
     """POST a credentials body; return the JSON answer."""
-    body = json_body({"email": email, "password": password})
-    response = request(harness.base_url, "POST", path, body=body, headers=JSON)
+    response = post_credentials(harness, path, email, password)
     assert response.status in (200, 201), f"{path}: {response.status} {response.text[:200]}"
     result: dict[str, Any] = response.json()
     return result
