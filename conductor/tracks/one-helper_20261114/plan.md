@@ -106,8 +106,16 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
           (`pg_recvlogical` frozen with SIGSTOP), 59.9 s, 3 of 3
     - [x] Fix: `ThrowawayPostgres.stop()` ends replication connections first
     - [x] Acceptance: ci.sh 355 passed, 95.03%; contract run 128/128 five times in a row
-- [ ] Task: Close the track
-    - [ ] Acceptance runs 1–5 from spec.md, results recorded here against the baseline
-    - [ ] gluon `TECHNICAL_DEBT.md`: tick TD-34.1, 35.1, 36.1, 45.1 with dated notes
-          (laptop file; separate gluon commit, shown for approval)
-- [ ] Task: Conductor - User Manual Verification 'Kafka broker out of cdc.py' (Protocol in workflow.md)
+- [x] Task: Close the track
+    - [x] Acceptance runs 1–5 from spec.md, against the baseline (2026-11-14):
+          1. `ci.sh` PASS, 355 passed, 95.03% (baseline 325, 94.64%)
+          2. user-service 128/128, five runs in a row (baseline 128/128)
+          3. notification REST group: 19 red, each with '404' (as baseline)
+          4. capture check PASS (60 files)
+          5. one `psycopg.connect` call (`postgres.py`; the other matches are the
+             guard's pattern and its tests); `class KafkaBroker` only in `kafka.py`
+    - [x] gluon `TECHNICAL_DEBT.md`: TD-34.1, 35.1, 36.1, 45.1 ticked, TD-48 raised
+          (`target.py`'s process handling into `Supervisor`), gluon `f6f0225`
+- [x] Task: Conductor - User Manual Verification 'Kafka broker out of cdc.py' (Protocol in workflow.md)
+    - Script-free (spec decision): the acceptance runs above, results shown to and
+      approved by the user, 2026-11-14
