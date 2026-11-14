@@ -62,3 +62,6 @@
 At archive: `verify-retire-scripts.sh` deleted (per the rule). gluon follow-up: verify-port `CONTRACT_TRACK_SCRIPTS`, docs/ports table, docs/sandbox.md rule, TD-41/TD-46 ticks.
 
 Risks: verify-port step 6 lists deleted scripts until the gluon follow-up lands (the tracks step goes red). Bigger scripts (isolated-runner, multi-service-harness, portable-harness) may hold live-run sections only integration tests can cover.
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions 74f2114
