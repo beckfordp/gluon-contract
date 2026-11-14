@@ -6,6 +6,8 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
+- [ ] **Track: Per-service profiles, then notification health checks (TD-44, TD-42)**
+  *Link: [./tracks/service-profiles_20261114/](./tracks/service-profiles_20261114/)*
 
 ---
 
@@ -21,7 +23,6 @@ written red before the Rust track turns it green. When ready, run
 `/conductor:newTrack <title>`.
 
 RPN-4.1 tidy (laptop, before RPN-5):
-- Per-service profiles, notification health checks (TD-44, then TD-42): one profile per service (capture, variable prefix, stubs), no user-service defaults; then `/health`, `/health/ready`, HEAD, unknown path, readiness with Postgres down in `test_notification_rest.py`, green against Rust and Scala, notification-service-rs's vendored `http/` fixtures retired
 - Full failure reasons in check output (TD-40): `verify-check-group.sh` reads each outcome and message from the junit report
 
 CI:
