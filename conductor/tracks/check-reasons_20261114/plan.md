@@ -21,12 +21,12 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
           erroring, one skipped and one failing without it → each named, with the
           messages today's heredoc gives
     - [x] `expect_red(outcomes, pattern) -> list[str]`, the problems
-- [ ] Task: CLI and the script
-    - [ ] `python -m gluon_contract.check_report lines <report>` prints the lines and
+- [x] Task: CLI and the script e443960
+    - [x] `python -m gluon_contract.check_report lines <report>` prints the lines and
           a final `green=N red=M`
-    - [ ] `expect-red <report> <pattern>` prints the problems, or `N red`; exit 1 on
+    - [x] `expect-red <report> <pattern>` prints the problems, or `N red`; exit 1 on
           problems; a usage error otherwise (unit-tested through `main(argv)`)
-    - [ ] `verify-check-group.sh` uses both; the heredoc and the `-rA` parsing go
+    - [x] `verify-check-group.sh` uses both; the heredoc and the `-rA` parsing go
           (`-rA` stays only if the log still needs it)
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
     - [ ] The notification group against Rust: 19 red lines with full reasons, 5 green
