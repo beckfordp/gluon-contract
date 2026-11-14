@@ -55,17 +55,20 @@ run and shown. No `scripts/verify-<track>.sh` (spec decision; TD-46 rule).
     - *2026-11-14: `create_reference` builds the endpoint from `connection.info` (no
       caller changes); `schema` reuses `postgres.Connection`. Guard covers `checks/`
       too. ci.sh 343 passed, 94.75%; schema 6/6.*
-- [ ] Task: `sent_email.parse_row` (TD-36)
-    - [ ] Red: `tests/unit/test_sent_email.py`: `parse_row` returns a typed row, and
+- [x] Task: `sent_email.parse_row` (TD-36) e2c1d0f
+    - [x] Red: `tests/unit/test_sent_email.py`: `parse_row` returns a typed row, and
           raises on non-JSON and on a missing column. `parse_rows` keeps its
           line-numbered messages
-    - [ ] Green: `parse_row`; `parse_rows` uses it
-    - [ ] Red/Green: `check_sent_email` on `parse_row`, one Problem per bad line,
+    - [x] Green: `parse_row`; `parse_rows` uses it
+    - [x] Red/Green: `check_sent_email` on `parse_row`, one Problem per bad line,
           compares typed rows (timestamps by set/null only, as today). The existing
           broken-copy cases in `test_notification_capture.py` pass unchanged; add a
           missing-column case
-    - [ ] `uv run python -m gluon_contract.notification_capture check` passes on the
+    - [x] `uv run python -m gluon_contract.notification_capture check` passes on the
           latest capture
+    - *2026-11-14: messages are `line N: <why>` in both callers (`parse_rows` said
+      `line N is not JSON`); blank lines skipped by both (`numbered_lines`); a non-object
+      line is now its own problem. ci.sh 348 passed, 94.85%; capture check PASS (60 files).*
 - [ ] Task: Conductor - User Manual Verification 'One Postgres connect, one sent-email parser' (Protocol in workflow.md)
 
 ## Phase 3: Kafka broker out of cdc.py (TD-45)
