@@ -89,5 +89,8 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
     - *Also gone: `canon_exchange`, `Service::exchange` (only that test used them) and
       `.gitattributes` (it kept only those fixtures byte for byte).*
 - [x] Task: Tick TD-44.1 and TD-42.1 in gluon `TECHNICAL_DEBT.md` (needs approval) gluon bd2bfdf
-- [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md):
+- [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md):
       both builds green, notification-service-rs ci.sh green
+    - *2026-11-14: Rust 5 green, the 19 `/emails` checks red (RPN-5); Scala 24/24;
+      notification-service-rs ci.sh green after `bd7d8da`; tests/contract ci.sh 373
+      passed, 95.23%.*
