@@ -82,10 +82,12 @@ Phase verification: the spec's acceptance commands, run and shown. No verify scr
       TD-51 (`ClassNotFoundException: notificationservice.AsyncApiChannels$`); the
       retry passed, so TD-51 affects notification-service too. Health and HEAD now also
       compare `Content-Length`, as the Rust capture test did.*
-- [ ] Task: notification-service-rs drops its health fixtures (its own repo and commit)
-    - [ ] Remove the health test from `tests/capture.rs`, and `tests/fixtures/http/`
-    - [ ] Narrow the `rust.md` §8 exception to `db/schema.sql`
-    - [ ] Its `ci.sh` green
+- [x] Task: notification-service-rs drops its health fixtures (its own repo and commit) notification-service-rs bd7d8da
+    - [x] Remove the health test from `tests/capture.rs`, and `tests/fixtures/http/`
+    - [x] Narrow the `rust.md` §8 exception to `db/schema.sql`
+    - [x] Its `ci.sh` green
+    - *Also gone: `canon_exchange`, `Service::exchange` (only that test used them) and
+      `.gitattributes` (it kept only those fixtures byte for byte).*
 - [ ] Task: Tick TD-44.1 and TD-42.1 in gluon `TECHNICAL_DEBT.md` (needs approval)
 - [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md):
       both builds green, notification-service-rs ci.sh green
