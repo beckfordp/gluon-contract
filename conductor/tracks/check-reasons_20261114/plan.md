@@ -3,7 +3,7 @@
 Phase verification: the spec's acceptance commands, run and shown. No verify script
 (TD-46 rule).
 
-## Phase 1: The report module and the script
+## Phase 1: The report module and the script [checkpoint: 6cf3933]
 - [x] Task: Record the baseline
     - [x] `verify-check-group.sh checks/test_notification_rest.py --service
           notification-service`: the red lines, cut as they are today (`- A...`)
