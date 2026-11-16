@@ -19,8 +19,8 @@ for why, and gluon's `plans/rust-port/user-service/plan.md` for the order of wor
 **Status:** the isolated-mode runner is built (RUST-1.2); user-service's
 check groups are done (RUST-1.3 to RUST-6.x); the harness starts
 notification-service too (RPN-3), whose groups arrive one session at a time:
-its REST group (`checks/test_notification_rest.py`, RPN-4) is written and red
-against the walking skeleton until the Rust session that implements it; see
+its REST group (`checks/test_notification_rest.py`, RPN-4) is green against
+notification-service-rs since RPN-5 (24/24); see
 [`conductor/tracks.md`](./conductor/tracks.md).
 
 ## Prerequisites
