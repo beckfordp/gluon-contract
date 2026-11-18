@@ -32,6 +32,7 @@ from gluon_contract.notification_capture import (
     check_sent_email,
     main,
     otlp_to_json,
+    row_differences,
     write_otlp_json,
 )
 from gluon_contract.notification_scenarios import (
@@ -44,7 +45,9 @@ from gluon_contract.notification_scenarios import (
     event_id,
     expected_dead_letters,
     expected_rows,
+    scenarios,
 )
+from gluon_contract.sent_email import parse_row
 
 CAPTURE = latest_capture(CONTRACTS_ROOT, "notification-service")
 
@@ -160,6 +163,26 @@ def test_the_table_expects_five_dead_letters() -> None:
     assert [s.event_id for s in dead["order-events"]] == [event_id(22), event_id(50)]
     assert dead["payment-events"] == ()
     assert [s.event_id for s in dead["fulfilment-events"]] == [event_id(42)]
+
+
+def test_a_topics_scenarios_are_its_records_in_publishing_order() -> None:
+    """user-events: CAPTURE.sh's six, in order (RPN-10 replays them); every record is on
+    exactly one topic."""
+    assert [s.comment for s in scenarios("user-events")] == [
+        "welcome email",
+        "duplicate eventId",
+        "unrelated type",
+        "undecodable envelope",
+        "undecodable payload",
+        "a null value (null.marker; no row, no dead letter)",
+    ]
+    assert sum(len(scenarios(topic)) for topic in TOPICS) == len(SCENARIOS)
+
+
+def test_a_topic_capture_sh_never_published_to_is_an_error() -> None:
+    """A typo can't replay nothing and pass: it names the topics there are."""
+    with pytest.raises(ValueError, match="user-events, order-events"):
+        scenarios("user-event")
 
 
 def test_a_record_that_is_no_envelope_has_a_raw_value_and_no_event() -> None:
@@ -318,6 +341,27 @@ def test_other_dead_letters_fail_naming_the_file(text: str) -> None:
 
 
 # --- db/sent-email.jsonl --------------------------------------------------------------
+
+
+def test_a_row_as_the_table_says_has_no_differences() -> None:
+    """Every column the table pins, and `sent_at`/`failed_at` as its status says; `id`,
+    `body` and the times themselves aren't compared (the rule the consumer checks use
+    too, RPN-10)."""
+    welcome = expected_rows()[0]
+    actual = parse_row(
+        row_line(welcome, body="anything", id="0" * 8 + "-0000-0000-0000-" + "0" * 12)
+    )
+    assert row_differences(welcome, actual) == []
+
+
+def test_each_difference_from_the_table_is_named() -> None:
+    """A pinned column that differs, and a timestamp its status says should (not) be set."""
+    welcome = expected_rows()[0]
+    actual = parse_row(row_line(welcome, subject="Hi", sent_at=None))
+    assert row_differences(welcome, actual) == [
+        "subject: expected 'Welcome to gshop', got 'Hi'",
+        "sent_at: expected a time for status 'sent', got None",
+    ]
 
 
 def test_the_expected_rows_pass() -> None:

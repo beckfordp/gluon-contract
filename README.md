@@ -20,7 +20,9 @@ for why, and gluon's `plans/rust-port/user-service/plan.md` for the order of wor
 check groups are done (RUST-1.3 to RUST-6.x); the harness starts
 notification-service too (RPN-3), whose groups arrive one session at a time:
 its REST group (`checks/test_notification_rest.py`, RPN-4) is green against
-notification-service-rs since RPN-5 (24/24); see
+notification-service-rs since RPN-5 (24/24); its user-events group
+(`checks/test_notification_user_events.py`, RPN-10) is written and PENDING (0/6:
+the port has no Kafka consumer yet); see
 [`conductor/tracks.md`](./conductor/tracks.md).
 
 ## Prerequisites
@@ -92,12 +94,22 @@ arrive one session at a time, the first its REST group (RPN-4):
 uv run pytest checks --service notification-service --target-cmd "<its build>"
 ```
 
-runs `checks/test_notification_rest.py` and deselects every user-service
-group. Until its consumers exist (RPN-10 on), nothing creates `sent_email`
-rows through the API, so its `/emails` checks seed the table with the
-capture's own rows (`gluon_contract.sent_email`) and expect the capture's
-answers; comparisons any service's checks can use are in
-`gluon_contract.expect`.
+runs `checks/test_notification_rest.py` and
+`checks/test_notification_user_events.py`, and deselects every user-service
+group. Nothing creates `sent_email` rows through the API, so the `/emails`
+checks seed the table with the capture's own rows (`gluon_contract.sent_email`)
+and expect the capture's answers; comparisons any service's checks can use are
+in `gluon_contract.expect`.
+
+The consumer groups (RPN-10 on) replay a topic's records as the capture
+published them (`gluon_contract.notification_scenarios`, one table for every
+topic) on `harness.kafka`, and each check waits until the service's consumer
+group has committed past its record before looking at the outcome
+(`gluon_contract.consumption`). A check that has all the contract it needs but
+finds no consumer at all fails saying "not yet implemented"
+(`gluon_contract.pending`): PENDING, which `check_report` prints as `pend` and
+`scripts/verify-check-group.sh --expect-red "not yet implemented"` expects of a
+group written before its feature. Any other red is a FAIL.
 
 | Option | Variable | Default |
 |---|---|---|
@@ -116,7 +128,9 @@ answers; comparisons any service's checks can use are in
   contract, throwaway Postgres, OTLP decoding and stub, target process, harness, `contracts/`
   rules, pytest wiring; notification-service's capture check and scenario
   table (`notification_capture`, `notification_scenarios`; RPN-1); its captured `sent_email` rows as
-  seed data (`sent_email`) and response comparisons for any service (`expect`; RPN-4)
+  seed data (`sent_email`) and response comparisons for any service (`expect`; RPN-4);
+  replaying a topic and waiting for a consumer group (`consumption`), and what a
+  PENDING check says (`pending`; RPN-10)
 - `tests/unit/`, `tests/integration/` — the harness's own tests (CI runs
   both; the integration tests start local processes, including a stand-in
   target)

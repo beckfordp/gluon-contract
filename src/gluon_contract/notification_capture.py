@@ -44,12 +44,13 @@ from gluon_contract.cluster import parse_console_line
 from gluon_contract.contracts import CONTRACTS_ROOT, latest_capture
 from gluon_contract.notification_scenarios import (
     TOPICS,
+    SentEmail,
     envelope_field,
     expected_dead_letters,
     expected_rows,
 )
 from gluon_contract.otlp import OtlpDecodeError, Span, decode_traces
-from gluon_contract.sent_email import numbered_lines, parse_row
+from gluon_contract.sent_email import SentEmailRow, numbered_lines, parse_row
 
 SERVICE = "notification-service"
 
@@ -245,6 +246,25 @@ TIMESTAMP_SET_BY_STATUS: Mapping[str, tuple[str, ...]] = {
 """Which of `sent_at`/`failed_at` a row of each status has set; the other stays null."""
 
 
+def row_differences(expected: SentEmail, actual: SentEmailRow) -> list[str]:
+    """How `actual` differs from the table's row: every column `expected` pins, then
+    `sent_at`/`failed_at` set or null as its status says (`id`, `body` and the times
+    themselves aren't compared). Empty when it is as expected. The capture check and
+    the consumer checks (RPN-10 on) judge rows by it."""
+    differences = [
+        f"{column}: expected {value!r}, got {getattr(actual, column)!r}"
+        for column, value in asdict(expected).items()
+        if getattr(actual, column) != value
+    ]
+    set_columns = TIMESTAMP_SET_BY_STATUS.get(expected.status, ())
+    return differences + [
+        f"{column}: expected {'a time' if column in set_columns else 'null'} "
+        f"for status {expected.status!r}, got {_text(getattr(actual, column))}"
+        for column in ("sent_at", "failed_at")
+        if (getattr(actual, column) is not None) != (column in set_columns)
+    ]
+
+
 def check_sent_email(file: str, text: str) -> list[Problem]:
     """The rows are exactly the table's, one per source event, in any order: every
     column but `id`, `body` and the timestamps, and `sent_at`/`failed_at` as the
@@ -269,18 +289,7 @@ def check_sent_email(file: str, text: str) -> list[Problem]:
                 Problem(file, f"line {number}: a row for event {event}, not in the scenario table")
             )
             continue
-        differences = [
-            f"{column}: expected {value!r}, got {getattr(actual, column)!r}"
-            for column, value in asdict(row).items()
-            if getattr(actual, column) != value
-        ]
-        set_columns = TIMESTAMP_SET_BY_STATUS.get(row.status, ())
-        differences += [
-            f"{column}: expected {'a time' if column in set_columns else 'null'} "
-            f"for status {row.status!r}, got {_text(getattr(actual, column))}"
-            for column in ("sent_at", "failed_at")
-            if (getattr(actual, column) is not None) != (column in set_columns)
-        ]
+        differences = row_differences(row, actual)
         if differences:
             problems.append(
                 Problem(file, f"event {event} ({row.event_type}): {'; '.join(differences)}")

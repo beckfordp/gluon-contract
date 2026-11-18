@@ -29,7 +29,10 @@ Canonical: [`code_styleguides/python.md`](./code_styleguides/python.md)
 
 ## Test data and async
 - Every run creates unique throwaway data (emails `contract-<uuid>@example.com`,
-  obviously fake passwords); never demo accounts
+  obviously fake passwords); never demo accounts. Exception *(2026-11-17, RPN-10)*: a
+  check judged row by row against a capture uses the capture's own ids (the
+  notification consumer groups replay its records; the REST group seeds its
+  rows); isolated mode only, where every session starts empty
 - Isolated mode starts and stops its own processes and removes their data
   directories; nothing survives a run
 - Async outcomes (spans arriving, outbox rows) are polled with deadlines; no

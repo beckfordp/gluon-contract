@@ -7,7 +7,8 @@ capture, it says `capture <file>`, or a list (`capture http/a.txt, b.txt and
 asyncapi-html/index.html`): each name is relative to the capture, and a bare
 name is in the directory of the name before it (`b.txt` is `http/b.txt`; after
 `asyncapi-html/`, `index.html` is `asyncapi-html/index.html`), so a file at the
-capture root after one in a directory is written `./openapi.yaml`. A
+capture root after one in a directory is written `./openapi.yaml`. A remark in
+brackets after a name doesn't end the list, and a name inside it isn't cited. A
 name ending `/` is a directory, `*` is a glob that must match a file, and a
 `<placeholder>` is skipped. Each name is looked up in the latest capture of
 every service the module is marked for (`check_markers`). Read with `ast`, so
@@ -23,7 +24,11 @@ from gluon_contract.check_markers import module_services
 
 _SEGMENT = r"[A-Za-z0-9_<>*-]+"
 _NAME = rf"(?:\./)?(?:{_SEGMENT}/)*{_SEGMENT}(?:\.[a-z]+)+/?|(?:{_SEGMENT}/)+"
-_CITATION = re.compile(rf"\bcapture ((?:{_NAME})(?:(?:, | and )(?:{_NAME}))*)")
+_REMARK = r" ?\((?:[^()]|\([^()]*\))*\)"
+"""A remark in brackets after a name (one level of nesting): the list goes on past it."""
+_CITATION = re.compile(
+    rf"\bcapture ((?:{_NAME})(?:{_REMARK})?(?:(?:, | and )(?:{_NAME})(?:{_REMARK})?)*)"
+)
 
 
 def cited_files(docstring: str) -> list[str]:
@@ -40,7 +45,7 @@ def cited_files(docstring: str) -> list[str]:
     files = []
     for citation in _CITATION.finditer(" ".join(paragraph)):
         directory = PurePosixPath()
-        for name in re.findall(_NAME, citation.group(1)):
+        for name in re.findall(_NAME, re.sub(_REMARK, "", citation.group(1))):
             if name.startswith("./"):
                 name = name.removeprefix("./")
                 directory = PurePosixPath()

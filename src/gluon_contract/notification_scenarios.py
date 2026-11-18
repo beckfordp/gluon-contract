@@ -487,6 +487,18 @@ SCENARIOS: tuple[Scenario, ...] = (
 """Every record CAPTURE.sh publishes, in order."""
 
 
+def scenarios(topic: str) -> tuple[Scenario, ...]:
+    """The records CAPTURE.sh published to input `topic`, in order (a consumer group
+    replays them: RPN-10 on).
+
+    Raises:
+        ValueError: `topic` isn't one of the input topics, naming them.
+    """
+    if topic not in TOPICS:
+        raise ValueError(f"no input topic {topic!r}: the topics are {', '.join(TOPICS)}")
+    return tuple(scenario for scenario in SCENARIOS if scenario.topic == topic)
+
+
 def expected_rows() -> tuple[SentEmail, ...]:
     """The `sent_email` rows the scenarios make, in publishing order."""
     return tuple(scenario.row for scenario in SCENARIOS if scenario.row is not None)

@@ -44,6 +44,62 @@ def test_an_outage_stops_the_broker_and_a_restart_keeps_its_port_and_data(tmp_pa
     assert record.value == "v"
 
 
+def test_produce_returns_each_records_offset(tmp_path: Path) -> None:
+    """The offset the broker gave the record, a null value's included (RPN-10: a check
+    waits for the consumer to commit past its own record)."""
+    with KafkaBroker(HOME, tmp_path) as kafka:
+        offsets = [
+            kafka.produce("user-events", "a", "1", {}),
+            kafka.produce("user-events", "b", None, {}),
+            kafka.produce("user-events", None, "3", {"traceparent": "tp"}),
+        ]
+    assert offsets == [0, 1, 2]
+
+
+def test_a_group_is_there_once_a_consumer_has_joined_even_without_a_commit(
+    tmp_path: Path,
+) -> None:
+    """No group before any consumer joins; there once one has, committed or not, and
+    still there after it leaves (RPN-10: "not yet implemented" means no consumer ever
+    joined)."""
+    with KafkaBroker(HOME, tmp_path) as kafka:
+        kafka.create_topics(["user-events"])
+        before = kafka.has_group("joiner")
+        consumer = KafkaConsumer(
+            "user-events",
+            bootstrap_servers=kafka.bootstrap,
+            group_id="joiner",
+            auto_offset_reset="earliest",
+            enable_auto_commit=False,
+            consumer_timeout_ms=3000,
+        )
+        list(consumer)
+        joined = kafka.has_group("joiner")
+        consumer.close()
+        left = kafka.has_group("joiner")
+        other = kafka.has_group("someone-else")
+    assert (before, joined, left, other) == (False, True, True, False)
+
+
+def test_records_now_reads_to_the_end_without_waiting_to_settle(tmp_path: Path) -> None:
+    """Every record up to the topic's end offset when asked, in order, a null value and
+    headers included; at once, not after a settle period (RPN-10 review M3); a topic
+    nobody has written to has none."""
+    with KafkaBroker(HOME, tmp_path) as kafka:
+        kafka.produce("user-events-dlq", "a", "1", {})
+        kafka.produce("user-events-dlq", "b", None, {"h": "v"})
+        started = time.monotonic()
+        found = kafka.records_now("user-events-dlq")
+        elapsed = time.monotonic() - started
+        empty = kafka.records_now("order-events-dlq")
+    assert [(r.key, r.value, r.headers) for r in found] == [
+        ("a", "1", {}),
+        ("b", None, {"h": "v"}),
+    ]
+    assert elapsed < 2, elapsed
+    assert empty == []
+
+
 def test_committed_offsets_are_read_per_group(tmp_path: Path) -> None:
     """What a consumer group committed, by partition."""
     with KafkaBroker(HOME, tmp_path) as kafka:

@@ -130,3 +130,17 @@ def insert(connection: psycopg.Connection[Any], rows: Sequence[SentEmailRow]) ->
     )
     with connection.cursor() as cursor:
         cursor.executemany(statement, [astuple(row) for row in rows])
+
+
+def rows(
+    connection: psycopg.Connection[Any], *, source_event_id: str | None = None
+) -> list[SentEmailRow]:
+    """The table's rows, every column, oldest first (`created_at`, then `id`); only
+    `source_event_id`'s when it is given. The reader beside `insert` (RPN-10)."""
+    columns = sql.SQL(", ").join(
+        sql.SQL("id::text") if column == "id" else sql.Identifier(column) for column in COLUMNS
+    )
+    where = sql.SQL("") if source_event_id is None else sql.SQL(" where source_event_id = %s")
+    query = sql.SQL("select {} from sent_email{} order by created_at, id").format(columns, where)
+    params = () if source_event_id is None else (source_event_id,)
+    return [SentEmailRow(*values) for values in connection.execute(query, params)]

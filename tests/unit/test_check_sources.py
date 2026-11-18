@@ -53,6 +53,18 @@ def test_x(harness):
         ("Source: capture http/<captured>.txt, each answer", []),
         ("Source: the capture has no GET headers.", []),
         ("Source: debezium-connectors-register.yaml (user-outbox-connector)", []),
+        # A remark in brackets doesn't end the list (RPN-10: CAPTURE.sh (…) hid the rest)
+        (
+            "Source: capture CAPTURE.sh (user-events), db/sent-email.jsonl and ./requests.jsonl",
+            ["CAPTURE.sh", "db/sent-email.jsonl", "requests.jsonl"],
+        ),
+        ("Source: capture http/a.txt (the 404) and b.txt.", ["http/a.txt", "http/b.txt"]),
+        ("Source: capture http/a.txt (one\nremark), b.txt", ["http/a.txt", "http/b.txt"]),
+        ("Source: capture http/a.txt (a (nested) remark), b.txt", ["http/a.txt", "http/b.txt"]),
+        # A name only inside a remark is the remark's, not a citation
+        ("Source: capture http/a.txt (see b.txt) and c.txt", ["http/a.txt", "http/c.txt"]),
+        # ... but a citation in brackets is still a citation
+        ("Source: ADR 0025 (capture http/a.txt); the Scala suite", ["http/a.txt"]),
         ("Compares capture http/a.txt.\n\nSource: ADR 0028.", []),
         ("Source: ADR 0028.\n\nThe capture http/a.txt is the same.", []),
     ],
@@ -86,6 +98,7 @@ def test_a_check_citing_what_the_capture_holds_is_fine(capture: Path, cited: str
         ("http/*.json", "http/*.json"),
         ("css/", "css/"),
         ("http/a.txt/", "http/a.txt/"),
+        ("http/a.txt (a remark), http/missing.txt", "http/missing.txt"),
     ],
 )
 def test_a_citation_the_capture_lacks_is_a_problem(capture: Path, cited: str, missing: str) -> None:

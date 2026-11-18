@@ -19,6 +19,7 @@ from gluon_contract.check_report import (
     main,
     outcomes,
 )
+from gluon_contract.pending import NOT_YET_IMPLEMENTED
 
 REPORT = """<?xml version="1.0" encoding="utf-8"?>
 <testsuites name="pytest tests"><testsuite name="pytest" tests="4">
@@ -78,6 +79,25 @@ def test_an_error_is_red_and_a_pass_is_green() -> None:
     """Pass lines carry no reason; an error reads as a red line, as a failure does."""
     assert line(Outcome("test_ok", "passed", "")) == "pass test_ok"
     assert line(Outcome("test_err", "error", "boom")) == "red  test_err - boom"
+
+
+def test_a_failure_saying_not_yet_implemented_is_pending() -> None:
+    """PENDING (RPN-10): a failure whose message or text carries NOT_YET_IMPLEMENTED; not
+    a pass, an error or a skip saying it, nor a failure for another reason."""
+    assert NOT_YET_IMPLEMENTED == "not yet implemented"
+    reason = f"user-events record 0: {NOT_YET_IMPLEMENTED}: no consumer group g"
+    assert Outcome("t", "failed", reason).pending
+    assert Outcome("t", "failed", "AssertionError", text=f"E  {reason}").pending
+    assert not Outcome("t", "failed", "AssertionError: got 404").pending
+    assert not Outcome("t", "error", reason).pending
+    assert not Outcome("t", "skipped", reason).pending
+    assert not Outcome("t", "passed", "").pending
+
+
+def test_a_pending_line_says_pend_with_its_reason() -> None:
+    """`pend <name> - <reason>`, so a pending check reads differently from a red one."""
+    reason = f"record 3: {NOT_YET_IMPLEMENTED}"
+    assert line(Outcome("test_p", "failed", reason)) == f"pend test_p - {reason}"
 
 
 def test_a_skip_has_no_line() -> None:

@@ -18,6 +18,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
 
+from gluon_contract.pending import NOT_YET_IMPLEMENTED
+
 type State = Literal["passed", "failed", "error", "skipped"]
 
 STATE_TAGS: dict[str, State] = {"failure": "failed", "error": "error", "skipped": "skipped"}
@@ -45,6 +47,12 @@ class Outcome:
     text: str = field(default="", compare=False)
     """The failure's text (its traceback); searched by `expect_red`, never shown."""
 
+    @property
+    def pending(self) -> bool:
+        """A failure saying NOT_YET_IMPLEMENTED (`gluon_contract.pending`): the feature
+        isn't built yet. An error or skip saying it isn't pending."""
+        return self.state == "failed" and NOT_YET_IMPLEMENTED in self.reason + self.text
+
 
 def outcomes(path: Path) -> list[Outcome]:
     """Every check in the report, in its order.
@@ -60,14 +68,16 @@ def outcomes(path: Path) -> list[Outcome]:
 
 
 def line(outcome: Outcome) -> str | None:
-    """`pass <name>`, or `red  <name> - <reason>` (one line, at most REASON_LENGTH);
-    None for a skip, which isn't this run's outcome."""
+    """`pass <name>`, `red  <name> - <reason>` or, for a pending check, `pend <name> -
+    <reason>` (one line, at most REASON_LENGTH); None for a skip, which isn't this run's
+    outcome."""
     if outcome.state == "skipped":
         return None
     if outcome.state == "passed":
         return f"pass {outcome.name}"
     reason = _one_line(outcome.reason)
-    return f"red  {outcome.name}" + (f" - {reason}" if reason else "")
+    label = "pend" if outcome.pending else "red "
+    return f"{label} {outcome.name}" + (f" - {reason}" if reason else "")
 
 
 def expect_red(checks: list[Outcome], reason: str) -> list[str]:

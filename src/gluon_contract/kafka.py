@@ -17,7 +17,8 @@ from pathlib import Path
 from types import TracebackType
 from typing import Self
 
-from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer
+from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer, TopicPartition
+from kafka.consumer.fetcher import ConsumerRecord
 from kafka.errors import (
     CoordinatorLoadInProgressError,
     CoordinatorNotAvailableError,
@@ -243,11 +244,11 @@ class KafkaBroker:
 
     def produce(
         self, topic: str, key: str | None, value: str | None, headers: Mapping[str, str]
-    ) -> None:
-        """Sends one record and waits for the broker to take it."""
+    ) -> int:
+        """Sends one record and waits for the broker to take it; returns its offset."""
         producer = KafkaProducer(bootstrap_servers=self.bootstrap)
         try:
-            producer.send(
+            metadata = producer.send(
                 topic,
                 key=None if key is None else key.encode(),
                 value=None if value is None else value.encode(),
@@ -255,6 +256,17 @@ class KafkaBroker:
             ).get(timeout=30)
         finally:
             producer.close()
+        offset: int = metadata.offset
+        return offset
+
+    def has_group(self, group: str) -> bool:
+        """Whether consumer group `group` exists: a consumer has joined it, whether or not
+        it has committed (and it stays after the consumer leaves)."""
+        admin = KafkaAdminClient(bootstrap_servers=self.bootstrap)
+        try:
+            return any(listed.get("group_id") == group for listed in admin.list_groups())
+        finally:
+            admin.close()
 
     def record(
         self, topic: str, until: Callable[[Record], bool], *, timeout_s: float = 60.0
@@ -277,21 +289,41 @@ class KafkaBroker:
         try:
             while time.monotonic() < deadline:
                 for message in consumer:
-                    record = Record(
-                        topic=message.topic,
-                        key=None if message.key is None else message.key.decode("utf-8"),
-                        value=None if message.value is None else message.value.decode("utf-8"),
-                        headers={
-                            name: None if value is None else value.decode("utf-8")
-                            for name, value in message.headers
-                        },
-                    )
+                    record = decoded(message)
                     if until(record):
                         return record
                     seen.append(record)
         finally:
             consumer.close()
         raise StackError(f"no matching record on {topic} after {timeout_s}s; saw {seen[-5:]}")
+
+    def records_now(self, topic: str, *, timeout_s: float = 30.0) -> list[Record]:
+        """Every record on `topic` up to its end offsets as of the call, in order, without
+        waiting for it to settle (a consumer check reads a topic its record's commit has
+        made final: RPN-10); none if nobody has written to it.
+
+        Raises:
+            StackError: the end wasn't reached within `timeout_s`.
+        """
+        consumer = KafkaConsumer(bootstrap_servers=self.bootstrap, enable_auto_commit=False)
+        try:
+            partitions = consumer.partitions_for_topic(topic) or set()
+            assigned = [TopicPartition(topic, partition) for partition in sorted(partitions)]
+            if not assigned:
+                return []
+            consumer.assign(assigned)
+            consumer.seek_to_beginning(*assigned)
+            end = consumer.end_offsets(assigned)
+            found: list[Record] = []
+            deadline = time.monotonic() + timeout_s
+            while any(consumer.position(tp) < end[tp] for tp in assigned):
+                if time.monotonic() >= deadline:
+                    raise StackError(f"didn't read {topic} to its end within {timeout_s}s")
+                for messages in consumer.poll(timeout_ms=500).values():
+                    found.extend(decoded(message) for message in messages)
+            return found
+        finally:
+            consumer.close()
 
     def records(self, topic: str, *, settle_s: float = 2.0) -> list[Record]:
         """Every record on `topic` now (reading until nothing new comes for `settle_s`)."""
@@ -330,3 +362,17 @@ class KafkaBroker:
             for tp, meta in offsets.items()
             if tp.topic == topic and meta.offset >= 0
         }
+
+
+def decoded(message: ConsumerRecord) -> Record:
+    """A kafka-python message as a `Record`, decoded as UTF-8 (a header written with no
+    value stays None)."""
+    return Record(
+        topic=message.topic,
+        key=None if message.key is None else message.key.decode("utf-8"),
+        value=None if message.value is None else message.value.decode("utf-8"),
+        headers={
+            name: None if value is None else value.decode("utf-8")
+            for name, value in message.headers
+        },
+    )
